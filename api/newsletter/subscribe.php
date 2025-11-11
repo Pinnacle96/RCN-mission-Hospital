@@ -65,8 +65,8 @@ try {
         $pdo->prepare('INSERT INTO newsletter_confirmations (email, token, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL ? DAY))')
             ->execute([$email, $token, $days]);
 
-        // Build confirmation link
-        $confirmUrl = url('api/newsletter/confirm.php?token=' . urlencode($token));
+        // Build absolute confirmation link
+        $confirmUrl = absolute_url('api/newsletter/confirm.php?token=' . urlencode($token));
 
         // Try sending email if PHPMailer is available
         try {

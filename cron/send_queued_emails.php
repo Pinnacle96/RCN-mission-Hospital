@@ -74,9 +74,17 @@ function makeMailer(): ?PHPMailer {
   return $mail;
 }
 
-function renderNewsletterHtml(string $subject, string $contentHtml, array $meta, string $baseUrl): string {
+function renderNewsletterHtml(string $subject, string $contentHtml, array $meta, string $baseUrl, ?string $recipientEmail = null): string {
   $token = $meta['unsubscribe_token'] ?? null;
-  $unsubscribeUrl = $token ? rtrim($baseUrl, '/') . '/api/newsletter/unsubscribe.php?token=' . urlencode($token) : rtrim($baseUrl, '/');
+  $unsubscribeUrl = rtrim($baseUrl, '/');
+  if ($token) {
+    if ($recipientEmail) {
+      $unsubscribeUrl = rtrim($baseUrl, '/') . '/api/newsletter/unsubscribe.php?email=' . urlencode($recipientEmail) . '&token=' . urlencode($token);
+    } else {
+      // Fallback to token-only link (may show error page if email missing)
+      $unsubscribeUrl = rtrim($baseUrl, '/') . '/api/newsletter/unsubscribe.php?token=' . urlencode($token);
+    }
+  }
   $logoUrl = rtrim($baseUrl, '/') . '/assets/images/logo.png';
   $safeContent = $contentHtml; // assume already sanitized/controlled from admin compose
   return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
@@ -199,7 +207,7 @@ try {
       try {
         // Prepare mail content by type
       if ($rowType === 'newsletter') {
-        $html = renderNewsletterHtml($subject, $body, $meta, $baseUrl);
+        $html = renderNewsletterHtml($subject, $body, $meta, $baseUrl, $recipient);
         $mailer->clearAllRecipients();
         $mailer->clearReplyTos();
         $mailer->addAddress($recipient);
@@ -207,7 +215,7 @@ try {
         $mailer->Body = $html;
         $mailer->AltBody = htmlToText($body);
       } elseif ($rowType === 'newsletter_test') {
-        $html = renderNewsletterHtml($subject, $body, $meta, $baseUrl);
+        $html = renderNewsletterHtml($subject, $body, $meta, $baseUrl, $recipient);
         $mailer->clearAllRecipients();
         $mailer->clearReplyTos();
         $mailer->addAddress($recipient);

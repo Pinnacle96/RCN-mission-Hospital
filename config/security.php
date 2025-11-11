@@ -41,6 +41,14 @@ function url(string $path): string {
     return rtrim($base, '/') . '/' . ltrim($path, '/');
 }
 
+// Build an absolute URL using SITE_URL (or current host as fallback)
+function absolute_url(string $path): string {
+    $base = getenv('SITE_URL')
+        ?: (defined('SITE_URL') ? constant('SITE_URL')
+        : (((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://') . ($_SERVER['HTTP_HOST'] ?? 'localhost')));
+    return rtrim($base, '/') . '/' . ltrim($path, '/');
+}
+
 function current_user(): ?array {
     return $_SESSION['user'] ?? null;
 }

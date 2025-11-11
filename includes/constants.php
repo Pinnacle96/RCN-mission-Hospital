@@ -72,6 +72,19 @@ if ($docRoot && $appRoot && strpos($appRoot, $docRoot) === 0) {
 }
 if (!defined('BASE_PATH')) define('BASE_PATH', $base);
 
+// Base site URL for absolute links in emails and external callbacks
+// Prefer environment variable to avoid CLI/server context issues
+if (!defined('SITE_URL') && getenv('SITE_URL')) {
+    $envUrl = trim(getenv('SITE_URL'));
+    if ($envUrl !== '') {
+        // Normalize: no trailing slash
+        if (substr($envUrl, -1) === '/') {
+            $envUrl = rtrim($envUrl, '/');
+        }
+        define('SITE_URL', $envUrl);
+    }
+}
+
 // Payments - configure before going live
 // Paystack
 if (!defined('PAYSTACK_PUBLIC_KEY')) define('PAYSTACK_PUBLIC_KEY', '');
