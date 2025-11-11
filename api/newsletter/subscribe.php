@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../config/security.php'; // provides url() and session
 require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../includes/constants.php';
 
