@@ -1,0 +1,8 @@
+{
+    "name": "rcnmissionhospital/site",
+    "description": "RCN Mission Hospital",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "6.9"
+    }
+}

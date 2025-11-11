@@ -1,0 +1,33 @@
+RewriteEngine On
+
+# Base for subdirectory deployment on WAMP
+RewriteBase /
+
+# Ensure /trips routes to trips.php even though a /trips directory exists
+RewriteRule ^trips/?$ trips.php [L,QSA]
+
+# Enforce HTTPS (skip for localhost during local development)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^localhost$ [NC]
+RewriteCond %{HTTP_HOST} !^127\.0\.0\.1$ [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Skip rewriting existing files or directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Clean URLs for Blog
+RewriteRule ^blog/([^/]+)/?$ blog/post.php?slug=$1 [L,QSA]
+RewriteRule ^blog/?$ blog/index.php [L,QSA]
+
+# Clean URLs for Outreach Reports
+RewriteRule ^outreach-report/([0-9]+)/?$ outreach-report/view.php?id=$1 [L,QSA]
+
+# Clean URLs for Trips
+RewriteRule ^trips/upcoming/?$ trips.php?view=upcoming [L,QSA]
+RewriteRule ^trips/past/?$ trips.php?view=past [L,QSA]
+RewriteRule ^trips/([0-9]+)/?$ trips/view.php?id=$1 [L,QSA]
+
+# Map single-segment paths to .php files (e.g., /about -> about.php)
+RewriteRule ^([^/]+)/?$ $1.php [L,QSA]

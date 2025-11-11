@@ -1,0 +1,2 @@
+{"time":"2025-11-11 08:20:39","level":"INFO","category":"contact","message":"Submit received","context":{"ip":"::1","ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"}}
+{"time":"2025-11-11 08:20:39","level":"INFO","category":"contact","message":"Queued contact email","context":{"queue_id":"1","recipient":"","from_email":"noah.poeni@gmail.com"}}

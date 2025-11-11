@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# Default to dashboard
+RewriteRule ^$ dashboard.php [L,QSA]
+
+# Map clean names to PHP files within admin
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ $1.php [L,QSA]

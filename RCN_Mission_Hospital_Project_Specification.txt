@@ -1,0 +1,156 @@
+RCN Mission Hospital Website — Full Project Specification Document
+
+Prepared By: Pinnacle Tech Hub
+Contractor: Noah Abayomi (CEO)
+Contact: +234 703 207 8859 | techspiresolutionsltd@gmail.com
+Client: RCN Mission Hospital
+Reference Website: https://missionpartnersforchrist.org/
+Frameworks: PHP 8.2+, Tailwind CSS, Vanilla JavaScript, MySQL
+Hosting Environment: Shared Hosting (cPanel / Hostinger / Namecheap)
+Target: Responsive, secure, CMS-enabled medical mission website.
+
+---
+
+1. Project Overview
+The goal of this project is to build a modern, responsive, and secure website for RCN Mission Hospital, inspired by the structure, UI/UX, and user flow of MissionPartnersForChrist.org.
+The website will promote the hospital’s medical missions, outreach programs, sponsorships, and care initiatives (Arome Care, Dinna Care, Doc Care), while allowing admins to manage content, gallery, blog, and reports through a secure backend dashboard.
+
+---
+
+2. Reference Website Inspiration
+Reference: https://missionpartnersforchrist.org/
+
+Design & Layout: Clean, bright, faith-based medical theme.
+Hero sections with call-to-action (“Join a Trip”, “Give”, “Pray”).
+Clear navigation, image storytelling, and responsive layout.
+
+---
+
+3. Project Architecture
+Frontend: HTML5, Tailwind CSS, Vanilla JS
+Backend: PHP 8.2+, MySQL (PDO)
+Security: CSRF, XSS, SQL Injection prevention
+Routing: Clean URLs via .htaccess
+
+---
+
+4. Branding & Color Palette
+Primary Colors:
+- Midnight Navy: #0A1A3B (Primary text, headers)
+- Mission Orange: #E36414 (Buttons, CTAs)
+- Deep Red Start: #A32020 (Gradient base)
+- Flame Red: #D9381E (Highlight)
+- Warm Orange Tip: #F47A1F (Gradient overlay)
+- Soft Gray: #F2F2F2 (Backgrounds)
+- White: #FFFFFF (Text contrast)
+
+Gradient:
+linear-gradient(135deg, #A32020, #D9381E 35%, #E36414 70%, #F47A1F);
+
+Typography:
+Headings - Poppins
+Body - Open Sans / Inter
+
+---
+
+5. Website Structure & Navigation
+Main Pages:
+Home, About Us, Partners, Statement of Faith, Get Involved, Trips, Resources,
+Outreach Report, Sponsor Update, Future Programs, Arome Care, Dinna Care, Doc Care, Contact, Privacy Policy
+
+---
+
+6. Blog Module
+URL Structure:
+- Blog List: /blog
+- Blog Post: /blog/slug-name
+
+Database Table: blog_posts
+Fields: id, title, slug, excerpt, content, image, author, created_at
+
+.htaccess Rules:
+RewriteEngine On
+RewriteRule ^blog/([^/]+)/?$ blog/post.php?slug=$1 [L,QSA]
+RewriteRule ^blog/?$ blog/index.php [L,QSA]
+RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
+
+---
+
+7. Admin Dashboard
+Location: /admin/
+Roles: Super Admin, Admin, Editor
+Modules: Dashboard analytics, Blog, Gallery, Trips, Reports, Sponsors, Settings, Security logs, Users
+
+---
+
+8. Security Architecture
+- HTTPS enforced via .htaccess
+- X-Frame-Options, X-Content-Type-Options headers
+- Session regeneration on login
+- CSRF protection with tokens
+- PDO prepared statements
+- Password hashing (bcrypt)
+- Rate-limited login attempts
+- reCAPTCHA v3 optional
+- IP blacklisting on failed logins
+- Daily backups and audit logs
+
+---
+
+9. Database Overview
+Tables: users, blog_posts, outreach_reports, sponsors, trips, gallery, site_settings, audit_logs
+
+---
+
+10. Functional Requirements
+Responsive design, blog, gallery, admin dashboard, analytics, donations, contact form, trip listing, user management, and content security.
+
+---
+
+11. Hosting & Deployment
+Server: Shared (cPanel)
+PHP: 8.2+
+MySQL: 5.7+
+Root: /public_html/
+SSL: Required
+Uploads directory: /uploads/
+
+---
+
+12. Development Phases
+Phase 1 – Design & UI: 1 week
+Phase 2 – Frontend Development: 1 week
+Phase 3 – Backend Integration: 2 weeks
+Phase 4 – Admin Dashboard & Security: 1 week
+Phase 5 – Testing & Deployment: 1 week
+
+---
+
+13. Testing & Quality Assurance
+Functional, Security, Load, Cross-browser, Responsive, Accessibility testing.
+
+---
+
+14. Post-Launch Maintenance
+Admin training, monthly backups, yearly security audits, SEO monitoring.
+
+---
+
+15. Reference Summary
+Design & UI: MissionPartnersForChrist.org
+Hosting: Shared (cPanel)
+Tech Stack: PHP + MySQL + Tailwind + JS
+Blog: Clean URL with slug
+Admin CMS: Secure dashboard
+Security: PDO, CSRF, HTTPS, Anti-Bot
+Branding: RCN color palette and gradient
+
+---
+
+16. Deliverables
+Source code, admin credentials, SQL dump, documentation, deployment guide, and training manual.
+
+---
+
+17. Conclusion
+The RCN Mission Hospital website will be a modern, secure, and faith-driven platform built with the latest web standards, optimized for shared hosting, and designed to support outreach, sponsorship, and mission awareness.

@@ -1,0 +1,4 @@
+{"time":"2025-11-11 08:20:39","level":"INFO","category":"contact","message":"Submit received","context":{"ip":"::1","ua":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"}}
+{"time":"2025-11-11 08:20:39","level":"INFO","category":"contact","message":"Queued contact email","context":{"queue_id":"1","recipient":"","from_email":"noah.poeni@gmail.com"}}
+{"time":"2025-11-11 10:58:17","level":"INFO","category":"newsletter","message":"Subscriber deleted","context":{"id":2,"email":"info.chahmsstores@gmail.com","actor_id":1}}
+{"time":"2025-11-11 11:03:20","level":"INFO","category":"queue","message":"Admin deleted item","context":{"id":1,"type":"contact","status":"pending"}}
