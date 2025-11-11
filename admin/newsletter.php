@@ -184,18 +184,49 @@ include __DIR__ . '/includes/admin-header.php';
 <?php include __DIR__ . '/includes/admin-footer.php'; ?>
 
 <script>
-  // Robust message helper: uses toast if available, otherwise alerts; never throws
-  function safeNotify(message, type) {
-    try {
-      if (window.notify) {
-        window.notify(message, type || 'info');
-      } else {
-        alert(message);
+  // Robust message helper: uses site toast if available; otherwise renders a branded toast (no alerts)
+  (function(){
+    function ensureToastRoot(){
+      let root = document.getElementById('toastRoot');
+      if (!root) {
+        root = document.createElement('div');
+        root.id = 'toastRoot';
+        root.className = 'fixed top-4 right-4 z-50 space-y-3 pointer-events-none';
+        document.body.appendChild(root);
       }
-    } catch (_) {
-      alert(message);
+      return root;
     }
-  }
+    window.safeNotify = function(message, type){
+      try {
+        if (window.notify) {
+          window.notify(message, type || 'info');
+          return;
+        }
+      } catch (_) {}
+      const root = ensureToastRoot();
+      const toast = document.createElement('div');
+      const t = (type || 'info').toLowerCase();
+      const bg = t === 'success' ? 'bg-green-600' : (t === 'error' ? 'bg-red-600' : 'bg-gray-900');
+      toast.className = 'pointer-events-auto shadow-lg rounded-2xl px-4 py-3 text-white flex items-center gap-3 ' + bg + ' transition-all duration-200 opacity-0 translate-y-2';
+      const dot = document.createElement('span');
+      dot.className = 'inline-block w-2 h-2 rounded-full bg-white/80';
+      const text = document.createElement('div');
+      text.className = 'text-sm';
+      text.textContent = String(message || '');
+      toast.appendChild(dot);
+      toast.appendChild(text);
+      root.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0','translate-y-2');
+        toast.classList.add('opacity-100','translate-y-0');
+      });
+      setTimeout(() => {
+        toast.classList.remove('opacity-100','translate-y-0');
+        toast.classList.add('opacity-0','translate-y-2');
+        setTimeout(() => { toast.remove(); }, 200);
+      }, 4500);
+    };
+  })();
 
   // Safe JSON parser for endpoints that may return non-JSON on error
   async function getJsonSafe(res) {
@@ -329,14 +360,14 @@ include __DIR__ . '/includes/admin-header.php';
         let data = {};
         try { data = await res.json(); } catch (_) { data = {}; }
         if (res.ok && data.ok) {
-          window.notify && window.notify('Subscriber deleted.', 'success');
+          safeNotify('Subscriber deleted.', 'success');
           currentRow && currentRow.remove();
           hideModal();
         } else {
-          window.notify && window.notify((data && data.message) || 'Delete failed.', 'error');
+          safeNotify((data && data.message) || 'Delete failed.', 'error');
         }
       } catch (e) {
-        window.notify && window.notify('Network error. Please try again.', 'error');
+        safeNotify('Network error. Please try again.', 'error');
       } finally {
         if (confirmBtn) { confirmBtn.disabled = false; confirmBtn.textContent = originalText; }
       }
