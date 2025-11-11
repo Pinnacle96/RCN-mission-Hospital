@@ -184,6 +184,28 @@ include __DIR__ . '/includes/admin-header.php';
 <?php include __DIR__ . '/includes/admin-footer.php'; ?>
 
 <script>
+  // Robust message helper: uses toast if available, otherwise alerts; never throws
+  function safeNotify(message, type) {
+    try {
+      if (window.notify) {
+        window.notify(message, type || 'info');
+      } else {
+        alert(message);
+      }
+    } catch (_) {
+      alert(message);
+    }
+  }
+
+  // Safe JSON parser for endpoints that may return non-JSON on error
+  async function getJsonSafe(res) {
+    try {
+      return await res.json();
+    } catch (_) {
+      return {};
+    }
+  }
+
   // Send newsletter
   (function(){
     const form = document.getElementById('composeForm');
@@ -200,19 +222,26 @@ include __DIR__ . '/includes/admin-header.php';
       btn.disabled = true;
       btn.textContent = preview ? 'Previewing…' : 'Sending…';
       try {
-        const res = await fetch(endpoint, { method: 'POST', body: fd });
-        const data = await res.json();
-        if (res.ok && data.ok) {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: fd,
+          credentials: 'same-origin',
+          headers: { 'Accept': 'application/json' }
+        });
+        const data = await getJsonSafe(res);
+        const success = res.ok && (data.ok === true || typeof data.count === 'number' || typeof data.queued === 'number');
+        if (success) {
           if (preview) {
-            window.notify && window.notify('Recipients: ' + (data.count ?? 0), 'success');
+            safeNotify('Recipients: ' + (data.count ?? 0), 'success');
           } else {
-            window.notify && window.notify(`Queued: ${data.queued || 0} emails. Delivery starts soon.`, 'success');
+            const q = (typeof data.queued === 'number') ? data.queued : (data.ok === true ? (data.queued ?? 0) : 0);
+            safeNotify(`Queued: ${q} emails. Delivery starts soon.`, 'success');
           }
         } else {
-          window.notify && window.notify(data.message || 'Failed to send newsletter.', 'error');
+          safeNotify(data.message || 'Failed to send newsletter.', 'error');
         }
       } catch (e) {
-        window.notify && window.notify('Network error. Please try again.', 'error');
+        safeNotify('Network error. Please try again.', 'error');
       } finally {
         btn.disabled = false;
         btn.textContent = 'Send Newsletter';
@@ -223,20 +252,26 @@ include __DIR__ . '/includes/admin-header.php';
     sendTestBtn && sendTestBtn.addEventListener('click', async function(){
       const fd = new FormData(form);
       const recipient = (testEmailInput?.value || '').trim();
-      if (!recipient) { window.notify && window.notify('Enter a test email address.', 'error'); return; }
+      if (!recipient) { safeNotify('Enter a test email address.', 'error'); return; }
       fd.append('recipient', recipient);
       const btn = sendTestBtn;
       btn.disabled = true; btn.textContent = 'Queuing…';
       try {
-        const res = await fetch(testEndpoint, { method: 'POST', body: fd });
-        const data = await res.json();
-        if (res.ok && data.ok) {
-          window.notify && window.notify('Test email queued for ' + recipient, 'success');
+        const res = await fetch(testEndpoint, {
+          method: 'POST',
+          body: fd,
+          credentials: 'same-origin',
+          headers: { 'Accept': 'application/json' }
+        });
+        const data = await getJsonSafe(res);
+        const success = res.ok && (data.ok === true || typeof data.queued === 'number');
+        if (success) {
+          safeNotify('Test email queued for ' + recipient, 'success');
         } else {
-          window.notify && window.notify(data.message || 'Failed to queue test email.', 'error');
+          safeNotify(data.message || 'Failed to queue test email.', 'error');
         }
       } catch (e) {
-        window.notify && window.notify('Network error. Please try again.', 'error');
+        safeNotify('Network error. Please try again.', 'error');
       } finally {
         btn.disabled = false; btn.textContent = 'Send Test Email';
       }

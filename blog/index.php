@@ -452,7 +452,7 @@ try {
       e.preventDefault();
       const email = (input?.value || '').trim();
       if (!email) {
-        window.notify && window.notify('Please enter your email address.', 'error');
+        (window.notify ? window.notify('Please enter your email address.', 'error') : alert('Please enter your email address.'));
         return;
       }
       const endpoint = '<?php echo url('api/newsletter/subscribe.php'); ?>';
@@ -465,13 +465,13 @@ try {
         });
         const data = await res.json();
         if (res.ok && data.ok) {
-          window.notify && window.notify(data.message || 'Please check your email to confirm your subscription.', 'success');
+          (window.notify ? window.notify(data.message || 'Please check your email to confirm your subscription.', 'success') : alert(data.message || 'Please check your email to confirm your subscription.'));
           if (input) input.value = '';
         } else {
-          window.notify && window.notify(data.message || 'Subscription failed. Please try again.', 'error');
+          (window.notify ? window.notify(data.message || 'Subscription failed. Please try again.', 'error') : alert(data.message || 'Subscription failed. Please try again.'));
         }
       } catch (err) {
-        window.notify && window.notify('Network error. Please try again.', 'error');
+        (window.notify ? window.notify('Network error. Please try again.', 'error') : alert('Network error. Please try again.'));
       }
     });
   });

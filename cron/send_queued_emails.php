@@ -47,6 +47,10 @@ $TYPE_MAX_ATTEMPTS = [
 
 // Determine base URL for links (unsubscribe, logo)
 $baseUrl = getenv('SITE_URL') ?: (defined('SITE_URL') ? SITE_URL : 'http://127.0.0.1:8000');
+if (!$baseUrl || stripos($baseUrl, '127.0.0.1') !== false) {
+  // Warn clearly in logs so production is configured correctly
+  log_error('cron_job', 'SITE_URL missing or using localhost; falling back', ['baseUrl' => $baseUrl]);
+}
 
 function makeMailer(): ?PHPMailer {
   if (!class_exists(PHPMailer::class)) return null;
@@ -74,6 +78,50 @@ function makeMailer(): ?PHPMailer {
   return $mail;
 }
 
+function absolutizeResourceUrls(string $html, string $baseUrl): string {
+  $base = rtrim($baseUrl, '/');
+  // Rewrite src and href attributes to absolute URLs when they are relative
+  $html = preg_replace_callback('/\b(src|href)\s*=\s*([\'\"])([^\'\"]+)[\'\"]/i', function($m) use ($base) {
+    $attr = $m[1];
+    $quote = $m[2];
+    $url = $m[3];
+    // Skip absolute URLs, protocol-relative, mailto, tel, data, cid
+    if (preg_match('/^(?:[a-zA-Z]+:|\/\/|mailto:|tel:|data:|cid:)/', $url)) {
+      return $m[0];
+    }
+    $new = $base . '/' . ltrim($url, '/');
+    return $attr . '=' . $quote . $new . $quote;
+  }, $html);
+  // Rewrite srcset entries
+  $html = preg_replace_callback('/\bsrcset\s*=\s*([\'\"])([^\'\"]+)[\'\"]/i', function($m) use ($base) {
+    $quote = $m[1];
+    $set = $m[2];
+    $parts = array_map('trim', explode(',', $set));
+    $rewritten = [];
+    foreach ($parts as $p) {
+      if ($p === '') continue;
+      $pieces = preg_split('/\s+/', $p, 2);
+      $u = $pieces[0];
+      $desc = $pieces[1] ?? '';
+      if (!preg_match('/^(?:[a-zA-Z]+:|\/\/|data:)/', $u)) {
+        $u = $base . '/' . ltrim($u, '/');
+      }
+      $rewritten[] = trim($u . ($desc ? ' ' . $desc : ''));
+    }
+    return 'srcset=' . $quote . implode(', ', $rewritten) . $quote;
+  }, $html);
+  // Rewrite inline CSS url(...) references
+  $html = preg_replace_callback('/url\(([^)]+)\)/i', function($m) use ($base) {
+    $raw = trim($m[1], " \t\n\r\0\x0B'\"");
+    if (preg_match('/^(?:[a-zA-Z]+:|\/\/|data:)/', $raw)) {
+      return $m[0];
+    }
+    $new = $base . '/' . ltrim($raw, '/');
+    return 'url(' . $new . ')';
+  }, $html);
+  return $html;
+}
+
 function renderNewsletterHtml(string $subject, string $contentHtml, array $meta, string $baseUrl, ?string $recipientEmail = null): string {
   $token = $meta['unsubscribe_token'] ?? null;
   $unsubscribeUrl = rtrim($baseUrl, '/');
@@ -86,7 +134,7 @@ function renderNewsletterHtml(string $subject, string $contentHtml, array $meta,
     }
   }
   $logoUrl = rtrim($baseUrl, '/') . '/assets/images/logo.png';
-  $safeContent = $contentHtml; // assume already sanitized/controlled from admin compose
+  $safeContent = absolutizeResourceUrls($contentHtml, $baseUrl); // ensure images and links are absolute
   return '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
     . '<title>' . htmlspecialchars($subject, ENT_QUOTES, 'UTF-8') . '</title>'
     . '<style>body{margin:0;background:#f4f5f7;font-family:Arial,Helvetica,sans-serif;color:#222} .container{max-width:640px;margin:0 auto;padding:24px} .card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);overflow:hidden} .header{padding:20px 24px;border-bottom:1px solid #eee;display:flex;align-items:center} .header img{height:40px;margin-right:12px} .content{padding:24px} .footer{padding:16px 24px;border-top:1px solid #eee;font-size:12px;color:#666} .btn{display:inline-block;background:#E36414;color:#fff;text-decoration:none;padding:10px 16px;border-radius:8px} a{color:#0A1A3B}</style></head><body>'
