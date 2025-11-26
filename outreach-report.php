@@ -8,6 +8,10 @@ $page_description = 'Explore mission outreach reports, impact summaries, photos,
 ?>
 <?php $hero_enable = false; ?>
 <?php include __DIR__ . '/includes/header.php'; ?>
+<?php
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$perPage = 9;
+?>
 
 <!-- Modern Hero Section -->
 <section class="relative bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white overflow-hidden">
@@ -132,10 +136,23 @@ $page_description = 'Explore mission outreach reports, impact summaries, photos,
 
     <?php
     try {
-      $stmt = db()->query('SELECT id, title, description, file_link, image, date FROM outreach_reports ORDER BY date DESC, id DESC');
-      $reports = $stmt->fetchAll();
+      $count = (int)db()->query('SELECT COUNT(*) FROM outreach_reports')->fetchColumn();
+      $pages = max(1, (int)ceil($count / $perPage));
+      if ($page > $pages) $page = $pages;
+      $offset = ($page - 1) * $perPage;
+      $reports = db()->query('SELECT id, title, description, file_link, image, date FROM outreach_reports ORDER BY date DESC, id DESC LIMIT ' . (int)$perPage . ' OFFSET ' . (int)$offset)->fetchAll();
     } catch (Throwable $e) {
       $reports = [];
+      $pages = 1;
+    }
+    if (!function_exists('excerpt_plain')) {
+      function excerpt_plain(string $html, int $limit = 220): string {
+        $text = trim(preg_replace('/\s+/u', ' ', strip_tags($html)));
+        if (mb_strlen($text) <= $limit) return $text;
+        $cut = mb_substr($text, 0, $limit);
+        $cut = preg_replace('/\s+\S*$/u', '', $cut);
+        return rtrim($cut) . '…';
+      }
     }
     ?>
 
@@ -175,14 +192,14 @@ $page_description = 'Explore mission outreach reports, impact summaries, photos,
 
           <div class="p-6">
             <h3
-              class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300 leading-tight">
+              class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300 leading-tight">
               <a href="<?php echo url('outreach-report/view.php'); ?>?id=<?php echo (int)$r['id']; ?>">
                 <?php echo esc_html($r['title']); ?>
               </a>
             </h3>
 
-            <p class="text-gray-600 line-clamp-3 mb-4 leading-relaxed text-sm">
-              <?php echo esc_html($r['description']); ?>
+            <p class="text-gray-600 mb-4 leading-relaxed text-sm line-clamp-3">
+              <?php echo esc_html(excerpt_plain($r['description'], 220)); ?>
             </p>
 
             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
@@ -220,6 +237,20 @@ $page_description = 'Explore mission outreach reports, impact summaries, photos,
         </article>
       <?php endforeach; ?>
     </div>
+
+    <?php if (($pages ?? 1) > 1): ?>
+      <div class="mt-8 flex items-center justify-center gap-2">
+        <?php if ($page > 1): ?>
+          <a href="<?php echo url('outreach-report'); ?>?page=<?php echo (int)($page - 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Prev</a>
+        <?php endif; ?>
+        <?php for ($i = 1; $i <= $pages; $i++): ?>
+          <a href="<?php echo url('outreach-report'); ?>?page=<?php echo (int)$i; ?>" class="px-3 py-2 rounded-lg <?php echo $i === $page ? 'bg-gray-900 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'; ?>"><?php echo (int)$i; ?></a>
+        <?php endfor; ?>
+        <?php if ($page < $pages): ?>
+          <a href="<?php echo url('outreach-report'); ?>?page=<?php echo (int)($page + 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Next</a>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
 
     <?php if (empty($reports)): ?>
       <!-- Empty State -->

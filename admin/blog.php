@@ -95,6 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <?php include __DIR__ . '/includes/admin-header.php'; ?>
+<?php
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$perPage = 6;
+?>
 
 <div class="min-h-screen bg-gray-50/30">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -155,7 +159,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php if ($action === 'list'): ?>
       <!-- Blog Posts List -->
-      <?php $posts = db()->query('SELECT * FROM blog_posts ORDER BY created_at DESC')->fetchAll(); ?>
+      <?php
+      try {
+        $count = (int)db()->query('SELECT COUNT(*) FROM blog_posts')->fetchColumn();
+        $pages = max(1, (int)ceil($count / $perPage));
+        if ($page > $pages) $page = $pages;
+        $offset = ($page - 1) * $perPage;
+        $posts = db()->query('SELECT * FROM blog_posts ORDER BY created_at DESC LIMIT ' . (int)$perPage . ' OFFSET ' . (int)$offset)->fetchAll();
+      } catch (Throwable $e) {
+        $posts = [];
+        $pages = 1;
+      }
+      ?>
 
       <?php if (empty($posts)): ?>
         <!-- Empty State -->
@@ -240,6 +255,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
           <?php endforeach; ?>
         </div>
+        <?php if (($pages ?? 1) > 1): ?>
+          <div class="mt-8 flex items-center justify-center gap-2">
+            <?php if ($page > 1): ?>
+              <a href="<?php echo url('admin/blog.php'); ?>?page=<?php echo (int)($page - 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Prev</a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $pages; $i++): ?>
+              <a href="<?php echo url('admin/blog.php'); ?>?page=<?php echo (int)$i; ?>" class="px-3 py-2 rounded-lg <?php echo $i === $page ? 'bg-gray-900 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'; ?>"><?php echo (int)$i; ?></a>
+            <?php endfor; ?>
+            <?php if ($page < $pages): ?>
+              <a href="<?php echo url('admin/blog.php'); ?>?page=<?php echo (int)($page + 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Next</a>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
       <?php endif; ?>
 
     <?php elseif ($action === 'create' || $action === 'edit'): ?>
@@ -296,7 +324,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <textarea name="content"
                 class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 rows="8" placeholder="Write your post content here..."
-                required><?php echo esc_html($post['content'] ?? ''); ?></textarea>
+                required><?php echo $post['content'] ?? ''; ?></textarea>
             </div>
 
             <!-- Image Upload -->
@@ -327,7 +355,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     <p class="text-sm text-gray-600 mb-1">Click to upload an image</p>
-                    <p class="text-xs text-gray-500">JPEG, PNG, WebP (Max 2MB)</p>
+                    <p class="text-xs text-gray-500">JPEG, PNG, WebP (Max <?php echo (int)(MAX_UPLOAD_BYTES / (1024 * 1024)); ?>MB)</p>
                   </label>
                 </div>
                 <div id="imagePreview" class="hidden">
@@ -356,9 +384,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </div>
 
-      <!-- Rich Text Editor -->
-      <script src="https://cdn.tiny.cloud/1/<?php echo TINYMCE_API_KEY; ?>/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
+      <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+      <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
       <script>
         // Image preview functionality
         document.getElementById('imageInput').addEventListener('change', function(e) {
@@ -378,26 +405,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           }
         });
 
-        // TinyMCE initialization
-        tinymce.init({
-          selector: 'textarea[name=content]',
-          menubar: false,
-          plugins: 'lists link image code',
-          toolbar: 'undo redo | blocks | bold italic underline | bullist numlist | link image | code | removeformat',
-          height: 400,
-          branding: false,
-          promotion: false,
-          images_upload_url: '<?php echo url("admin/upload.php"); ?>',
-          automatic_uploads: true,
-          setup: function(editor) {
-            // Keep underlying textarea in sync so HTML5 required validation works
-            var sync = function() {
-              editor.save();
-            };
-            editor.on('init', sync);
-            editor.on('change keyup paste undo redo', sync);
-          }
-        });
+        (function(){
+          var textarea = document.querySelector('textarea[name=content]');
+          var container = document.createElement('div');
+          container.id = 'quillEditor';
+          container.style.height = '400px';
+          container.className = 'bg-white';
+          textarea.parentNode.insertBefore(container, textarea.nextSibling);
+          textarea.style.display = 'none';
+          var quill = new Quill('#quillEditor', {
+            theme: 'snow',
+            modules: {
+              toolbar: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['link', 'image'],
+                ['clean']
+              ]
+            }
+          });
+          quill.root.innerHTML = textarea.value || '';
+          var form = document.getElementById('blogForm');
+          var sync = function(){ textarea.value = quill.root.innerHTML; };
+          quill.on('text-change', sync);
+          if (form) { form.addEventListener('submit', function(){ sync(); }); }
+        })();
 
         // Form submission handling
         (function() {
@@ -407,9 +440,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           var submitBtn = document.getElementById('submitBtn');
 
           form.addEventListener('submit', function() {
-            if (window.tinymce) {
-              tinymce.triggerSave();
-            }
 
             if (submitBtn) {
               submitBtn.disabled = true;

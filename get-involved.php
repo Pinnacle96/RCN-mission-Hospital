@@ -6,7 +6,7 @@ $hero_enable = false;
 ?>
 <?php include __DIR__ . '/includes/header.php'; ?>
 
-<!-- Enhanced Modern Hero -->
+<!-- Enhanced Modern Hero (Kept exactly as is) -->
 <section class="relative bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white overflow-hidden">
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-20">
@@ -82,34 +82,67 @@ $hero_enable = false;
   </div>
 </section>
 
-<!-- Impact Stats -->
-<section class="bg-white py-16">
-  <div class="max-w-7xl mx-auto px-4">
+<!-- Modern Impact Stats -->
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 py-20 overflow-hidden">
+  <!-- Animated Background -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute inset-0" style="background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);"></div>
+  </div>
+  
+  <div class="relative max-w-7xl mx-auto px-4">
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="text-center">
-        <div class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2" data-count="500">0</div>
-        <div class="text-gray-600">Volunteers</div>
+      <div class="text-center group">
+        <div class="relative inline-block mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative bg-slate-800 rounded-full p-4 w-20 h-20 flex items-center justify-center">
+            <div class="text-2xl lg:text-3xl font-bold text-white" data-count="500">0</div>
+          </div>
+        </div>
+        <div class="text-blue-200 font-medium">Volunteers</div>
+        <div class="text-sm text-blue-300 mt-1">Dedicated professionals</div>
       </div>
-      <div class="text-center">
-        <div class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2" data-count="50">0</div>
-        <div class="text-gray-600">Missions</div>
+      
+      <div class="text-center group">
+        <div class="relative inline-block mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-green-400 to-cyan-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative bg-slate-800 rounded-full p-4 w-20 h-20 flex items-center justify-center">
+            <div class="text-2xl lg:text-3xl font-bold text-white" data-count="50">0</div>
+          </div>
+        </div>
+        <div class="text-blue-200 font-medium">Missions</div>
+        <div class="text-sm text-blue-300 mt-1">Life-changing journeys</div>
       </div>
-      <div class="text-center">
-        <div class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2" data-count="15">0</div>
-        <div class="text-gray-600">Countries</div>
+      
+      <div class="text-center group">
+        <div class="relative inline-block mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative bg-slate-800 rounded-full p-4 w-20 h-20 flex items-center justify-center">
+            <div class="text-2xl lg:text-3xl font-bold text-white" data-count="15">0</div>
+          </div>
+        </div>
+        <div class="text-blue-200 font-medium">Countries</div>
+        <div class="text-sm text-blue-300 mt-1">Global reach</div>
       </div>
-      <div class="text-center">
-        <div class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2" data-count="10000">0</div>
-        <div class="text-gray-600">Lives Impacted</div>
+      
+      <div class="text-center group">
+        <div class="relative inline-block mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative bg-slate-800 rounded-full p-4 w-20 h-20 flex items-center justify-center">
+            <div class="text-2xl lg:text-3xl font-bold text-white" data-count="10000">0</div>
+          </div>
+        </div>
+        <div class="text-blue-200 font-medium">Lives Impacted</div>
+        <div class="text-sm text-blue-300 mt-1">Transformed communities</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Modern Main Content -->
 <section class="max-w-7xl mx-auto px-4 py-16">
-  <!-- Intro -->
+  <!-- Modern Intro -->
   <div class="text-center mb-16">
-    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Make a Difference Today</h2>
+    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Make a <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Difference</span> Today</h2>
     <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
       There are many ways to serve: travel on a medical mission, donate vital supplies, pray with us, partner as
       an organization, or help prepare medication before trips. Your participation brings spiritual and physical
@@ -118,279 +151,300 @@ $hero_enable = false;
     <div class="w-24 h-1 bg-gradient-to-r from-orange-500 to-red-500 mx-auto mt-8 rounded-full"></div>
   </div>
 
-  <!-- Ways to Serve (feature cards) -->
+  <!-- Modern Ways to Serve -->
   <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-    <div id="volunteer"
-      class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 group">
-      <div
-        class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-        <svg class="h-7 w-7 text-orange-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" class="icon-stroke" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          <circle cx="8.5" cy="7" r="4" class="icon-stroke" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M20 8v6M23 11h-6" class="icon-stroke" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </div>
-      <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-orange-600 transition-colors duration-300">
-        Volunteer on a trip</h3>
-      <p class="text-gray-600 mb-6 leading-relaxed">Physicians, dentists, nurses, pharmacists, optometrists,
-        allied health, students, and non-medical volunteers are welcome.</p>
-      <a class="inline-flex items-center gap-2 text-orange-600 font-semibold group-hover:gap-3 transition-all duration-300"
-        href="<?php echo url('trips/upcoming'); ?>">
-        See upcoming trips
-        <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24"
-          fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </a>
-    </div>
-
-    <div id="donate"
-      class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 group">
-      <div
-        class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-        <svg class="h-7 w-7 text-blue-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-            class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-      </div>
-      <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
-        Donate medical supplies</h3>
-      <p class="text-gray-600 mb-6 leading-relaxed">Fund medicine and essential items like glasses and shoes. Your
-        gift impacts patients directly.</p>
-      <a class="inline-flex items-center gap-2 text-blue-600 font-semibold group-hover:gap-3 transition-all duration-300"
-        href="<?php echo url('resources'); ?>">
-        Ways to give
-        <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24"
-          fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </a>
-    </div>
-
-    <div id="pray"
-      class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 group">
-      <div
-        class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-        <svg class="h-7 w-7 text-green-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" class="icon-stroke" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          <circle cx="9" cy="7" r="4" class="icon-stroke" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75" class="icon-stroke" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </div>
-      <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-green-600 transition-colors duration-300">
-        Join prayer</h3>
-      <p class="text-gray-600 mb-6 leading-relaxed">Pray for volunteers, patients, and partners. We host regular
-        online prayer times.</p>
-      <a class="inline-flex items-center gap-2 text-green-600 font-semibold group-hover:gap-3 transition-all duration-300"
-        href="<?php echo url('contact'); ?>?subject=<?php echo urlencode('Prayer Team'); ?>">
-        Get prayer updates
-        <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24"
-          fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </a>
-    </div>
-
-    <div id="partners"
-      class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 group">
-      <div
-        class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-        <svg class="h-7 w-7 text-purple-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 11V7a4 4 0 00-8 0v4H6v10h12V11ZM10 7a2 2 0 014 0v4h-4Z" class="icon-stroke"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </div>
-      <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-purple-600 transition-colors duration-300">
-        Partner with us</h3>
-      <p class="text-gray-600 mb-6 leading-relaxed">Organizations help with logistics, supplies, and outreach
-        connections. Let's collaborate.</p>
-      <a class="inline-flex items-center gap-2 text-purple-600 font-semibold group-hover:gap-3 transition-all duration-300"
-        href="<?php echo url('partners'); ?>">
-        Learn about partnerships
-        <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24"
-          fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </a>
-    </div>
-  </div>
-
-  <!-- Who can volunteer & Requirements -->
-  <div class="grid lg:grid-cols-2 gap-8 mb-20">
-    <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
-      <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-        <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
-          <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div id="volunteer" class="group relative">
+      <div class="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+      <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+        <div
+          class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          <svg class="h-7 w-7 text-orange-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" class="icon-stroke" stroke="currentColor"
               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             <circle cx="8.5" cy="7" r="4" class="icon-stroke" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M20 8v6M23 11h-6" class="icon-stroke" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
-        Who can volunteer
-      </h3>
-      <ul class="space-y-3 text-gray-700">
-        <li class="flex items-start gap-3">
-          <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-          <span><strong>Medical:</strong> MD/DO, PA, NP, RN, LPN, CNA, Pharmacist, Dentist, Optometrist,
-            PT/OT, Radiology Tech</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-          <span>Students in medical and allied health programs</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-          <span><strong>Non-medical:</strong> logistics, registration, hospitality, prayer, and support
-            roles</span>
-        </li>
-      </ul>
+        <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-orange-600 transition-colors duration-300">
+          Volunteer on a trip</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed flex-grow">Physicians, dentists, nurses, pharmacists, optometrists,
+          allied health, students, and non-medical volunteers are welcome.</p>
+        <a class="inline-flex items-center gap-2 text-orange-600 font-semibold group-hover:gap-3 transition-all duration-300 mt-auto"
+          href="<?php echo url('trips/upcoming'); ?>">
+          See upcoming trips
+          <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
     </div>
 
-    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
-      <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-        <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
-          <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div id="donate" class="group relative">
+      <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+      <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+        <div
+          class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          <svg class="h-7 w-7 text-blue-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
               class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" />
           </svg>
         </div>
-        General requirements
-      </h3>
-      <ul class="space-y-3 text-gray-700">
-        <li class="flex items-start gap-3">
-          <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-          <span>Heart to serve and share the love of Christ</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-          <span>Valid travel documents and readiness to follow trip guidance</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-          <span>Training and orientation provided before departure</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- What participants say -->
-  <div class="mb-20">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-gray-900 mb-4">What Participants Say</h2>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Hear from volunteers who have experienced the
-        transformative power of medical missions</p>
-    </div>
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Card 1 -->
-      <article
-        class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 group">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
-            style="background: <?php echo RCN_GRADIENT; ?>;">JD</div>
-          <div>
-            <p class="font-bold text-gray-900 text-lg">Jane D.</p>
-            <p class="text-sm text-gray-500">Volunteer • Multiple missions</p>
-          </div>
-        </div>
-        <div class="text-gray-700 leading-relaxed">
-          <div class="text-orange-500 mb-4">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-            </svg>
-          </div>
-          <p class="italic">"Serving on medical missions changed my life trajectory. I want to keep being part
-            of Gospel impact in Africa and wherever God leads me."</p>
-        </div>
-      </article>
-      <!-- Card 2 -->
-      <article
-        class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 group">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
-            style="background: <?php echo RCN_GRADIENT; ?>;">RT</div>
-          <div>
-            <p class="font-bold text-gray-900 text-lg">R. Thompson</p>
-            <p class="text-sm text-gray-500">Radiology Tech • Several missions</p>
-          </div>
-        </div>
-        <div class="text-gray-700 leading-relaxed">
-          <div class="text-orange-500 mb-4">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-            </svg>
-          </div>
-          <p class="italic">"Each trip brings new experiences and a deeper awe of God's creation. It's a
-            privilege to serve patients with compassionate care."</p>
-        </div>
-      </article>
-      <!-- Card 3 -->
-      <article
-        class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 group">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
-            style="background: <?php echo RCN_GRADIENT; ?>;">AC</div>
-          <div>
-            <p class="font-bold text-gray-900 text-lg">A. Chen</p>
-            <p class="text-sm text-gray-500">Clinician • Multiple missions</p>
-          </div>
-        </div>
-        <div class="text-gray-700 leading-relaxed">
-          <div class="text-orange-500 mb-4">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-            </svg>
-          </div>
-          <p class="italic">"It's not just about going — it's about growing spiritually. I learned from the
-            team and built lasting relationships through serving."</p>
-        </div>
-      </article>
-    </div>
-  </div>
-
-  <!-- Medication Sorting Team -->
-  <div id="sorting-team"
-    class="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 mb-20 text-white shadow-xl">
-    <div class="md:flex md:items-center md:justify-between">
-      <div class="md:max-w-2xl">
-        <h2 class="text-3xl font-bold mb-4">Medication Sorting Team</h2>
-        <p class="text-orange-100 text-lg leading-relaxed mb-4">Help pack and organize medicine and supplies
-          before a team departs. Your preparation helps clinics run smoothly and patients get timely care.</p>
-      </div>
-      <div class="mt-6 md:mt-0">
-        <a class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-orange-600 font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-          href="<?php echo url('contact'); ?>?subject=<?php echo urlencode('Medication Sorting Team'); ?>">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" class="icon-stroke" stroke="currentColor" stroke-width="2"
+        <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
+          Donate medical supplies</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed flex-grow">Fund medicine and essential items like glasses and shoes. Your
+          gift impacts patients directly.</p>
+        <a class="inline-flex items-center gap-2 text-blue-600 font-semibold group-hover:gap-3 transition-all duration-300 mt-auto"
+          href="<?php echo url('resources'); ?>">
+          Ways to give
+          <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          Join the sorting team
+        </a>
+      </div>
+    </div>
+
+    <div id="pray" class="group relative">
+      <div class="absolute -inset-0.5 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+      <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+        <div
+          class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          <svg class="h-7 w-7 text-green-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" class="icon-stroke" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="9" cy="7" r="4" class="icon-stroke" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75" class="icon-stroke" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-green-600 transition-colors duration-300">
+          Join prayer</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed flex-grow">Pray for volunteers, patients, and partners. We host regular
+          online prayer times.</p>
+        <a class="inline-flex items-center gap-2 text-green-600 font-semibold group-hover:gap-3 transition-all duration-300 mt-auto"
+          href="<?php echo url('contact'); ?>?subject=<?php echo urlencode('Prayer Team'); ?>">
+          Get prayer updates
+          <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div id="partners" class="group relative">
+      <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+      <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+        <div
+          class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          <svg class="h-7 w-7 text-purple-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 11V7a4 4 0 00-8 0v4H6v10h12V11ZM10 7a2 2 0 014 0v4h-4Z" class="icon-stroke"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-purple-600 transition-colors duration-300">
+          Partner with us</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed flex-grow">Organizations help with logistics, supplies, and outreach
+          connections. Let's collaborate.</p>
+        <a class="inline-flex items-center gap-2 text-purple-600 font-semibold group-hover:gap-3 transition-all duration-300 mt-auto"
+          href="<?php echo url('partners'); ?>">
+          Learn about partnerships
+          <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- Upcoming trips teaser -->
+  <!-- Modern Who can volunteer & Requirements -->
+  <div class="grid lg:grid-cols-2 gap-8 mb-20">
+    <div class="group relative">
+      <div class="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+      <div class="relative bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200 h-full">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+          <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
+            <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" class="icon-stroke" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="8.5" cy="7" r="4" class="icon-stroke" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          Who can volunteer
+        </h3>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+            <span><strong>Medical:</strong> MD/DO, PA, NP, RN, LPN, CNA, Pharmacist, Dentist, Optometrist,
+              PT/OT, Radiology Tech</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+            <span>Students in medical and allied health programs</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+            <span><strong>Non-medical:</strong> logistics, registration, hospitality, prayer, and support
+              roles</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="group relative">
+      <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+      <div class="relative bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200 h-full">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
+            <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          General requirements
+        </h3>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <span>Heart to serve and share the love of Christ</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <span>Valid travel documents and readiness to follow trip guidance</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <span>Training and orientation provided before departure</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modern What participants say -->
   <div class="mb-20">
     <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-gray-900 mb-4">Upcoming Mission Trips</h2>
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">What <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-pink-500">Participants</span> Say</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Hear from volunteers who have experienced the transformative power of medical missions</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <article class="group relative">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
+              style="background: <?php echo RCN_GRADIENT; ?>;">JD</div>
+            <div>
+              <p class="font-bold text-gray-900 text-lg">Jane D.</p>
+              <p class="text-sm text-gray-500">Volunteer • Multiple missions</p>
+            </div>
+          </div>
+          <div class="text-gray-700 leading-relaxed flex-grow">
+            <div class="text-orange-500 mb-4">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+              </svg>
+            </div>
+            <p class="italic">"Serving on medical missions changed my life trajectory. I want to keep being part
+              of Gospel impact in Africa and wherever God leads me."</p>
+          </div>
+        </div>
+      </article>
+      <!-- Card 2 -->
+      <article class="group relative">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
+              style="background: <?php echo RCN_GRADIENT; ?>;">RT</div>
+            <div>
+              <p class="font-bold text-gray-900 text-lg">R. Thompson</p>
+              <p class="text-sm text-gray-500">Radiology Tech • Several missions</p>
+            </div>
+          </div>
+          <div class="text-gray-700 leading-relaxed flex-grow">
+            <div class="text-orange-500 mb-4">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+              </svg>
+            </div>
+            <p class="italic">"Each trip brings new experiences and a deeper awe of God's creation. It's a
+              privilege to serve patients with compassionate care."</p>
+          </div>
+        </div>
+      </article>
+      <!-- Card 3 -->
+      <article class="group relative">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
+              style="background: <?php echo RCN_GRADIENT; ?>;">AC</div>
+            <div>
+              <p class="font-bold text-gray-900 text-lg">A. Chen</p>
+              <p class="text-sm text-gray-500">Clinician • Multiple missions</p>
+            </div>
+          </div>
+          <div class="text-gray-700 leading-relaxed flex-grow">
+            <div class="text-orange-500 mb-4">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+              </svg>
+            </div>
+            <p class="italic">"It's not just about going — it's about growing spiritually. I learned from the
+              team and built lasting relationships through serving."</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Modern Medication Sorting Team -->
+  <div id="sorting-team" class="group relative mb-20">
+    <div class="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur opacity-75 transition duration-300"></div>
+    <div class="relative bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 text-white shadow-2xl">
+      <div class="md:flex md:items-center md:justify-between">
+        <div class="md:max-w-2xl">
+          <h2 class="text-3xl font-bold mb-4">Medication Sorting Team</h2>
+          <p class="text-orange-100 text-lg leading-relaxed mb-4">Help pack and organize medicine and supplies
+            before a team departs. Your preparation helps clinics run smoothly and patients get timely care.</p>
+        </div>
+        <div class="mt-6 md:mt-0">
+          <a class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-orange-600 font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group/btn"
+            href="<?php echo url('contact'); ?>?subject=<?php echo urlencode('Medication Sorting Team'); ?>">
+            <svg class="h-5 w-5 group-hover/btn:rotate-90 transition-transform duration-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" class="icon-stroke" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Join the sorting team
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modern Upcoming trips teaser -->
+  <div class="mb-20">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Upcoming <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Mission Trips</span></h2>
       <p class="text-xl text-gray-600">Join one of our upcoming medical missions and make a lasting impact</p>
     </div>
     <?php
@@ -407,56 +461,58 @@ $hero_enable = false;
         <?php
         $img = !empty($t['image']) ? url('uploads/' . $t['image']) : url('assets/images/hero2.jpg');
         ?>
-        <article
-          class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 group">
-          <a href="<?php echo url('trips/' . (int)$t['id']); ?>">
-            <div class="relative overflow-hidden">
-              <img src="<?php echo $img; ?>" alt="<?php echo esc_attr($t['title']); ?>"
-                class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
-              <div
-                class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300">
+        <article class="group relative">
+          <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+            <a href="<?php echo url('trips/' . (int)$t['id']); ?>">
+              <div class="relative overflow-hidden">
+                <img src="<?php echo $img; ?>" alt="<?php echo esc_attr($t['title']); ?>"
+                  class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                <div
+                  class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300">
+                </div>
               </div>
-            </div>
-          </a>
-          <div class="p-6">
-            <p class="text-xs uppercase tracking-wide text-orange-600 font-semibold mb-2">
-              <?php echo esc_html($t['location']); ?></p>
-            <h3
-              class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors duration-300">
-              <a href="<?php echo url('trips/' . (int)$t['id']); ?>"><?php echo esc_html($t['title']); ?></a>
-            </h3>
-            <p class="text-sm text-gray-600 mb-4 flex items-center gap-2">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-              <?php echo date('M j, Y', strtotime($t['start_date'])); ?><?php if (!empty($t['end_date'])): ?>
-              – <?php echo date('M j, Y', strtotime($t['end_date'])); ?><?php endif; ?>
-            </p>
-            <p class="text-gray-600 text-sm line-clamp-3 mb-6 leading-relaxed">
-              <?php echo esc_html($t['description']); ?></p>
-            <div class="flex items-center gap-3">
-              <a href="<?php echo url('get-involved'); ?>?trip=<?php echo (int)$t['id']; ?>"
-                class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all duration-200"
-                style="background: <?php echo RCN_GRADIENT; ?>;">
+            </a>
+            <div class="p-6 flex-grow flex flex-col">
+              <p class="text-xs uppercase tracking-wide text-orange-600 font-semibold mb-2">
+                <?php echo esc_html($t['location']); ?></p>
+              <h3
+                class="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors duration-300 line-clamp-2">
+                <a href="<?php echo url('trips/' . (int)$t['id']); ?>"><?php echo esc_html($t['title']); ?></a>
+              </h3>
+              <p class="text-sm text-gray-600 mb-4 flex items-center gap-2">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" />
                 </svg>
-                Donate
-              </a>
-              <a href="<?php echo url('trips/' . (int)$t['id']); ?>"
-                class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-300 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition-colors duration-200">
-                View details
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 5l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
+                <?php echo date('M j, Y', strtotime($t['start_date'])); ?><?php if (!empty($t['end_date'])): ?>
+                – <?php echo date('M j, Y', strtotime($t['end_date'])); ?><?php endif; ?>
+              </p>
+              <p class="text-gray-600 text-sm line-clamp-3 mb-6 leading-relaxed flex-grow">
+                <?php echo esc_html($t['description']); ?></p>
+              <div class="flex items-center gap-3 mt-auto">
+                <a href="<?php echo url('get-involved'); ?>?trip=<?php echo (int)$t['id']; ?>"
+                  class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-white font-semibold text-sm shadow-sm hover:shadow-md transition-all duration-200 group/btn"
+                  style="background: <?php echo RCN_GRADIENT; ?>;">
+                  <svg class="h-4 w-4 group-hover/btn:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                      class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                  Donate
+                </a>
+                <a href="<?php echo url('trips/' . (int)$t['id']); ?>"
+                  class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-300 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition-colors duration-200 group/btn">
+                  View details
+                  <svg class="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </article>
@@ -476,9 +532,9 @@ $hero_enable = false;
     </div>
     <div class="text-center mt-8">
       <a href="<?php echo url('trips/upcoming'); ?>"
-        class="inline-flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-orange-500 text-orange-600 font-semibold hover:bg-orange-50 transition-all duration-300">
+        class="inline-flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-orange-500 text-orange-600 font-semibold hover:bg-orange-50 transition-all duration-300 group">
         View all upcoming trips
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M5 12h14m-7-7l7 7-7 7" class="icon-stroke" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round" />
         </svg>
@@ -486,15 +542,15 @@ $hero_enable = false;
     </div>
   </div>
 
-  <!-- FAQs -->
-  <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-20">
+  <!-- Modern FAQs -->
+  <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 mb-20">
     <div class="text-center mb-8">
-      <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-pink-500">Questions</span></h2>
       <p class="text-xl text-gray-600">Get answers to common questions about volunteering and involvement</p>
     </div>
     <div class="space-y-4 max-w-4xl mx-auto">
       <details
-        class="border border-gray-200 rounded-2xl p-6 hover:border-orange-300 transition-colors duration-300 group">
+        class="border border-gray-200 rounded-2xl p-6 hover:border-orange-300 transition-colors duration-300 group bg-gradient-to-br from-gray-50 to-white">
         <summary
           class="cursor-pointer font-semibold text-lg text-gray-900 flex items-center justify-between group-open:text-orange-600">
           Do I need to be a medical professional?
@@ -508,7 +564,7 @@ $hero_enable = false;
           clinicians, students, and volunteers for logistics, registration, hospitality, and prayer.</p>
       </details>
       <details
-        class="border border-gray-200 rounded-2xl p-6 hover:border-orange-300 transition-colors duration-300 group">
+        class="border border-gray-200 rounded-2xl p-6 hover:border-orange-300 transition-colors duration-300 group bg-gradient-to-br from-gray-50 to-white">
         <summary
           class="cursor-pointer font-semibold text-lg text-gray-900 flex items-center justify-between group-open:text-orange-600">
           How do I apply for a trip?
@@ -524,7 +580,7 @@ $hero_enable = false;
           team will follow up with next steps and application details.</p>
       </details>
       <details
-        class="border border-gray-200 rounded-2xl p-6 hover:border-orange-300 transition-colors duration-300 group">
+        class="border border-gray-200 rounded-2xl p-6 hover:border-orange-300 transition-colors duration-300 group bg-gradient-to-br from-gray-50 to-white">
         <summary
           class="cursor-pointer font-semibold text-lg text-gray-900 flex items-center justify-between group-open:text-orange-600">
           Can I support without traveling?
@@ -541,44 +597,56 @@ $hero_enable = false;
     </div>
   </div>
 
-  <!-- Final CTAs -->
-  <div class="rounded-2xl p-12 text-white shadow-2xl" style="background: <?php echo RCN_GRADIENT; ?>;">
-    <div class="text-center max-w-4xl mx-auto">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Make an Impact?</h2>
+  <!-- Modern Final CTAs -->
+  <div class="relative rounded-2xl p-12 text-white shadow-2xl overflow-hidden" style="background: <?php echo RCN_GRADIENT; ?>;">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" fill-rule=\"evenodd\"><g fill=\"%23ffffff\" fill-opacity=\"0.1\"><circle cx=\"30\" cy=\"30\" r=\"4\"/></g></g></svg>');"></div>
+    </div>
+    
+    <div class="relative text-center max-w-4xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Make an <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-300">Impact?</span></h2>
       <p class="text-xl text-white/90 mb-8 leading-relaxed">Join a medical mission, support with supplies, or
         serve from home. Every role matters in bringing hope and healing.</p>
       <div class="flex flex-wrap justify-center gap-6">
-        <a class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-orange-600 font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+        <a class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-orange-600 font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
           href="<?php echo url('trips/upcoming'); ?>">
-          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" class="icon-stroke" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="8.5" cy="7" r="4" class="icon-stroke" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M20 8v6M23 11h-6" class="icon-stroke" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          Join a Mission Trip
+          <div class="absolute inset-0 bg-gradient-to-r from-white to-gray-100 group-hover:from-gray-100 group-hover:to-white transition-all duration-300"></div>
+          <span class="relative flex items-center gap-2">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" class="icon-stroke" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="8.5" cy="7" r="4" class="icon-stroke" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M20 8v6M23 11h-6" class="icon-stroke" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Join a Mission Trip
+          </span>
         </a>
-        <a class="inline-flex items-center gap-3 px-8 py-4 rounded-xl border-2 border-white text-white font-bold hover:bg-white/10 transition-all duration-300"
+        <a class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl border-2 border-white text-white font-bold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
           href="<?php echo url('resources'); ?>">
-          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-              class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-          Explore Resources
+          <span class="relative flex items-center gap-2">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            Explore Resources
+          </span>
         </a>
-        <a class="inline-flex items-center gap-3 px-8 py-4 rounded-xl border-2 border-white text-white font-bold hover:bg-white/10 transition-all duration-300"
+        <a class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl border-2 border-white text-white font-bold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
           href="<?php echo url('contact'); ?>?subject=<?php echo urlencode('Volunteering Interest'); ?>">
-          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
-              class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-          Register Your Interest
+          <span class="relative flex items-center gap-2">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                class="icon-stroke" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            Register Your Interest
+          </span>
         </a>
       </div>
     </div>
@@ -590,6 +658,13 @@ $hero_enable = false;
     display: none;
   }
 
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -598,7 +673,7 @@ $hero_enable = false;
   }
 </style>
 <script>
-  // Animated counter for stats
+  // Animated counter for stats (Kept exactly as is)
   document.addEventListener('DOMContentLoaded', function() {
     const counters = document.querySelectorAll('[data-count]');
 

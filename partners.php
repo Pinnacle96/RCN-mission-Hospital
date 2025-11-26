@@ -71,272 +71,343 @@ $page_description = 'Join our mission through financial partnership. Support med
   </div>
 </section>
 
-<!-- Impact Stats Section -->
-<section id="impact" class="bg-white py-16">
-  <div class="max-w-7xl mx-auto px-4">
+<!-- Enhanced Impact Stats Section -->
+<section id="impact" class="relative bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 text-white py-20 overflow-hidden">
+  <!-- Animated Background -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0 animate-pulse" style="background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);"></div>
+  </div>
+  
+  <div class="relative max-w-7xl mx-auto px-4">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Your Partnership Makes This Possible</h2>
-      <p class="text-xl text-gray-600 leading-relaxed">Every donation directly supports our medical missions and
-        community transformation work.</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">Your Partnership Creates <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-300">Lasting Change</span></h2>
+      <p class="text-xl text-blue-200 leading-relaxed">Every donation directly supports our medical missions and transforms communities through sustainable healthcare solutions.</p>
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="text-center">
-        <div class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2" data-count="50">0</div>
-        <div class="text-gray-600">Medical Missions</div>
+      <div class="text-center group">
+        <div class="relative inline-block mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative bg-slate-800 rounded-full p-4 w-20 h-20 flex items-center justify-center">
+            <div class="text-2xl lg:text-3xl font-bold text-white" data-count="50">0</div>
+          </div>
+        </div>
+        <div class="text-blue-200 font-medium">Medical Missions</div>
+        <div class="text-sm text-blue-300 mt-1">Across 3 continents</div>
       </div>
-      <div class="text-center">
-        <div class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2" data-count="10000">0</div>
-        <div class="text-gray-600">Patients Treated</div>
+      
+      <div class="text-center group">
+        <div class="relative inline-block mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-green-400 to-cyan-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative bg-slate-800 rounded-full p-4 w-20 h-20 flex items-center justify-center">
+            <div class="text-2xl lg:text-3xl font-bold text-white" data-count="10000">0</div>
+          </div>
+        </div>
+        <div class="text-blue-200 font-medium">Patients Treated</div>
+        <div class="text-sm text-blue-300 mt-1">Life-changing care</div>
       </div>
-      <div class="text-center">
-        <div class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2" data-count="500">0</div>
-        <div class="text-gray-600">Volunteers Supported</div>
+      
+      <div class="text-center group">
+        <div class="relative inline-block mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative bg-slate-800 rounded-full p-4 w-20 h-20 flex items-center justify-center">
+            <div class="text-2xl lg:text-3xl font-bold text-white" data-count="500">0</div>
+          </div>
+        </div>
+        <div class="text-blue-200 font-medium">Volunteers</div>
+        <div class="text-sm text-blue-300 mt-1">Dedicated professionals</div>
       </div>
-      <div class="text-center">
-        <div class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2" data-count="15">0</div>
-        <div class="text-gray-600">Countries Reached</div>
+      
+      <div class="text-center group">
+        <div class="relative inline-block mb-4">
+          <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="relative bg-slate-800 rounded-full p-4 w-20 h-20 flex items-center justify-center">
+            <div class="text-2xl lg:text-3xl font-bold text-white" data-count="15">0</div>
+          </div>
+        </div>
+        <div class="text-blue-200 font-medium">Countries Reached</div>
+        <div class="text-sm text-blue-300 mt-1">Global impact</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Donation Options Section -->
-<section id="donate-options" class="bg-gradient-to-br from-gray-50 to-white py-20">
-  <div class="max-w-7xl mx-auto px-4">
+<!-- Enhanced Donation Options Section -->
+<section id="donate-options" class="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-20 overflow-hidden">
+  <!-- Background Elements -->
+  <div class="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-blue-100 to-transparent rounded-full -translate-y-36 translate-x-36"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-purple-100 to-transparent rounded-full translate-y-48 -translate-x-48"></div>
+  
+  <div class="relative max-w-7xl mx-auto px-4">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Ways to Give</h2>
-      <p class="text-xl text-gray-600 leading-relaxed">Choose the donation method that works best for you. Every
-        gift makes a difference.</p>
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Choose Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Giving Path</span></h2>
+      <p class="text-xl text-gray-600 leading-relaxed">Select the donation method that aligns with your preferences. Every contribution fuels our mission of healing and hope.</p>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Online Payments -->
-      <div
-        class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 group hover:shadow-xl transition-all duration-500 flex flex-col">
-        <div
-          class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
-            </path>
-          </svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Online Payments</h3>
-        <p class="text-gray-600 mb-6 flex-grow">Secure online donations via PayPal or Paystack with instant
-          confirmation.</p>
-
-        <div class="space-y-4">
-          <!-- PayPal Button -->
-          <form action="https://www.paypal.com/donate" method="post" target="_top" class="w-full">
-            <input type="hidden" name="hosted_button_id" value="<?php echo htmlspecialchars(PAYPAL_HOSTED_BUTTON_ID); ?>">
-            <input type="hidden" name="notify_url" value="<?php echo htmlspecialchars(($origin ?? (($_SERVER['REQUEST_SCHEME'] ?? 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost'))) . url('api/paypal/ipn.php')); ?>">
-            <button type="submit"
-              class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M7.5 14.25c-1.5 0-2.25-.75-2.25-2.25s.75-2.25 2.25-2.25h3.75c.75 0 1.5.75 1.5 1.5s-.75 1.5-1.5 1.5H9c-.75 0-1.5.75-1.5 1.5s.75 1.5 1.5 1.5h2.25c.75 0 1.5.75 1.5 1.5s-.75 1.5-1.5 1.5H7.5z" />
-                <path
-                  d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z" />
+      <!-- Online Payments Card -->
+      <div class="group relative">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 h-full flex flex-col">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                </path>
               </svg>
-              Donate with PayPal
+            </div>
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Instant</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Digital Payments</h3>
+          <p class="text-gray-600 mb-6 flex-grow">Secure online donations with instant confirmation and immediate impact tracking.</p>
+
+          <div class="space-y-4">
+            <!-- PayPal Button -->
+            <form action="https://www.paypal.com/donate" method="post" target="_top" class="w-full">
+              <input type="hidden" name="hosted_button_id" value="<?php echo htmlspecialchars(PAYPAL_HOSTED_BUTTON_ID); ?>">
+              <input type="hidden" name="notify_url" value="<?php echo htmlspecialchars(($origin ?? (($_SERVER['REQUEST_SCHEME'] ?? 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost'))) . url('api/paypal/ipn.php')); ?>">
+              <button type="submit"
+                class="w-full bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl">
+                <svg class="w-5 h-5 group-hover/btn:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M7.5 14.25c-1.5 0-2.25-.75-2.25-2.25s.75-2.25 2.25-2.25h3.75c.75 0 1.5.75 1.5 1.5s-.75 1.5-1.5 1.5H9c-.75 0-1.5.75-1.5 1.5s.75 1.5 1.5 1.5h2.25c.75 0 1.5.75 1.5 1.5s-.75 1.5-1.5 1.5H7.5z" />
+                  <path
+                    d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z" />
+                </svg>
+                Donate with PayPal
+              </button>
+            </form>
+
+            <!-- Paystack Button -->
+            <button onclick="openPaystack()"
+              class="w-full bg-green-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-green-700 transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl">
+              <svg class="w-5 h-5 group-hover/btn:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+              </svg>
+              Donate with Paystack
             </button>
-          </form>
-
-          <!-- Paystack Button -->
-          <button onclick="openPaystack()"
-            class="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-            </svg>
-            Donate with Paystack
-          </button>
+          </div>
         </div>
       </div>
 
-      <!-- Bank Transfer -->
-      <div
-        class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 group hover:shadow-xl transition-all duration-500 flex flex-col">
-        <div
-          class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
-          </svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Bank Transfer</h3>
-        <p class="text-gray-600 mb-6 flex-grow">Direct bank transfer to our mission account. For international
-          transfers, use International Options to view USD/GBP details.</p>
-
-        <!-- Quick Account Info -->
-        <div class="space-y-4 bg-gray-50 rounded-lg p-4 mb-4">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-sm font-semibold text-gray-700">NGN Account</span>
-            <span class="text-xs px-2 py-1 rounded bg-green-100 text-green-700">Local</span>
+      <!-- Bank Transfer Card -->
+      <div class="group relative">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 h-full flex flex-col">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center">
+              <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
+              </svg>
+            </div>
+            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">Direct</span>
           </div>
-          <div class="grid grid-cols-2 gap-2 text-sm">
-            <div class="text-gray-600">Bank:</div>
-            <div class="font-medium text-gray-900">First Bank</div>
-            <div class="text-gray-600">Account:</div>
-            <div class="font-mono text-gray-900">3123456789</div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Bank Transfer</h3>
+          <p class="text-gray-600 mb-6 flex-grow">Direct bank transfers with zero processing fees. International options available for USD/GBP/EUR.</p>
+
+          <!-- Quick Account Info -->
+          <div class="space-y-4 bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 mb-4 border border-gray-200">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-sm font-semibold text-gray-700">NGN Account</span>
+              <span class="text-xs px-2 py-1 rounded bg-green-100 text-green-700 font-medium">Local</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div class="text-gray-600">Bank:</div>
+              <div class="font-medium text-gray-900">First Bank</div>
+              <div class="text-gray-600">Account Name:</div>
+              <div class="font-medium text-gray-900">RCN MEDICAL CENTER</div>
+              <div class="text-gray-600">Account Number:</div>
+              <div class="font-mono text-gray-900 bg-gray-100 px-2 py-1 rounded">2045571486</div>
+            </div>
           </div>
-        </div>
 
-        <div class="space-y-3">
-          <button onclick="copyAccountNumber('NGN Account','3123456789')"
-            class="w-full bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-300 transition-colors flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-              </path>
-            </svg>
-            Copy NGN Details
-          </button>
+          <div class="space-y-3">
+            <button onclick="copyAccountNumber('NGN Account','2045571486')"
+              class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+              <svg class="w-4 h-4 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                </path>
+              </svg>
+              Copy NGN Details
+            </button>
 
-          <button onclick="showInternationalOptions()"
-            class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064">
-              </path>
-            </svg>
-            International Options
-          </button>
+            <button onclick="showInternationalOptions()"
+              class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl">
+              <svg class="w-4 h-4 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064">
+                </path>
+              </svg>
+              International Options
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Mobile Money -->
-      <div
-        class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 group hover:shadow-xl transition-all duration-500 flex flex-col">
-        <div
-          class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center mb-6">
-          <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-          </svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Mobile Money</h3>
-        <p class="text-gray-600 mb-6 flex-grow">Quick and convenient mobile payments available in supported
-          regions across Africa.</p>
-
-        <div class="space-y-4">
-          <div class="bg-gray-50 rounded-lg p-4">
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-medium text-gray-700">MTN Mobile Money</span>
-              <span class="text-xs px-2 py-1 rounded bg-purple-100 text-purple-700">Ghana</span>
+      <!-- Crypto & Other Options Card -->
+      <div class="group relative">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-gray-100 p-8 h-full flex flex-col">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center">
+              <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
             </div>
-            <div class="font-mono text-gray-900 text-sm">055 123 4567</div>
+            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">Modern</span>
           </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Alternative Methods</h3>
+          <p class="text-gray-600 mb-6 flex-grow">Explore modern giving options including cryptocurrency, stock transfers, and corporate matching.</p>
 
-          <div class="bg-gray-50 rounded-lg p-4">
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-medium text-gray-700">Airtel Money</span>
-              <span class="text-xs px-2 py-1 rounded bg-red-100 text-red-700">Kenya</span>
-            </div>
-            <div class="font-mono text-gray-900 text-sm">073 123 4567</div>
+          <div class="space-y-4">
+            <button onclick="showCryptoOptions()"
+              class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-4 rounded-xl font-medium hover:from-purple-700 hover:to-pink-700 transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl">
+              <svg class="w-5 h-5 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Crypto Donations
+            </button>
+
+            <button onclick="showCorporateOptions()"
+              class="w-full bg-gradient-to-r from-gray-700 to-gray-900 text-white py-3 px-4 rounded-xl font-medium hover:from-gray-800 hover:to-black transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl">
+              <svg class="w-5 h-5 group-hover/btn:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+              Corporate Giving
+            </button>
           </div>
-
-          <button onclick="showMoreOptions()"
-            class="w-full bg-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
-              </path>
-            </svg>
-            More Options
-          </button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Recurring Donation Section -->
-<section class="bg-white py-20">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
+<!-- Enhanced Recurring Donation Section -->
+<section class="relative bg-gradient-to-br from-white via-blue-50 to-indigo-100 py-20 overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-30">
+    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" fill-rule=\"evenodd\"><g fill=\"%239C92AC\" fill-opacity=\"0.1\"><circle cx=\"30\" cy=\"30\" r=\"4\"/></g></g></svg>');"></div>
+  </div>
+  
+  <div class="relative max-w-7xl mx-auto px-4">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
       <div>
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Sustain Our Mission</h2>
+        <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-6">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+          Sustainable Impact
+        </div>
+        
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Become a <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-pink-500">Monthly Partner</span></h2>
         <p class="text-xl text-gray-600 leading-relaxed mb-8">
-          Become a monthly partner and provide consistent support for our ongoing medical missions and
-          community programs.
+          Join our circle of monthly supporters and provide consistent funding for ongoing medical missions, community health programs, and emergency response initiatives.
         </p>
 
-        <div class="space-y-6">
-          <div class="flex items-start gap-4">
-            <div
-              class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
+        <div class="space-y-6 mb-8">
+          <div class="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
                 </path>
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">Consistent Impact</h3>
-              <p class="text-gray-600">Monthly giving allows us to plan ahead and respond quickly to
-                urgent medical needs.</p>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">Predictable Funding</h3>
+              <p class="text-gray-600">Monthly giving allows us to plan long-term projects and respond immediately to urgent medical needs.</p>
             </div>
           </div>
 
-          <div class="flex items-start gap-4">
-            <div
-              class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
+          <div class="flex items-start gap-4 p-4 rounded-2xl bg-white shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
                 </path>
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">Long-term Transformation</h3>
-              <p class="text-gray-600">Support sustainable community health programs and local healthcare
-                worker training.</p>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">Sustainable Transformation</h3>
+              <p class="text-gray-600">Support ongoing community health programs and local healthcare worker training initiatives.</p>
             </div>
           </div>
         </div>
 
-        <div class="mt-8">
+        <div class="flex flex-wrap gap-4">
           <button onclick="setupRecurringDonation()"
-            class="inline-flex items-center px-8 py-4 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            class="inline-flex items-center px-8 py-4 rounded-xl text-white font-bold text-lg shadow-2xl hover:shadow-xl hover:scale-105 transition-all duration-300 group"
             style="background: <?php echo RCN_GRADIENT; ?>">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
               </path>
             </svg>
-            Setup Monthly Giving
+            Start Monthly Giving
           </button>
+          
+          <a href="#impact-stories"
+            class="inline-flex items-center px-8 py-4 rounded-xl border-2 border-gray-300 text-gray-700 font-bold text-lg hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
+            See Impact Stories
+          </a>
         </div>
       </div>
 
-      <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8">
-        <h3 class="text-2xl font-bold text-gray-900 mb-6">What Your Monthly Gift Provides</h3>
-        <div class="space-y-4">
-          <div class="flex items-center justify-between p-4 bg-white rounded-lg">
-            <span class="text-gray-700">$25/month</span>
-            <span class="text-blue-600 font-semibold">Medical supplies for 50 patients</span>
+      <div class="relative">
+        <div class="absolute -inset-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl blur-xl opacity-10"></div>
+        <div class="relative bg-gradient-to-br from-blue-600 to-purple-700 rounded-2xl p-8 text-white shadow-2xl">
+          <h3 class="text-2xl font-bold mb-8">Monthly Impact Breakdown</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between p-4 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                  <span class="font-bold">$25</span>
+                </div>
+                <span>Medical supplies for 50 patients</span>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+            </div>
+            
+            <div class="flex items-center justify-between p-4 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                  <span class="font-bold">$50</span>
+                </div>
+                <span>Support one local healthcare worker</span>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+            </div>
+            
+            <div class="flex items-center justify-between p-4 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                  <span class="font-bold">$100</span>
+                </div>
+                <span>Fund a mobile clinic for a day</span>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+            </div>
+            
+            <div class="flex items-center justify-between p-4 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                  <span class="font-bold">$250</span>
+                </div>
+                <span>Sponsor a medical mission volunteer</span>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+            </div>
           </div>
-          <div class="flex items-center justify-between p-4 bg-white rounded-lg">
-            <span class="text-gray-700">$50/month</span>
-            <span class="text-blue-600 font-semibold">Support one local healthcare worker</span>
-          </div>
-          <div class="flex items-center justify-between p-4 bg-white rounded-lg">
-            <span class="text-gray-700">$100/month</span>
-            <span class="text-blue-600 font-semibold">Fund a mobile clinic for a day</span>
-          </div>
-          <div class="flex items-center justify-between p-4 bg-white rounded-lg">
-            <span class="text-gray-700">$250/month</span>
-            <span class="text-blue-600 font-semibold">Sponsor a medical mission volunteer</span>
+          
+          <div class="mt-6 p-4 bg-white/10 rounded-xl backdrop-blur-sm">
+            <div class="text-sm opacity-90">Most popular: $50/month</div>
+            <div class="w-full bg-white/20 rounded-full h-2 mt-2">
+              <div class="bg-green-400 h-2 rounded-full" style="width: 65%"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -344,70 +415,153 @@ $page_description = 'Join our mission through financial partnership. Support med
   </div>
 </section>
 
-<!-- FAQ Section -->
-<section class="bg-gradient-to-br from-gray-50 to-white py-20">
-  <div class="max-w-4xl mx-auto px-4">
+<!-- Enhanced FAQ Section -->
+<section class="bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900 text-white py-20">
+  <div class="max-w-6xl mx-auto px-4">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-      <p class="text-xl text-gray-600 leading-relaxed">Get answers to common questions about supporting our
-        mission.</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">Questions <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">Answered</span></h2>
+      <p class="text-xl text-blue-200 leading-relaxed">Get detailed answers to common questions about supporting our mission and maximizing your impact.</p>
     </div>
 
-    <div class="space-y-6">
-      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-        <h3 class="text-xl font-semibold text-gray-900 mb-4">Is my donation tax-deductible?</h3>
-        <p class="text-gray-600 leading-relaxed">Yes, RCN Mission Hospital is a registered 501(c)(3) non-profit
-          organization. All donations are tax-deductible to the extent allowed by law. You will receive a
-          receipt for your records.</p>
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="space-y-6">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 group">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <span class="text-white font-bold text-sm">Q</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">Is my donation tax-deductible?</h3>
+              <p class="text-blue-200 leading-relaxed">Yes, RCN Mission Hospital is a registered 501(c)(3) non-profit organization. All donations are tax-deductible to the extent allowed by law. You will receive a receipt for your records.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 group">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <span class="text-white font-bold text-sm">Q</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">How are my funds used?</h3>
+              <p class="text-blue-200 leading-relaxed">85% of all donations go directly to program expenses including medical supplies, mission trips, and community health programs. 15% supports administrative costs and fundraising efforts.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 group">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-lg bg-purple-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <span class="text-white font-bold text-sm">Q</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">Can I designate my gift to a specific program?</h3>
+              <p class="text-blue-200 leading-relaxed">Yes, you can specify if you'd like your donation to support general operations, specific mission trips, medical supplies, or community health education programs.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-        <h3 class="text-xl font-semibold text-gray-900 mb-4">How are my funds used?</h3>
-        <p class="text-gray-600 leading-relaxed">85% of all donations go directly to program expenses including
-          medical supplies, mission trips, and community health programs. 15% supports administrative costs
-          and fundraising efforts.</p>
-      </div>
+      <div class="space-y-6">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 group">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <span class="text-white font-bold text-sm">Q</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">How do I update my recurring donation?</h3>
+              <p class="text-blue-200 leading-relaxed">Contact our support team at info@rcnmissionhospital.org or call +1 (555) 123-4567 to make changes to your recurring donation plan.</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-        <h3 class="text-xl font-semibold text-gray-900 mb-4">Can I designate my gift to a specific program?</h3>
-        <p class="text-gray-600 leading-relaxed">Yes, you can specify if you'd like your donation to support
-          general operations, specific mission trips, medical supplies, or community health education
-          programs.</p>
-      </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 group">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-lg bg-pink-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <span class="text-white font-bold text-sm">Q</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">Do you accept stock or cryptocurrency donations?</h3>
+              <p class="text-blue-200 leading-relaxed">Yes! We accept donations of stocks, cryptocurrencies, and other assets. Contact our donations team for specialized assistance with these giving methods.</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-        <h3 class="text-xl font-semibold text-gray-900 mb-4">How do I update my recurring donation?</h3>
-        <p class="text-gray-600 leading-relaxed">Contact our support team at info@rcnmissionhospital.org or call +1
-          (555) 123-4567 to make changes to your recurring donation plan.</p>
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all duration-300 group">
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <span class="text-white font-bold text-sm">Q</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-4">How can I get involved beyond financial support?</h3>
+              <p class="text-blue-200 leading-relaxed">We welcome volunteers, prayer partners, and advocates. Visit our Get Involved page to explore all the ways you can support our mission beyond financial contributions.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA Section -->
-<section class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white py-20">
-  <div class="max-w-7xl mx-auto px-4 text-center">
-    <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Make a Difference?</h2>
-    <p class="text-xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed">
-      Your partnership enables us to bring healing and hope to communities in need. Choose your preferred payment
-      method and start transforming lives today.
+<!-- Enhanced CTA Section -->
+<section class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white py-24 overflow-hidden">
+  <!-- Animated Background -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/20 via-transparent to-transparent"></div>
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+  </div>
+  
+  <div class="relative max-w-4xl mx-auto px-4 text-center">
+    <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm mb-6">
+      <span class="w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
+      Join Our Mission Today
+    </div>
+    
+    <h2 class="text-4xl md:text-6xl font-bold mb-8">Ready to Transform <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-300">Lives Together?</span></h2>
+    
+    <p class="text-xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed">
+      Your partnership enables us to bring healing and hope to communities in need. Choose your preferred payment method and start making a lasting impact today.
     </p>
+    
     <div class="flex flex-wrap justify-center gap-6">
       <a href="#donate-options"
-        class="inline-flex items-center px-8 py-4 rounded-xl bg-white text-gray-900 font-bold text-lg shadow-2xl hover:shadow-xl hover:scale-105 transition-all duration-300">
-        Donate Now
+        class="group relative inline-flex items-center px-10 py-5 rounded-2xl bg-white text-gray-900 font-bold text-lg shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-white to-gray-100 group-hover:from-gray-100 group-hover:to-white transition-all duration-300"></div>
+        <span class="relative">Donate Now</span>
       </a>
+      
       <a href="<?php echo url('contact'); ?>"
-        class="inline-flex items-center px-8 py-4 rounded-xl border-2 border-white text-white font-bold text-lg hover:bg-white/10 transition-all duration-300">
-        Have Questions?
+        class="group relative inline-flex items-center px-10 py-5 rounded-2xl border-2 border-white text-white font-bold text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+        <span class="relative">Have Questions?</span>
       </a>
+    </div>
+    
+    <div class="mt-12 flex items-center justify-center gap-8 text-white/70">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        </svg>
+        <span>Secure Payments</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        </svg>
+        <span>Tax Deductible</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+        </svg>
+        <span>Instant Receipt</span>
+      </div>
     </div>
   </div>
 </section>
 
 <script>
-  // SweetAlert2
-  // Load SweetAlert2 from CDN if not present
+  // Enhanced SweetAlert2 Functions
   if (typeof window.Swal === 'undefined') {
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
@@ -428,7 +582,7 @@ $page_description = 'Join our mission through financial partnership. Support med
     });
   }
 
-  // Animated counter for stats
+  // Enhanced Animated counter for stats
   document.addEventListener('DOMContentLoaded', function() {
     const counters = document.querySelectorAll('[data-count]');
 
@@ -459,7 +613,7 @@ $page_description = 'Join our mission through financial partnership. Support med
     });
   });
 
-  // Copy account number functionality
+  // Enhanced Copy account number functionality
   function copyAccountNumber(label, accountNumber) {
     label = label || 'Bank Account';
     if (!accountNumber) {
@@ -482,7 +636,7 @@ $page_description = 'Join our mission through financial partnership. Support med
     });
   }
 
-  // Payment integration functions (placeholder - integrate with your actual payment systems)
+  // Enhanced Payment integration functions
   function openPaystack() {
     if (!window.Swal) { return; }
     Swal.fire({
@@ -523,22 +677,7 @@ $page_description = 'Join our mission through financial partnership. Support med
     });
   }
 
-  function showMoreOptions() {
-    if (!window.Swal) {
-      return;
-    }
-    Swal.fire({
-      title: 'Mobile Money Options',
-      html: '<div class="text-left space-y-2">' +
-        '<div><strong>MPesa (Kenya):</strong> 074 123 4567</div>' +
-        '<div><strong>Orange Money (Cameroon):</strong> 677 123 456</div>' +
-        '<div><strong>Vodafone Cash (Ghana):</strong> 020 123 4567</div>' +
-        '<div class="text-gray-600 mt-3">Contact us for other mobile money options.</div>' +
-        '</div>',
-      confirmButtonText: 'OK'
-    });
-  }
-
+  // Enhanced recurring donation setup
   function setupRecurringDonation() {
     if (!window.Swal) { return; }
     Swal.fire({
@@ -637,36 +776,17 @@ $page_description = 'Join our mission through financial partnership. Support med
     });
   }
 
-  function requestAccountDetails(currency) {
-    if (!window.Swal) {
-      return;
-    }
-    var label = (currency || '').toUpperCase();
-    Swal.fire({
-      title: 'Request ' + (label || 'Account') + ' Details',
-      html: '<div class="text-left space-y-2">' +
-        '<p>For international transfers (' + (label || 'USD/GBP') +
-        '), please contact our donations team to receive the domiciliary account details and SWIFT codes.</p>' +
-        '<p>Email: <a class="underline" href="mailto:info@rcnmissionhospital.org">info@rcnmissionhospital.org</a></p>' +
-        '<p>Or send us a message via the <a class="underline" href="' + (window.location.origin +
-          '/contact') + '">contact page</a>.</p>' +
-        '</div>',
-      confirmButtonText: 'Got it'
-    });
-  }
-
-  // Add this new function for international options
+  // Enhanced international options
   function showInternationalOptions() {
     if (!window.Swal) {
       return;
     }
-    // Show details directly for international transfers
     Swal.fire({
       title: 'International Bank Transfer',
       html: '<div class="text-left space-y-4">' +
         '<div class="bg-blue-50 rounded-lg p-4">' +
-        '<h4 class="font-semibold text-blue-900 mb-2">USD & GBP Accounts</h4>' +
-        '<p class="text-blue-700 text-sm">View the available details for international transfers below.</p>' +
+        '<h4 class="font-semibold text-blue-900 mb-2">USD / GBP / EUR Accounts</h4>' +
+        '<p class="text-blue-700 text-sm">Use the following domiciliary accounts for international transfers.</p>' +
         '</div>' +
         // USD Card
         '<div class="bg-white rounded-lg border p-4 space-y-2">' +
@@ -675,11 +795,9 @@ $page_description = 'Join our mission through financial partnership. Support med
         '<span class="text-xs px-2 py-1 rounded bg-blue-100 text-blue-700">International</span>' +
         '</div>' +
         '<div class="grid grid-cols-2 gap-2 text-sm">' +
-        '<div class="text-gray-600">Bank:</div><div class="font-medium text-gray-900">First Bank Nigeria</div>' +
-        '<div class="text-gray-600">Account Name:</div><div class="font-medium text-gray-900">RCN Mission Hospital</div>' +
-        '<div class="text-gray-600">Account Number:</div><div class="font-mono text-gray-900">0001234567</div>' +
-        '<div class="text-gray-600">SWIFT:</div><div class="font-mono text-gray-900">FBNINGLA</div>' +
-        '<div class="text-gray-600">IBAN:</div><div class="font-mono text-gray-900">GB00FBNI00000000000000</div>' +
+        '<div class="text-gray-600">Bank:</div><div class="font-medium text-gray-900">First Bank</div>' +
+        '<div class="text-gray-600">Account Name:</div><div class="font-medium text-gray-900">RCN MEDICAL CENTER</div>' +
+        '<div class="text-gray-600">Account Number:</div><div class="font-mono text-gray-900">2045578832</div>' +
         '</div>' +
         '<div class="flex gap-3 pt-2">' +
         '<button onclick="copyAccountDetails(\'USD\')" class="flex-1 bg-gray-200 text-gray-700 py-2 px-3 rounded font-medium hover:bg-gray-300 transition-colors">Copy USD Details</button>' +
@@ -692,14 +810,27 @@ $page_description = 'Join our mission through financial partnership. Support med
         '<span class="text-xs px-2 py-1 rounded bg-blue-100 text-blue-700">International</span>' +
         '</div>' +
         '<div class="grid grid-cols-2 gap-2 text-sm">' +
-        '<div class="text-gray-600">Bank:</div><div class="font-medium text-gray-900">First Bank Nigeria</div>' +
-        '<div class="text-gray-600">Account Name:</div><div class="font-medium text-gray-900">RCN Mission Hospital</div>' +
-        '<div class="text-gray-600">Account Number:</div><div class="font-mono text-gray-900">0009876543</div>' +
-        '<div class="text-gray-600">SWIFT:</div><div class="font-mono text-gray-900">FBNINGLA</div>' +
-        '<div class="text-gray-600">IBAN:</div><div class="font-mono text-gray-900">GB00FBNI00000000000001</div>' +
+        '<div class="text-gray-600">Bank:</div><div class="font-medium text-gray-900">First Bank</div>' +
+        '<div class="text-gray-600">Account Name:</div><div class="font-medium text-gray-900">RCN MEDICAL CENTER</div>' +
+        '<div class="text-gray-600">Account Number:</div><div class="font-mono text-gray-900">2045578894</div>' +
         '</div>' +
         '<div class="flex gap-3 pt-2">' +
         '<button onclick="copyAccountDetails(\'GBP\')" class="flex-1 bg-gray-200 text-gray-700 py-2 px-3 rounded font-medium hover:bg-gray-300 transition-colors">Copy GBP Details</button>' +
+        '</div>' +
+        '</div>' +
+        // EUR Card
+        '<div class="bg-white rounded-lg border p-4 space-y-2">' +
+        '<div class="flex items-center justify-between">' +
+        '<span class="text-sm font-semibold text-gray-700">EUR Account</span>' +
+        '<span class="text-xs px-2 py-1 rounded bg-blue-100 text-blue-700">International</span>' +
+        '</div>' +
+        '<div class="grid grid-cols-2 gap-2 text-sm">' +
+        '<div class="text-gray-600">Bank:</div><div class="font-medium text-gray-900">First Bank</div>' +
+        '<div class="text-gray-600">Account Name:</div><div class="font-medium text-gray-900">RCN MEDICAL CENTER</div>' +
+        '<div class="text-gray-600">Account Number:</div><div class="font-mono text-gray-900">2045578966</div>' +
+        '</div>' +
+        '<div class="flex gap-3 pt-2">' +
+        '<button onclick="copyAccountDetails(\'EUR\')" class="flex-1 bg-gray-200 text-gray-700 py-2 px-3 rounded font-medium hover:bg-gray-300 transition-colors">Copy EUR Details</button>' +
         '</div>' +
         '</div>' +
         '</div>',
@@ -709,69 +840,129 @@ $page_description = 'Join our mission through financial partnership. Support med
     });
   }
 
-  // Update the requestAccountDetails function to be more user-friendly
-  function requestAccountDetails(currency) {
-    if (!window.Swal) {
-      return;
-    }
-    var label = (currency || '').toUpperCase();
+  // New functions for additional options
+  function showCryptoOptions() {
+    if (!window.Swal) { return; }
     Swal.fire({
-      title: `Request ${label} Account Details`,
-      html: `<div class="text-left space-y-4">
-            <div class="bg-green-50 rounded-lg p-4">
-                <h4 class="font-semibold text-green-900 mb-2">Quick Response Guaranteed</h4>
-                <p class="text-green-700 text-sm">We'll send you the complete account details within 24 hours.</p>
-            </div>
-            <div class="space-y-3">
-                <div class="flex items-center gap-3 p-3 bg-white rounded-lg border">
-                    <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                    </svg>
-                    <div>
-                        <div class="font-medium text-gray-900">Email Us</div>
-                        <div class="text-sm text-gray-600">info@rcnmissionhospital.org</div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3 p-3 bg-white rounded-lg border">
-                    <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                    </svg>
-                    <div>
-                        <div class="font-medium text-gray-900">Call Us</div>
-                        <div class="text-sm text-gray-600">+1 (555) 123-4567</div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                <a href="${window.location.origin}/contact" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-                    </svg>
-                    Contact Form
-                </a>
-            </div>
-            </div>`,
-      confirmButtonText: 'Got it',
+      title: 'Crypto Donations',
+      html: '<div class="text-left space-y-4">' +
+        '<div class="bg-purple-50 rounded-lg p-4">' +
+        '<h4 class="font-semibold text-purple-900 mb-2">Modern Giving Options</h4>' +
+        '<p class="text-purple-700 text-sm">We accept various cryptocurrencies. Contact us for wallet addresses and instructions.</p>' +
+        '</div>' +
+        '<div class="space-y-3">' +
+        '<div class="flex items-center gap-3 p-3 bg-white rounded-lg border">' +
+        '<div class="w-8 h-8 bg-bitcoin rounded-full flex items-center justify-center">₿</div>' +
+        '<div><div class="font-medium">Bitcoin (BTC)</div><div class="text-sm text-gray-600">Most popular</div></div>' +
+        '</div>' +
+        '<div class="flex items-center gap-3 p-3 bg-white rounded-lg border">' +
+        '<div class="w-8 h-8 bg-ethereum rounded-full flex items-center justify-center text-white" style="background: #627EEA;">Ξ</div>' +
+        '<div><div class="font-medium">Ethereum (ETH)</div><div class="text-sm text-gray-600">ERC-20 tokens</div></div>' +
+        '</div>' +
+        '<div class="flex items-center gap-3 p-3 bg-white rounded-lg border">' +
+        '<div class="w-8 h-8 bg-usdc rounded-full flex items-center justify-center text-white" style="background: #2775CA;">$</div>' +
+        '<div><div class="font-medium">Stablecoins</div><div class="text-sm text-gray-600">USDC, USDT</div></div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="text-center pt-4">' +
+        '<button onclick="requestCryptoDetails()" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">Request Wallet Addresses</button>' +
+        '</div>' +
+        '</div>',
+      showConfirmButton: false,
       showCloseButton: true
     });
   }
-  // Copy full international account details (USD/GBP)
+
+  function showCorporateOptions() {
+    if (!window.Swal) { return; }
+    Swal.fire({
+      title: 'Corporate Giving',
+      html: '<div class="text-left space-y-4">' +
+        '<div class="bg-gray-50 rounded-lg p-4">' +
+        '<h4 class="font-semibold text-gray-900 mb-2">Partnership Opportunities</h4>' +
+        '<p class="text-gray-700 text-sm">Explore corporate sponsorship, matching gifts, and employee engagement programs.</p>' +
+        '</div>' +
+        '<div class="space-y-3">' +
+        '<div class="flex items-center gap-3 p-3 bg-white rounded-lg border">' +
+        '<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>' +
+        '<div><div class="font-medium">Matching Gifts</div><div class="text-sm text-gray-600">Double employee donations</div></div>' +
+        '</div>' +
+        '<div class="flex items-center gap-3 p-3 bg-white rounded-lg border">' +
+        '<svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>' +
+        '<div><div class="font-medium">Sponsorships</div><div class="text-sm text-gray-600">Mission trip sponsorships</div></div>' +
+        '</div>' +
+        '<div class="flex items-center gap-3 p-3 bg-white rounded-lg border">' +
+        '<svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>' +
+        '<div><div class="font-medium">Volunteer Programs</div><div class="text-sm text-gray-600">Team volunteering</div></div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="text-center pt-4">' +
+        '<button onclick="contactCorporateTeam()" class="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-black transition-colors">Contact Corporate Team</button>' +
+        '</div>' +
+        '</div>',
+      showConfirmButton: false,
+      showCloseButton: true
+    });
+  }
+
+  function requestCryptoDetails() {
+    Swal.fire({
+      title: 'Crypto Donation Details',
+      html: '<div class="text-left space-y-4">' +
+        '<p>Please contact our donations team to receive cryptocurrency wallet addresses and detailed instructions.</p>' +
+        '<div class="bg-purple-50 rounded-lg p-4">' +
+        '<div class="font-semibold text-purple-900">Email:</div>' +
+        '<div class="text-purple-700">crypto@rcnmissionhospital.org</div>' +
+        '</div>' +
+        '</div>',
+      confirmButtonText: 'Got it'
+    });
+  }
+
+  function contactCorporateTeam() {
+    Swal.fire({
+      title: 'Corporate Partnerships',
+      html: '<div class="text-left space-y-4">' +
+        '<p>Our corporate team will contact you within 24 hours to discuss partnership opportunities.</p>' +
+        '<div class="space-y-3">' +
+        '<div><label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label><input type="text" class="swal2-input" placeholder="John Smith"></div>' +
+        '<div><label class="block text-sm font-medium text-gray-700 mb-1">Company</label><input type="text" class="swal2-input" placeholder="Your Company"></div>' +
+        '<div><label class="block text-sm font-medium text-gray-700 mb-1">Email</label><input type="email" class="swal2-input" placeholder="john@company.com"></div>' +
+        '</div>' +
+        '</div>',
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      preConfirm: () => {
+        // Add form submission logic here
+        return true;
+      }
+    });
+  }
+
+  // Enhanced Copy full international account details
   function copyAccountDetails(currency) {
     var c = (currency || '').toUpperCase();
     var details = {
       USD: {
-        bankName: 'First Bank Nigeria',
-        accountName: 'RCN Mission Hospital',
-        accountNumber: '0001234567',
-        swift: 'FBNINGLA',
-        iban: 'GB00FBNI00000000000000'
+        bankName: 'First Bank',
+        accountName: 'RCN MEDICAL CENTER',
+        accountNumber: '2045578832',
+        swift: '—',
+        iban: '—'
       },
       GBP: {
-        bankName: 'First Bank Nigeria',
-        accountName: 'RCN Mission Hospital',
-        accountNumber: '0009876543',
-        swift: 'FBNINGLA',
-        iban: 'GB00FBNI00000000000001'
+        bankName: 'First Bank',
+        accountName: 'RCN MEDICAL CENTER',
+        accountNumber: '2045578894',
+        swift: '—',
+        iban: '—'
+      },
+      EUR: {
+        bankName: 'First Bank',
+        accountName: 'RCN MEDICAL CENTER',
+        accountNumber: '2045578966',
+        swift: '—',
+        iban: '—'
       }
     }[c] || {};
 

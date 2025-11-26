@@ -8,6 +8,8 @@
 $action = $_GET['action'] ?? 'list';
 $error = '';
 $notice = '';
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$perPage = 6;
 
 function handle_upload(?array $file): ?string {
   if (!$file || !isset($file['tmp_name']) || $file['error'] !== UPLOAD_ERR_OK) return null;
@@ -133,7 +135,18 @@ function fetch_report(int $id): array {
     <?php endif; ?>
 
     <?php if ($action === 'list'): ?>
-      <?php $rows = db()->query('SELECT * FROM outreach_reports ORDER BY date DESC, id DESC')->fetchAll(); ?>
+      <?php
+      try {
+        $count = (int)db()->query('SELECT COUNT(*) FROM outreach_reports')->fetchColumn();
+        $pages = max(1, (int)ceil($count / $perPage));
+        if ($page > $pages) $page = $pages;
+        $offset = ($page - 1) * $perPage;
+        $rows = db()->query('SELECT * FROM outreach_reports ORDER BY date DESC, id DESC LIMIT ' . (int)$perPage . ' OFFSET ' . (int)$offset)->fetchAll();
+      } catch (Throwable $e) {
+        $rows = [];
+        $pages = 1;
+      }
+      ?>
 
       <?php if (empty($rows)): ?>
         <!-- Empty State -->
@@ -170,8 +183,19 @@ function fetch_report(int $id): array {
               <?php endif; ?>
 
               <div class="p-6">
-                <h3 class="font-semibold text-gray-900 text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors"><?php echo esc_html($r['title']); ?></h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2"><?php echo esc_html($r['description']); ?></p>
+                <h3 class="font-semibold text-gray-900 text-lg mb-2 group-hover:text-blue-600 transition-colors"><?php echo esc_html($r['title']); ?></h3>
+                <p class="text-gray-600 text-sm mb-4"><?php
+                  if (!function_exists('excerpt_plain')) {
+                    function excerpt_plain(string $html, int $limit = 160): string {
+                      $text = trim(preg_replace('/\s+/u', ' ', strip_tags($html)));
+                      if (mb_strlen($text) <= $limit) return $text;
+                      $cut = mb_substr($text, 0, $limit);
+                      $cut = preg_replace('/\s+\S*$/u', '', $cut);
+                      return rtrim($cut) . '…';
+                    }
+                  }
+                  echo esc_html(excerpt_plain($r['description'], 160));
+                ?></p>
 
                 <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
                   <span><?php echo esc_html($r['date']); ?></span>
@@ -202,11 +226,24 @@ function fetch_report(int $id): array {
             </div>
           <?php endforeach; ?>
         </div>
+        <?php if (($pages ?? 1) > 1): ?>
+          <div class="mt-8 flex items-center justify-center gap-2">
+            <?php if ($page > 1): ?>
+              <a href="<?php echo url('admin/outreach.php'); ?>?page=<?php echo (int)($page - 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Prev</a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $pages; $i++): ?>
+              <a href="<?php echo url('admin/outreach.php'); ?>?page=<?php echo (int)$i; ?>" class="px-3 py-2 rounded-lg <?php echo $i === $page ? 'bg-gray-900 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'; ?>"><?php echo (int)$i; ?></a>
+            <?php endfor; ?>
+            <?php if ($page < $pages): ?>
+              <a href="<?php echo url('admin/outreach.php'); ?>?page=<?php echo (int)($page + 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Next</a>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
       <?php endif; ?>
     <?php elseif ($action === 'create' || $action === 'edit'): ?>
       <?php $r = ($action === 'edit') ? fetch_report((int)($_GET['id'] ?? 0)) : ['id'=>0,'title'=>'','description'=>'','file_link'=>null,'image'=>null,'date'=>date('Y-m-d')]; ?>
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <form method="post" enctype="multipart/form-data" class="space-y-4">
+        <form method="post" enctype="multipart/form-data" class="space-y-4" id="outreachForm">
           <?php echo csrf_field(); ?>
           <?php if ($action === 'edit'): ?><input type="hidden" name="id" value="<?php echo (int)$r['id']; ?>"><?php endif; ?>
           <div>
@@ -215,14 +252,14 @@ function fetch_report(int $id): array {
           </div>
           <div>
             <label class="block text-sm mb-1 text-gray-700">Description</label>
-            <textarea name="description" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200" rows="4" required><?php echo esc_html($r['description']); ?></textarea>
+            <textarea name="description" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200" rows="4" required><?php echo $r['description']; ?></textarea>
           </div>
           <div>
             <label class="block text-sm mb-1 text-gray-700">File Link (optional)</label>
             <input name="file_link" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200" value="<?php echo esc_attr($r['file_link'] ?? ''); ?>">
           </div>
           <div>
-            <label class="block text-sm mb-1 text-gray-700">Image (JPEG/PNG/WebP, max 2MB)</label>
+            <label class="block text-sm mb-1 text-gray-700">Image (JPEG/PNG/WebP, max <?php echo (int)(MAX_UPLOAD_BYTES / (1024 * 1024)); ?>MB)</label>
             <input name="image" type="file" accept="image/*" class="w-full border border-gray-300 rounded-lg px-3 py-2">
             <?php if (!empty($r['image'])): ?>
               <p class="text-sm mt-1">Current: <a class="text-blue-600 hover:underline" href="<?php echo url('uploads/' . esc_attr($r['image'])); ?>" target="_blank">View</a></p>
@@ -242,6 +279,29 @@ function fetch_report(int $id): array {
           </div>
         </form>
       </div>
+      <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+      <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+      <script>
+        (function(){
+          var textarea = document.querySelector('textarea[name=description]');
+          if (!textarea) return;
+          var container = document.createElement('div');
+          container.id = 'quillOutreach';
+          container.style.height = '400px';
+          container.className = 'bg-white';
+          textarea.parentNode.insertBefore(container, textarea.nextSibling);
+          textarea.style.display = 'none';
+          var quill = new Quill('#quillOutreach', {
+            theme: 'snow',
+            modules: { toolbar: [[{ header: [1,2,3,false] }], ['bold','italic','underline'], [{ list: 'ordered' }, { list: 'bullet' }], ['link','image'], ['clean']] }
+          });
+          quill.root.innerHTML = textarea.value || '';
+          var form = document.getElementById('outreachForm');
+          var sync = function(){ textarea.value = quill.root.innerHTML; };
+          quill.on('text-change', sync);
+          if (form) { form.addEventListener('submit', function(){ sync(); }); }
+        })();
+      </script>
     <?php endif; ?>
   </div>
 </div>

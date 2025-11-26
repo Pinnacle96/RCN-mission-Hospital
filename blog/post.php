@@ -184,7 +184,7 @@ if ($post) {
         <article class="prose prose-lg md:prose-xl max-w-none leading-relaxed">
           <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12">
             <?php
-            $allowedTags = '<p><br><strong><em><u><ul><ol><li><h1><h2><h3><h4><h5><h6><blockquote><a><img>';
+            $allowedTags = '<p><br><strong><em><u><ul><ol><li><h1><h2><h3><h4><h5><h6><blockquote><a><img><span>';
             $safeContent = strip_tags($post['content'], $allowedTags);
             echo $safeContent;
             ?>

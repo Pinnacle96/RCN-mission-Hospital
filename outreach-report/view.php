@@ -223,7 +223,7 @@ if (!$report) {
         <!-- Report Content -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12">
           <div class="prose prose-lg md:prose-xl max-w-none leading-relaxed">
-            <?php echo nl2br(esc_html($report['description'])); ?>
+            <?php echo $report['description']; ?>
           </div>
 
           <!-- Action Buttons -->

@@ -17,7 +17,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 // Security headers
 header('X-Frame-Options: SAMEORIGIN');
 header('X-Content-Type-Options: nosniff');
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.tiny.cloud https://cdn.jsdelivr.net https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tiny.cloud; img-src 'self' data: https://cdn.tiny.cloud; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://cdn.tiny.cloud https://api.tiny.cloud https://sp.tinymce.com https://www.google.com https://www.gstatic.com; frame-src 'self' blob:;");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.tiny.cloud https://cdn.jsdelivr.net https://cdn.quilljs.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tiny.cloud https://cdn.quilljs.com; img-src 'self' data: https://cdn.tiny.cloud; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://cdn.tiny.cloud https://api.tiny.cloud https://sp.tinymce.com https://www.google.com https://www.gstatic.com; frame-src 'self' blob: https://view.officeapps.live.com;");
 
 // Session timeout
 if (!empty($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > SESSION_TIMEOUT)) {
@@ -43,9 +43,14 @@ function url(string $path): string {
 
 // Build an absolute URL using SITE_URL (or current host as fallback)
 function absolute_url(string $path): string {
-    $base = getenv('SITE_URL')
-        ?: (defined('SITE_URL') ? constant('SITE_URL')
-        : (((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://') . ($_SERVER['HTTP_HOST'] ?? 'localhost')));
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $isLocal = preg_match('/^(localhost|127\.0\.0\.1)$/i', $host) === 1;
+    if ($isLocal) {
+        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $base = $scheme . $host;
+    } else {
+        $base = getenv('SITE_URL') ?: (defined('SITE_URL') ? constant('SITE_URL') : ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https://' : 'http://') . $host));
+    }
     return rtrim($base, '/') . '/' . ltrim($path, '/');
 }
 

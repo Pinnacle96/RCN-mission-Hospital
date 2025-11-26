@@ -8,6 +8,8 @@
 $action = $_GET['action'] ?? 'list';
 $error = '';
 $notice = '';
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$perPage = 6;
 
 // Ensure new columns exist (best-effort) so admins can use new fields
 try {
@@ -158,7 +160,18 @@ function fetch_trip(int $id): array
 
     <?php if ($action === 'list'): ?>
       <!-- Trips List -->
-      <?php $trips = db()->query('SELECT * FROM trips ORDER BY start_date DESC, id DESC')->fetchAll(); ?>
+      <?php
+      try {
+        $count = (int)db()->query('SELECT COUNT(*) FROM trips')->fetchColumn();
+        $pages = max(1, (int)ceil($count / $perPage));
+        if ($page > $pages) $page = $pages;
+        $offset = ($page - 1) * $perPage;
+        $trips = db()->query('SELECT * FROM trips ORDER BY start_date DESC, id DESC LIMIT ' . (int)$perPage . ' OFFSET ' . (int)$offset)->fetchAll();
+      } catch (Throwable $e) {
+        $trips = [];
+        $pages = 1;
+      }
+      ?>
 
       <?php if (empty($trips)): ?>
         <!-- Empty State -->
@@ -235,9 +248,20 @@ function fetch_trip(int $id): array
                 </div>
 
                 <h3
-                  class="font-semibold text-gray-900 text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                  class="font-semibold text-gray-900 text-lg mb-2 group-hover:text-blue-600 transition-colors">
                   <?php echo esc_html($trip['title']); ?></h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2"><?php echo esc_html($trip['description']); ?></p>
+                <p class="text-gray-600 text-sm mb-4"><?php
+                  if (!function_exists('excerpt_plain')) {
+                    function excerpt_plain(string $html, int $limit = 160): string {
+                      $text = trim(preg_replace('/\s+/u', ' ', strip_tags($html)));
+                      if (mb_strlen($text) <= $limit) return $text;
+                      $cut = mb_substr($text, 0, $limit);
+                      $cut = preg_replace('/\s+\S*$/u', '', $cut);
+                      return rtrim($cut) . '…';
+                    }
+                  }
+                  echo esc_html(excerpt_plain($trip['description'], 160));
+                ?></p>
 
                 <!-- Trip Details -->
                 <div class="space-y-2 text-sm text-gray-500 mb-4">
@@ -317,6 +341,19 @@ function fetch_trip(int $id): array
             </div>
           <?php endforeach; ?>
         </div>
+        <?php if (($pages ?? 1) > 1): ?>
+          <div class="mt-8 flex items-center justify-center gap-2">
+            <?php if ($page > 1): ?>
+              <a href="<?php echo url('admin/trips.php'); ?>?page=<?php echo (int)($page - 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Prev</a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $pages; $i++): ?>
+              <a href="<?php echo url('admin/trips.php'); ?>?page=<?php echo (int)$i; ?>" class="px-3 py-2 rounded-lg <?php echo $i === $page ? 'bg-gray-900 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'; ?>"><?php echo (int)$i; ?></a>
+            <?php endfor; ?>
+            <?php if ($page < $pages): ?>
+              <a href="<?php echo url('admin/trips.php'); ?>?page=<?php echo (int)($page + 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Next</a>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
       <?php endif; ?>
 
     <?php elseif ($action === 'create' || $action === 'edit'): ?>
@@ -333,7 +370,7 @@ function fetch_trip(int $id): array
           </div>
 
           <!-- Form Content -->
-          <form method="post" enctype="multipart/form-data" class="p-6 space-y-6">
+          <form method="post" enctype="multipart/form-data" class="p-6 space-y-6" id="tripForm">
             <?php echo csrf_field(); ?>
             <?php if ($action === 'edit'): ?>
               <input type="hidden" name="id" value="<?php echo (int)$trip['id']; ?>">
@@ -378,7 +415,7 @@ function fetch_trip(int $id): array
               <textarea name="description"
                 class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 rows="4" placeholder="Describe the trip purpose, activities, and requirements..."
-                required><?php echo esc_html($trip['description']); ?></textarea>
+                required><?php echo $trip['description']; ?></textarea>
             </div>
 
             <!-- Additional Details -->
@@ -429,7 +466,7 @@ function fetch_trip(int $id): array
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     <p class="text-sm text-gray-600 mb-1">Click to upload an image</p>
-                    <p class="text-xs text-gray-500">JPEG, PNG, WebP (Max 2MB)</p>
+                    <p class="text-xs text-gray-500">JPEG, PNG, WebP (Max <?php echo (int)(MAX_UPLOAD_BYTES / (1024 * 1024)); ?>MB)</p>
                   </label>
                 </div>
                 <div id="imagePreview" class="hidden">
@@ -457,6 +494,29 @@ function fetch_trip(int $id): array
           </form>
         </div>
       </div>
+      <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+      <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+      <script>
+        (function(){
+          var textarea = document.querySelector('textarea[name=description]');
+          if (!textarea) return;
+          var container = document.createElement('div');
+          container.id = 'quillTrip';
+          container.style.height = '400px';
+          container.className = 'bg-white';
+          textarea.parentNode.insertBefore(container, textarea.nextSibling);
+          textarea.style.display = 'none';
+          var quill = new Quill('#quillTrip', {
+            theme: 'snow',
+            modules: { toolbar: [[{ header: [1,2,3,false] }], ['bold','italic','underline'], [{ list: 'ordered' }, { list: 'bullet' }], ['link','image'], ['clean']] }
+          });
+          quill.root.innerHTML = textarea.value || '';
+          var form = document.getElementById('tripForm');
+          var sync = function(){ textarea.value = quill.root.innerHTML; };
+          quill.on('text-change', sync);
+          if (form) { form.addEventListener('submit', function(){ sync(); }); }
+        })();
+      </script>
 
       <script>
         // Image preview functionality

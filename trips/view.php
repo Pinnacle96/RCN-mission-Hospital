@@ -210,7 +210,10 @@ if ($end_date && $end_date < $today) {
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <h2 class="text-2xl font-bold text-gray-900 mb-4">About This Mission</h2>
         <div class="prose max-w-none text-gray-700 leading-relaxed">
-          <p class="whitespace-pre-line"><?php echo nl2br(esc_html($trip['description'])); ?></p>
+          <?php
+            $allowedTags = '<p><br><strong><em><u><ul><ol><li><h1><h2><h3><h4><h5><h6><blockquote><a><img><span>'; 
+            echo strip_tags($trip['description'], $allowedTags);
+          ?>
         </div>
       </div>
 

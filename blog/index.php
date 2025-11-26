@@ -6,6 +6,10 @@ $hero_enable = false;
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 <?php require_once __DIR__ . '/../config/db.php'; ?>
+<?php
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$perPage = 8;
+?>
 
 <!-- Modern Hero Section -->
 <section class="relative bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white overflow-hidden">
@@ -122,7 +126,7 @@ try {
 }
 ?>
 
-<?php if ($featured_post): ?>
+<?php if ($featured_post && $page === 1): ?>
   <section class="bg-gradient-to-br from-gray-50 to-white py-16">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex items-center justify-between mb-8">
@@ -233,8 +237,16 @@ try {
 
       <?php
       try {
-        $stmt = db()->query('SELECT title, slug, excerpt, image, author, created_at FROM blog_posts ORDER BY created_at DESC');
-        $posts = $stmt->fetchAll();
+        $total = (int)db()->query('SELECT COUNT(*) FROM blog_posts')->fetchColumn();
+      } catch (Throwable $e) {
+        $total = 0;
+      }
+      $baseOffset = ($page === 1 && $total > 0) ? 1 : 0;
+      $pages = max(1, (int)ceil(($total - $baseOffset) / $perPage));
+      if ($page > $pages) $page = $pages;
+      $offset = $baseOffset + ($page - 1) * $perPage;
+      try {
+        $posts = db()->query('SELECT title, slug, excerpt, image, author, created_at FROM blog_posts ORDER BY created_at DESC LIMIT ' . (int)$perPage . ' OFFSET ' . (int)$offset)->fetchAll();
       } catch (Throwable $e) {
         $posts = [];
       }
@@ -260,8 +272,7 @@ try {
           </div>
         </div>
       <?php else: ?>
-        <!-- Remove featured post from main grid if it exists -->
-        <?php $grid_posts = $featured_post ? array_slice($posts, 1) : $posts; ?>
+        <?php $grid_posts = $posts; ?>
 
         <div class="grid md:grid-cols-2 gap-8">
           <?php foreach ($grid_posts as $p): ?>
@@ -316,7 +327,7 @@ try {
                   </a>
                 </h3>
 
-                <p class="text-sm text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                <p class="text-sm text-gray-600 mb-4 leading-relaxed">
                   <?php echo esc_html($p['excerpt']); ?>
                 </p>
 
@@ -335,6 +346,19 @@ try {
             </article>
           <?php endforeach; ?>
         </div>
+        <?php if (($pages ?? 1) > 1): ?>
+          <div class="mt-8 flex items-center justify-center gap-2">
+            <?php if ($page > 1): ?>
+              <a href="<?php echo url('blog'); ?>?page=<?php echo (int)($page - 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Prev</a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $pages; $i++): ?>
+              <a href="<?php echo url('blog'); ?>?page=<?php echo (int)$i; ?>" class="px-3 py-2 rounded-lg <?php echo $i === $page ? 'bg-gray-900 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'; ?>"><?php echo (int)$i; ?></a>
+            <?php endfor; ?>
+            <?php if ($page < $pages): ?>
+              <a href="<?php echo url('blog'); ?>?page=<?php echo (int)($page + 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Next</a>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
 

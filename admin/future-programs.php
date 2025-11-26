@@ -157,7 +157,7 @@ function fetch_program(int $id): array {
     <?php elseif ($action === 'create' || $action === 'edit'): ?>
       <?php $r = ($action === 'edit') ? fetch_program((int)($_GET['id'] ?? 0)) : ['id'=>0,'title'=>'','description'=>'','start_date'=>null,'end_date'=>null]; ?>
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <form method="post" class="space-y-4">
+        <form method="post" class="space-y-4" id="programForm">
           <?php echo csrf_field(); ?>
           <?php if ($action === 'edit'): ?><input type="hidden" name="id" value="<?php echo (int)$r['id']; ?>"><?php endif; ?>
           <div>
@@ -186,6 +186,29 @@ function fetch_program(int $id): array {
           </div>
         </form>
       </div>
+      <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+      <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+      <script>
+        (function(){
+          var textarea = document.querySelector('textarea[name=description]');
+          if (!textarea) return;
+          var container = document.createElement('div');
+          container.id = 'quillProgram';
+          container.style.height = '400px';
+          container.className = 'bg-white';
+          textarea.parentNode.insertBefore(container, textarea.nextSibling);
+          textarea.style.display = 'none';
+          var quill = new Quill('#quillProgram', {
+            theme: 'snow',
+            modules: { toolbar: [[{ header: [1,2,3,false] }], ['bold','italic','underline'], [{ list: 'ordered' }, { list: 'bullet' }], ['link','image'], ['clean']] }
+          });
+          quill.root.innerHTML = textarea.value || '';
+          var form = document.getElementById('programForm');
+          var sync = function(){ textarea.value = quill.root.innerHTML; };
+          quill.on('text-change', sync);
+          if (form) { form.addEventListener('submit', function(){ sync(); }); }
+        })();
+      </script>
     <?php endif; ?>
   </div>
 </div>

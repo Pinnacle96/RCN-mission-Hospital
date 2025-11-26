@@ -9,6 +9,11 @@ if (file_exists(__DIR__ . '/config.local.php')) {
 
 if (!defined('APP_NAME')) define('APP_NAME', 'RCN Mission Hospital');
 
+// // Database configuration (update for production)
+// if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+// if (!defined('DB_NAME')) define('DB_NAME', 'u572560474_rcn');
+// if (!defined('DB_USER')) define('DB_USER', 'u572560474_rcn');
+// if (!defined('DB_PASS')) define('DB_PASS', 'Noah@grcc25');
 // Database configuration (update for production)
 if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
 if (!defined('DB_NAME')) define('DB_NAME', 'rcn_mission_hospital');
@@ -41,7 +46,7 @@ if (!defined('LOGIN_LOCK_WINDOW')) define('LOGIN_LOCK_WINDOW', 900); // 15 minut
 
 // Uploads
 if (!defined('UPLOAD_DIR')) define('UPLOAD_DIR', __DIR__ . '/../uploads/');
-if (!defined('MAX_UPLOAD_BYTES')) define('MAX_UPLOAD_BYTES', 2 * 1024 * 1024); // 2MB
+if (!defined('MAX_UPLOAD_BYTES')) define('MAX_UPLOAD_BYTES', 5 * 1024 * 1024); // 5MB
 
 // Logging
 // Rotate logs when they exceed this size (bytes). Overridable via includes/config.local.php.

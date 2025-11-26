@@ -130,8 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $failed[] = $file['name'] . ': invalid image type';
           continue;
         }
-        if (($file['size'] ?? 0) > 5 * 1024 * 1024) { // 5MB cap
-          $failed[] = $file['name'] . ': image too large (max 5MB)';
+        if (($file['size'] ?? 0) > (defined('MAX_UPLOAD_BYTES') ? MAX_UPLOAD_BYTES : (5 * 1024 * 1024))) {
+          $failed[] = $file['name'] . ': image too large (max ' . (int)((defined('MAX_UPLOAD_BYTES') ? MAX_UPLOAD_BYTES : (5 * 1024 * 1024)) / (1024 * 1024)) . 'MB)';
           continue;
         }
         $base = sanitize_filename(pathinfo($file['name'], PATHINFO_FILENAME));
@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Image File</label>
             <input type="file" name="image" accept="image/*" class="block w-full border rounded-lg px-3 py-2">
-            <p class="text-xs text-gray-500 mt-1">JPG, PNG, GIF, WEBP up to 5MB.</p>
+            <p class="text-xs text-gray-500 mt-1">JPG, PNG, GIF, WEBP up to <?php echo (int)(MAX_UPLOAD_BYTES / (1024 * 1024)); ?>MB.</p>
             <div class="mt-3">
               <label class="block text-sm font-medium text-gray-700 mb-1">Bulk Upload (optional)</label>
               <input type="file" name="images[]" accept="image/*" multiple class="block w-full border rounded-lg px-3 py-2">

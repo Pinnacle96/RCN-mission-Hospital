@@ -191,7 +191,7 @@ function fetch_sponsor(int $id): array {
             <textarea name="message" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200" rows="3" required><?php echo esc_html($r['message']); ?></textarea>
           </div>
           <div>
-            <label class="block text-sm mb-1 text-gray-700">Image (JPEG/PNG/WebP, max 2MB)</label>
+            <label class="block text-sm mb-1 text-gray-700">Image (JPEG/PNG/WebP, max <?php echo (int)(MAX_UPLOAD_BYTES / (1024 * 1024)); ?>MB)</label>
             <input name="image" type="file" accept="image/*" class="w-full border border-gray-300 rounded-lg px-3 py-2">
             <?php if (!empty($r['image'])): ?>
               <p class="text-sm mt-1">Current: <a class="text-blue-600 hover:underline" href="<?php echo url('uploads/' . esc_attr($r['image'])); ?>" target="_blank">View</a></p>

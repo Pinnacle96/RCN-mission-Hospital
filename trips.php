@@ -15,6 +15,10 @@ $page_description = ($view === 'upcoming')
 ?>
 <?php $hero_enable = false; ?>
 <?php include __DIR__ . '/includes/header.php'; ?>
+<?php
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$perPage = 9;
+?>
 
 <!-- Modern Hero Section -->
 <section class="relative overflow-hidden bg-gradient-to-r from-blue-900 to-indigo-800">
@@ -211,14 +215,21 @@ $page_description = ($view === 'upcoming')
   <?php
   try {
     if ($view === 'upcoming') {
-      $stmt = db()->query('SELECT id, title, location, start_date, end_date, description, image, cost, register_deadline, spots_available FROM trips WHERE (end_date >= CURDATE() OR start_date >= CURDATE()) ORDER BY start_date ASC');
+      $count = (int)db()->query('SELECT COUNT(*) FROM trips WHERE (end_date >= CURDATE() OR start_date >= CURDATE())')->fetchColumn();
+      $pages = max(1, (int)ceil($count / $perPage));
+      if ($page > $pages) $page = $pages;
+      $offset = ($page - 1) * $perPage;
+      $trips = db()->query('SELECT id, title, location, start_date, end_date, description, image, cost, register_deadline, spots_available FROM trips WHERE (end_date >= CURDATE() OR start_date >= CURDATE()) ORDER BY start_date ASC LIMIT ' . (int)$perPage . ' OFFSET ' . (int)$offset)->fetchAll();
     } else {
-      // Past trips: either have an end_date before today, or no end_date and a start_date before today
-      $stmt = db()->query("SELECT id, title, location, start_date, end_date, description, image, cost, register_deadline, spots_available FROM trips WHERE ((end_date IS NOT NULL AND end_date < CURDATE()) OR (end_date IS NULL AND start_date < CURDATE())) ORDER BY COALESCE(end_date, start_date) DESC");
+      $count = (int)db()->query('SELECT COUNT(*) FROM trips WHERE ((end_date IS NOT NULL AND end_date < CURDATE()) OR (end_date IS NULL AND start_date < CURDATE()))')->fetchColumn();
+      $pages = max(1, (int)ceil($count / $perPage));
+      if ($page > $pages) $page = $pages;
+      $offset = ($page - 1) * $perPage;
+      $trips = db()->query('SELECT id, title, location, start_date, end_date, description, image, cost, register_deadline, spots_available FROM trips WHERE ((end_date IS NOT NULL AND end_date < CURDATE()) OR (end_date IS NULL AND start_date < CURDATE())) ORDER BY COALESCE(end_date, start_date) DESC LIMIT ' . (int)$perPage . ' OFFSET ' . (int)$offset)->fetchAll();
     }
-    $trips = $stmt->fetchAll();
   } catch (Throwable $e) {
     $trips = [];
+    $pages = 1;
   }
   ?>
 
@@ -343,6 +354,19 @@ $page_description = ($view === 'upcoming')
         </article>
       <?php endforeach; ?>
     </div>
+    <?php if (($pages ?? 1) > 1): ?>
+      <div class="mt-8 flex items-center justify-center gap-2">
+        <?php if ($page > 1): ?>
+          <a href="<?php echo url('trips.php'); ?>?view=<?php echo esc_attr($view); ?>&page=<?php echo (int)($page - 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Prev</a>
+        <?php endif; ?>
+        <?php for ($i = 1; $i <= $pages; $i++): ?>
+          <a href="<?php echo url('trips.php'); ?>?view=<?php echo esc_attr($view); ?>&page=<?php echo (int)$i; ?>" class="px-3 py-2 rounded-lg <?php echo $i === $page ? 'bg-gray-900 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'; ?>"><?php echo (int)$i; ?></a>
+        <?php endfor; ?>
+        <?php if ($page < $pages): ?>
+          <a href="<?php echo url('trips.php'); ?>?view=<?php echo esc_attr($view); ?>&page=<?php echo (int)($page + 1); ?>" class="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">Next</a>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
   <?php else: ?>
     <!-- Empty State -->
     <div class="text-center py-16">
