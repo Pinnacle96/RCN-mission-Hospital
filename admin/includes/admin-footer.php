@@ -7,6 +7,7 @@
       var btn = document.getElementById('sidebarToggle');
       var sidebar = document.getElementById('adminSidebar');
       var overlay = document.getElementById('mobileOverlay');
+      var closeBtn = document.getElementById('sidebarClose');
       var body = document.body;
 
       function openSidebar() {
@@ -46,6 +47,13 @@
 
       if (overlay) {
         overlay.addEventListener('click', function(){
+          closeSidebar();
+        });
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function(e){
+          e.preventDefault();
           closeSidebar();
         });
       }

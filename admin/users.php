@@ -317,8 +317,8 @@ try {
             </div>
           <?php else: ?>
             <!-- Users Table -->
-            <div class="overflow-hidden">
-              <table class="w-full">
+            <div class="overflow-x-auto">
+              <table class="table-auto w-full" style="min-width: 720px;">
                 <thead>
                   <tr class="text-left border-b border-gray-200">
                     <th class="pb-3 text-sm font-medium text-gray-500">User</th>

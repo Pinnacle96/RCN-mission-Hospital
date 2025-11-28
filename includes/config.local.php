@@ -24,4 +24,4 @@ define('QUEUE_MAX_ATTEMPTS_NEWSLETTER_TEST',5);
 define('QUEUE_MAX_ATTEMPTS_CONTACT',5);
 define('LOG_MAX_BYTES',2097152);
 define('LOG_MAX_FILES',5);
-define('SITE_URL', 'https://rcnmissionhospital.org');
+define('SITE_URL', 'https://rcnmh.org');

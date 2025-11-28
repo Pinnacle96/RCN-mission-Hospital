@@ -119,6 +119,12 @@ $user = current_user();
           </div>
         </div>
 
+        <button id="sidebarClose" class="absolute top-4 right-12 md:hidden inline-flex items-center justify-center p-2 rounded-lg text-white/90 hover:bg-white/20 transition-all duration-200" aria-label="Close sidebar">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
         <!-- Logo and Branding -->
         <div class="relative flex items-center gap-4">
           <!-- Enhanced Logo Container -->
@@ -447,10 +453,10 @@ $user = current_user();
             </div>
 
             <!-- Enhanced User Controls -->
-            <div class="flex items-center gap-4">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-4">
               <!-- Change Password -->
               <a href="<?php echo url('admin/change-password'); ?>"
-                class="group flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 font-medium border border-transparent hover:border-blue-200">
+                class="group flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 font-medium border border-transparent hover:border-blue-200">
                 <div class="relative">
                   <div class="absolute inset-0 bg-blue-500 rounded-lg blur-sm group-hover:blur transition-all duration-300 opacity-0 group-hover:opacity-30"></div>
                   <svg class="h-4 w-4 relative" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -490,7 +496,7 @@ $user = current_user();
 
               <!-- Enhanced Logout Button -->
               <a href="<?php echo url('admin/logout.php'); ?>"
-                class="group flex items-center gap-2 px-4 py-2 rounded-xl text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 relative overflow-hidden"
+                class="group flex items-center gap-2 px-4 py-2 rounded-xl text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 relative overflow-hidden w-full sm:w-auto mt-2 sm:mt-0"
                 style="background: <?php echo RCN_GRADIENT; ?>;">
                 <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                 <svg class="h-4 w-4 relative z-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -175,13 +175,13 @@ $site_url = $origin . url('');
 
 <body class="bg-soft_gray text-midnight" style="font-family: 'Poppins', sans-serif;">
   <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="<?php echo url(''); ?>" class="flex items-center group">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between overflow-x-auto md:overflow-x-visible whitespace-nowrap md:whitespace-normal md:flex-wrap">
+      <a href="<?php echo url(''); ?>" class="flex items-center group flex-shrink-0">
         <img src="<?php echo url('assets/images/logo.png'); ?>" alt="RCN Mission Hospital Logo"
           class="inline-block rounded-lg w-auto h-10 md:h-12 lg:h-14 transition-transform duration-300 group-hover:scale-105"
           fetchpriority="high" onerror="this.onerror=null;this.src='<?php echo url('logo.php'); ?>';">
       </a>
-      <nav class="hidden md:flex gap-8 text-sm items-center font-semibold">
+      <nav class="hidden md:flex md:flex-1 md:flex-wrap md:justify-center md:px-4 md:mx-12 lg:mx-16 gap-6 lg:gap-8 text-sm items-center font-semibold">
         <!-- About dropdown -->
         <div class="relative group">
           <button
@@ -290,9 +290,9 @@ $site_url = $origin . url('');
         <a class="nav-link text-gray-700 hover:text-mission_orange py-2 transition-colors duration-200"
           href="<?php echo url('contact'); ?>">Contact</a>
       </nav>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 shrink-0 md:shrink-0">
         <a href="<?php echo url('partners'); ?>"
-          class="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-semibold shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105"
           style="background: <?php echo RCN_GRADIENT; ?>;">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" class="icon-stroke" stroke="currentColor"
