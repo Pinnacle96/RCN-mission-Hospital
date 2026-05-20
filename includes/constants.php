@@ -96,6 +96,7 @@ if (!defined('PAYSTACK_PUBLIC_KEY')) define('PAYSTACK_PUBLIC_KEY', '');
 if (!defined('PAYSTACK_SECRET_KEY')) define('PAYSTACK_SECRET_KEY', '');
 // Optional: set a Paystack Plan code for monthly recurring NGN donations
 if (!defined('PAYSTACK_PLAN_CODE_NGN_MONTHLY')) define('PAYSTACK_PLAN_CODE_NGN_MONTHLY', '');
+if (!defined('PAYSTACK_PLAN_CODE_USD_MONTHLY')) define('PAYSTACK_PLAN_CODE_USD_MONTHLY', '');
 // Callback URL Paystack will redirect to after payment (must be HTTPS in production)
 if (!defined('PAYSTACK_CALLBACK_URL')) define('PAYSTACK_CALLBACK_URL', '');
 
@@ -109,6 +110,15 @@ if (!defined('PAYPAL_CANCEL_URL')) define('PAYPAL_CANCEL_URL', BASE_PATH . 'part
 if (!defined('PAYPAL_HOSTED_BUTTON_ID')) define('PAYPAL_HOSTED_BUTTON_ID', '');
 // Toggle sandbox for IPN validation and testing (false for live)
 if (!defined('PAYPAL_USE_SANDBOX')) define('PAYPAL_USE_SANDBOX', false);
+
+// Flutterwave
+if (!defined('FLUTTERWAVE_PUBLIC_KEY')) define('FLUTTERWAVE_PUBLIC_KEY', '');
+if (!defined('FLUTTERWAVE_SECRET_KEY')) define('FLUTTERWAVE_SECRET_KEY', '');
+if (!defined('FLUTTERWAVE_SECRET_HASH')) define('FLUTTERWAVE_SECRET_HASH', '');
+if (!defined('FLUTTERWAVE_PLAN_ID_NGN_MONTHLY')) define('FLUTTERWAVE_PLAN_ID_NGN_MONTHLY', '');
+if (!defined('FLUTTERWAVE_PLAN_ID_USD_MONTHLY')) define('FLUTTERWAVE_PLAN_ID_USD_MONTHLY', '');
+if (!defined('FLUTTERWAVE_PLAN_ID_GBP_MONTHLY')) define('FLUTTERWAVE_PLAN_ID_GBP_MONTHLY', '');
+if (!defined('FLUTTERWAVE_PLAN_ID_EUR_MONTHLY')) define('FLUTTERWAVE_PLAN_ID_EUR_MONTHLY', '');
 
 // Newsletter configuration
 // Enable double opt-in for production; users must confirm via email

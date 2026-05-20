@@ -149,27 +149,37 @@ Pages:
 
 ## Payments Integration
 
-### PayPal IPN
+### Unified Donation Flow
 
-- IPN listener: `api/paypal/ipn.php`.
-- Validates IPN with PayPal (sandbox/live controlled by `PAYPAL_USE_SANDBOX`).
-- Stores one-time donations and subscription events into `donations`/`subscriptions` tables.
-- Supported events: `txn_type=web_accept` (one-time), `subscr_signup`, `subscr_payment`, `subscr_cancel`.
+- Public entry point: `partners.php`.
+- Shared initializer: `api/payments/init.php`.
+- Shared verification callback: `api/payments/verify.php`.
+- Shared recording helpers: `includes/payment_helpers.php`.
+- Admin review pages: `admin/donations.php` and `admin/subscriptions.php`.
 
-Forms:
-- `partners.php` includes PayPal donate and subscription forms with `notify_url` pointing to `api/paypal/ipn.php`.
-- Configure `PAYPAL_BUSINESS_EMAIL`, `RETURN/CANCEL` URLs, and set sandbox toggle.
+The donor selects donation type, currency, and gateway on `partners.php`, then the system routes them only to supported and configured gateways.
 
-IPN Setup:
-1. Log in to PayPal Business (or Sandbox).
-2. Ensure IPN is enabled and the site can receive HTTP POSTs.
-3. Use `notify_url` in the forms; ensure your domain is accessible (HTTPS in production).
-4. Verify donations appear in `admin/donations.php` and subscriptions in `admin/subscriptions.php`.
+### PayPal
 
-### Paystack (Optional)
+- Listener: `api/paypal/ipn.php`.
+- Uses PayPal IPN as the source for one-time and recurring payment recording.
+- Supports `web_accept`, `subscr_signup`, `subscr_payment`, and `subscr_cancel`.
+- Requires `PAYPAL_BUSINESS_EMAIL`, return/cancel URLs, and correct sandbox/live mode.
 
-- Endpoints scaffolded: `api/paystack/init_once.php`, `api/paystack/init_recurring.php`.
-- Set keys in `includes/constants.php` and complete the flow per Paystack docs.
+### Paystack
+
+- Current init path: `api/payments/init.php` with `gateway=paystack`.
+- Verification callback: `api/payments/verify.php?gateway=paystack`.
+- Webhook: `api/paystack/webhook.php`.
+- Legacy compatibility wrappers remain at `api/paystack/init_once.php` and `api/paystack/init_recurring.php`.
+- Supports configured recurring plans by currency where plan codes are set.
+
+### Flutterwave
+
+- Current init path: `api/payments/init.php` with `gateway=flutterwave`.
+- Verification callback: `api/payments/verify.php?gateway=flutterwave`.
+- Webhook: `api/flutterwave/webhook.php`.
+- Supports one-time multi-currency checkout and recurring flows where payment plan IDs are configured.
 
 ## Uploads & Media
 
@@ -203,9 +213,11 @@ IPN Setup:
 - Content pages: create sample blog, outreach, resources entries and verify public pages.
 - Uploads: test uploading a PDF and an external link on resources; verify both appear.
 - Outreach report: set `file_link` to a YouTube URL and confirm embedded video.
-- PayPal:
-  - Set `PAYPAL_USE_SANDBOX=true`.
-  - Make a test one-time donation and subscription; confirm IPN entries in admin pages.
+- Payments:
+  - Save gateway credentials in `admin/settings.php`.
+  - Configure live or test webhook URLs for PayPal, Paystack, and Flutterwave.
+  - Test one-time and recurring flows separately.
+  - Confirm successful records appear in `admin/donations.php` and `admin/subscriptions.php`.
 
 ## Troubleshooting
 
@@ -458,4 +470,3 @@ Designed and Developed by Pinnacle Tech Hub
 
 - Phone: +2347032078859
 - Email: techspiresolutionsltd@gmail.com
-

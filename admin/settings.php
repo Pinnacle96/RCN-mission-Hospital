@@ -14,6 +14,13 @@ function php_const_str($v) {
   return str_replace(['\\', "'"], ['\\\\', "\\'"], $v);
 }
 
+function admin_detect_base_url(): string {
+  $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+  $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+  $basePath = defined('BASE_PATH') ? trim((string) BASE_PATH) : '/';
+  return rtrim($scheme . '://' . $host . '/' . trim($basePath, '/'), '/');
+}
+
 // Existing values from constants (may be overridden by config.local.php)
 $curr = [
   'PAYPAL_BUSINESS_EMAIL' => defined('PAYPAL_BUSINESS_EMAIL') ? PAYPAL_BUSINESS_EMAIL : '',
@@ -24,7 +31,15 @@ $curr = [
   'PAYSTACK_PUBLIC_KEY' => defined('PAYSTACK_PUBLIC_KEY') ? PAYSTACK_PUBLIC_KEY : '',
   'PAYSTACK_SECRET_KEY' => defined('PAYSTACK_SECRET_KEY') ? PAYSTACK_SECRET_KEY : '',
   'PAYSTACK_PLAN_CODE_NGN_MONTHLY' => defined('PAYSTACK_PLAN_CODE_NGN_MONTHLY') ? PAYSTACK_PLAN_CODE_NGN_MONTHLY : '',
+  'PAYSTACK_PLAN_CODE_USD_MONTHLY' => defined('PAYSTACK_PLAN_CODE_USD_MONTHLY') ? PAYSTACK_PLAN_CODE_USD_MONTHLY : '',
   'PAYSTACK_CALLBACK_URL' => defined('PAYSTACK_CALLBACK_URL') ? PAYSTACK_CALLBACK_URL : '',
+  'FLUTTERWAVE_PUBLIC_KEY' => defined('FLUTTERWAVE_PUBLIC_KEY') ? FLUTTERWAVE_PUBLIC_KEY : '',
+  'FLUTTERWAVE_SECRET_KEY' => defined('FLUTTERWAVE_SECRET_KEY') ? FLUTTERWAVE_SECRET_KEY : '',
+  'FLUTTERWAVE_SECRET_HASH' => defined('FLUTTERWAVE_SECRET_HASH') ? FLUTTERWAVE_SECRET_HASH : '',
+  'FLUTTERWAVE_PLAN_ID_NGN_MONTHLY' => defined('FLUTTERWAVE_PLAN_ID_NGN_MONTHLY') ? FLUTTERWAVE_PLAN_ID_NGN_MONTHLY : '',
+  'FLUTTERWAVE_PLAN_ID_USD_MONTHLY' => defined('FLUTTERWAVE_PLAN_ID_USD_MONTHLY') ? FLUTTERWAVE_PLAN_ID_USD_MONTHLY : '',
+  'FLUTTERWAVE_PLAN_ID_GBP_MONTHLY' => defined('FLUTTERWAVE_PLAN_ID_GBP_MONTHLY') ? FLUTTERWAVE_PLAN_ID_GBP_MONTHLY : '',
+  'FLUTTERWAVE_PLAN_ID_EUR_MONTHLY' => defined('FLUTTERWAVE_PLAN_ID_EUR_MONTHLY') ? FLUTTERWAVE_PLAN_ID_EUR_MONTHLY : '',
   'SMTP_HOST' => defined('SMTP_HOST') ? SMTP_HOST : '',
   'SMTP_PORT' => defined('SMTP_PORT') ? SMTP_PORT : 587,
   'SMTP_USER' => defined('SMTP_USER') ? SMTP_USER : '',
@@ -43,6 +58,12 @@ $curr = [
   'LOG_MAX_BYTES' => defined('LOG_MAX_BYTES') ? (int)LOG_MAX_BYTES : 2097152,
   'LOG_MAX_FILES' => defined('LOG_MAX_FILES') ? (int)LOG_MAX_FILES : 5,
 ];
+$adminBaseUrl = admin_detect_base_url();
+$paypalIpnUrl = $adminBaseUrl . '/api/paypal/ipn.php';
+$paystackCallbackUrl = $adminBaseUrl . '/api/payments/verify.php?gateway=paystack';
+$paystackWebhookUrl = $adminBaseUrl . '/api/paystack/webhook.php';
+$flutterwaveCallbackUrl = $adminBaseUrl . '/api/payments/verify.php?gateway=flutterwave';
+$flutterwaveWebhookUrl = $adminBaseUrl . '/api/flutterwave/webhook.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $token = $_POST['csrf_token'] ?? '';
@@ -59,7 +80,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $paystack_pub = trim($_POST['PAYSTACK_PUBLIC_KEY'] ?? $curr['PAYSTACK_PUBLIC_KEY']);
     $paystack_sec = trim($_POST['PAYSTACK_SECRET_KEY'] ?? $curr['PAYSTACK_SECRET_KEY']);
     $paystack_plan = trim($_POST['PAYSTACK_PLAN_CODE_NGN_MONTHLY'] ?? $curr['PAYSTACK_PLAN_CODE_NGN_MONTHLY']);
+    $paystack_plan_usd = trim($_POST['PAYSTACK_PLAN_CODE_USD_MONTHLY'] ?? $curr['PAYSTACK_PLAN_CODE_USD_MONTHLY']);
     $paystack_cb = trim($_POST['PAYSTACK_CALLBACK_URL'] ?? $curr['PAYSTACK_CALLBACK_URL']);
+    $flutterwave_pub = trim($_POST['FLUTTERWAVE_PUBLIC_KEY'] ?? $curr['FLUTTERWAVE_PUBLIC_KEY']);
+    $flutterwave_sec = trim($_POST['FLUTTERWAVE_SECRET_KEY'] ?? $curr['FLUTTERWAVE_SECRET_KEY']);
+    $flutterwave_hash = trim($_POST['FLUTTERWAVE_SECRET_HASH'] ?? $curr['FLUTTERWAVE_SECRET_HASH']);
+    $flutterwave_plan_ngn = trim($_POST['FLUTTERWAVE_PLAN_ID_NGN_MONTHLY'] ?? $curr['FLUTTERWAVE_PLAN_ID_NGN_MONTHLY']);
+    $flutterwave_plan_usd = trim($_POST['FLUTTERWAVE_PLAN_ID_USD_MONTHLY'] ?? $curr['FLUTTERWAVE_PLAN_ID_USD_MONTHLY']);
+    $flutterwave_plan_gbp = trim($_POST['FLUTTERWAVE_PLAN_ID_GBP_MONTHLY'] ?? $curr['FLUTTERWAVE_PLAN_ID_GBP_MONTHLY']);
+    $flutterwave_plan_eur = trim($_POST['FLUTTERWAVE_PLAN_ID_EUR_MONTHLY'] ?? $curr['FLUTTERWAVE_PLAN_ID_EUR_MONTHLY']);
 
     $smtp_provider = $_POST['SMTP_PROVIDER'] ?? '';
     $smtp_host = trim($_POST['SMTP_HOST'] ?? $curr['SMTP_HOST']);
@@ -121,7 +150,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $lines[] = "define('PAYSTACK_PUBLIC_KEY','" . php_const_str($paystack_pub) . "');";
       $lines[] = "define('PAYSTACK_SECRET_KEY','" . php_const_str($paystack_sec) . "');";
       $lines[] = "define('PAYSTACK_PLAN_CODE_NGN_MONTHLY','" . php_const_str($paystack_plan) . "');";
+      $lines[] = "define('PAYSTACK_PLAN_CODE_USD_MONTHLY','" . php_const_str($paystack_plan_usd) . "');";
       $lines[] = "define('PAYSTACK_CALLBACK_URL','" . php_const_str($paystack_cb) . "');";
+      $lines[] = "define('FLUTTERWAVE_PUBLIC_KEY','" . php_const_str($flutterwave_pub) . "');";
+      $lines[] = "define('FLUTTERWAVE_SECRET_KEY','" . php_const_str($flutterwave_sec) . "');";
+      $lines[] = "define('FLUTTERWAVE_SECRET_HASH','" . php_const_str($flutterwave_hash) . "');";
+      $lines[] = "define('FLUTTERWAVE_PLAN_ID_NGN_MONTHLY','" . php_const_str($flutterwave_plan_ngn) . "');";
+      $lines[] = "define('FLUTTERWAVE_PLAN_ID_USD_MONTHLY','" . php_const_str($flutterwave_plan_usd) . "');";
+      $lines[] = "define('FLUTTERWAVE_PLAN_ID_GBP_MONTHLY','" . php_const_str($flutterwave_plan_gbp) . "');";
+      $lines[] = "define('FLUTTERWAVE_PLAN_ID_EUR_MONTHLY','" . php_const_str($flutterwave_plan_eur) . "');";
       $lines[] = "define('SMTP_HOST','" . php_const_str($smtp_host) . "');";
       $lines[] = "define('SMTP_PORT'," . (int)$smtp_port . ");";
       $lines[] = "define('SMTP_USER','" . php_const_str($smtp_user) . "');";
@@ -163,7 +200,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $curr['PAYSTACK_PUBLIC_KEY'] = $paystack_pub;
           $curr['PAYSTACK_SECRET_KEY'] = $paystack_sec;
           $curr['PAYSTACK_PLAN_CODE_NGN_MONTHLY'] = $paystack_plan;
+          $curr['PAYSTACK_PLAN_CODE_USD_MONTHLY'] = $paystack_plan_usd;
           $curr['PAYSTACK_CALLBACK_URL'] = $paystack_cb;
+          $curr['FLUTTERWAVE_PUBLIC_KEY'] = $flutterwave_pub;
+          $curr['FLUTTERWAVE_SECRET_KEY'] = $flutterwave_sec;
+          $curr['FLUTTERWAVE_SECRET_HASH'] = $flutterwave_hash;
+          $curr['FLUTTERWAVE_PLAN_ID_NGN_MONTHLY'] = $flutterwave_plan_ngn;
+          $curr['FLUTTERWAVE_PLAN_ID_USD_MONTHLY'] = $flutterwave_plan_usd;
+          $curr['FLUTTERWAVE_PLAN_ID_GBP_MONTHLY'] = $flutterwave_plan_gbp;
+          $curr['FLUTTERWAVE_PLAN_ID_EUR_MONTHLY'] = $flutterwave_plan_eur;
           $curr['SMTP_HOST'] = $smtp_host;
           $curr['SMTP_PORT'] = $smtp_port;
           $curr['SMTP_USER'] = $smtp_user;
@@ -192,7 +237,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ['PAYSTACK_PUBLIC_KEY', $paystack_pub, 0],
                 ['PAYSTACK_SECRET_KEY', $paystack_sec, 1],
                 ['PAYSTACK_PLAN_CODE_NGN_MONTHLY', $paystack_plan, 0],
+                ['PAYSTACK_PLAN_CODE_USD_MONTHLY', $paystack_plan_usd, 0],
                 ['PAYSTACK_CALLBACK_URL', $paystack_cb, 0],
+                ['FLUTTERWAVE_PUBLIC_KEY', $flutterwave_pub, 0],
+                ['FLUTTERWAVE_SECRET_KEY', $flutterwave_sec, 1],
+                ['FLUTTERWAVE_SECRET_HASH', $flutterwave_hash, 1],
+                ['FLUTTERWAVE_PLAN_ID_NGN_MONTHLY', $flutterwave_plan_ngn, 0],
+                ['FLUTTERWAVE_PLAN_ID_USD_MONTHLY', $flutterwave_plan_usd, 0],
+                ['FLUTTERWAVE_PLAN_ID_GBP_MONTHLY', $flutterwave_plan_gbp, 0],
+                ['FLUTTERWAVE_PLAN_ID_EUR_MONTHLY', $flutterwave_plan_eur, 0],
                 ['SMTP_HOST', $smtp_host, 0],
                 ['SMTP_PORT', (string)$smtp_port, 0],
                 ['SMTP_USER', $smtp_user, 0],
@@ -278,6 +331,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input name="PAYPAL_HOSTED_BUTTON_ID" type="text" value="<?php echo esc_attr($curr['PAYPAL_HOSTED_BUTTON_ID']); ?>" placeholder="e.g. HJ7ABCDE12345" class="w-full px-4 py-3 rounded-xl border">
           </div>
         </div>
+        <div class="mt-4 rounded-2xl border border-gray-200 bg-gray-50 p-4">
+          <div class="text-sm font-medium text-gray-700 mb-2">Copy-ready PayPal IPN URL</div>
+          <div class="flex flex-col md:flex-row gap-3">
+            <input type="text" readonly value="<?php echo esc_attr($paypalIpnUrl); ?>" class="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700">
+            <button type="button" class="copy-url-btn px-4 py-3 rounded-xl bg-gray-900 text-white hover:bg-black" data-copy="<?php echo esc_attr($paypalIpnUrl); ?>">Copy URL</button>
+          </div>
+        </div>
       </section>
 
       <!-- Paystack Settings -->
@@ -286,9 +346,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="paystackHelp" class="rounded-xl border border-blue-200 bg-blue-50 text-blue-800 px-4 py-3 mb-3 hidden">
           <p class="font-medium">How to get Paystack credentials:</p>
           <p>Public/Secret Keys: copy from Dashboard → Settings → API Keys.</p>
-          <p>Plan Code: create a Plan for recurring, then copy the code.</p>
-          <p>Callback URL: use <code>https://yourdomain.com/api/paystack/init_once.php</code> or your handler; ensure it’s reachable.</p>
-          <p>Webhooks: configure if you consume server-side events.</p>
+          <p>Plan Codes: create monthly plans per supported currency, then copy the codes.</p>
+          <p>Callback URL: use <code>https://yourdomain.com/api/payments/verify.php?gateway=paystack</code>.</p>
+          <p>Webhook URL: configure <code>https://yourdomain.com/api/paystack/webhook.php</code> on Paystack.</p>
         </div>
         <div class="grid md:grid-cols-2 gap-4">
           <div>
@@ -300,12 +360,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input name="PAYSTACK_SECRET_KEY" type="text" value="<?php echo esc_attr($curr['PAYSTACK_SECRET_KEY']); ?>" placeholder="sk_live_xxx or sk_test_xxx" class="w-full px-4 py-3 rounded-xl border">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan Code (optional)</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan Code - NGN</label>
             <input name="PAYSTACK_PLAN_CODE_NGN_MONTHLY" type="text" value="<?php echo esc_attr($curr['PAYSTACK_PLAN_CODE_NGN_MONTHLY']); ?>" placeholder="PLN_abcdefghi12345" class="w-full px-4 py-3 rounded-xl border">
           </div>
           <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan Code - USD</label>
+            <input name="PAYSTACK_PLAN_CODE_USD_MONTHLY" type="text" value="<?php echo esc_attr($curr['PAYSTACK_PLAN_CODE_USD_MONTHLY']); ?>" placeholder="PLN_usd_example" class="w-full px-4 py-3 rounded-xl border">
+          </div>
+          <div class="md:col-span-2">
             <label class="block text-sm font-medium text-gray-700 mb-2">Callback URL</label>
-            <input name="PAYSTACK_CALLBACK_URL" type="url" value="<?php echo esc_attr($curr['PAYSTACK_CALLBACK_URL']); ?>" placeholder="https://yourdomain.com/api/paystack/init_once.php" class="w-full px-4 py-3 rounded-xl border">
+            <input name="PAYSTACK_CALLBACK_URL" type="url" value="<?php echo esc_attr($curr['PAYSTACK_CALLBACK_URL']); ?>" placeholder="https://yourdomain.com/api/payments/verify.php?gateway=paystack" class="w-full px-4 py-3 rounded-xl border">
+          </div>
+        </div>
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+            <div class="text-sm font-medium text-gray-700 mb-2">Recommended Callback URL</div>
+            <div class="flex gap-3">
+              <input type="text" readonly value="<?php echo esc_attr($paystackCallbackUrl); ?>" class="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700">
+              <button type="button" class="copy-url-btn px-4 py-3 rounded-xl bg-gray-900 text-white hover:bg-black" data-copy="<?php echo esc_attr($paystackCallbackUrl); ?>">Copy</button>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+            <div class="text-sm font-medium text-gray-700 mb-2">Webhook URL</div>
+            <div class="flex gap-3">
+              <input type="text" readonly value="<?php echo esc_attr($paystackWebhookUrl); ?>" class="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700">
+              <button type="button" class="copy-url-btn px-4 py-3 rounded-xl bg-gray-900 text-white hover:bg-black" data-copy="<?php echo esc_attr($paystackWebhookUrl); ?>">Copy</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Flutterwave Settings -->
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-3">Flutterwave <button type="button" id="flutterwaveHelpToggle" class="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 text-xs">Show help</button></h2>
+        <div id="flutterwaveHelp" class="rounded-xl border border-blue-200 bg-blue-50 text-blue-800 px-4 py-3 mb-3 hidden">
+          <p class="font-medium">How to get Flutterwave credentials:</p>
+          <p>Public and Secret Keys: copy from your Flutterwave dashboard.</p>
+          <p>Secret Hash: create this in Dashboard → Settings → Webhooks and use the same value here.</p>
+          <p>Payment Plan IDs: create monthly plans per currency if you want recurring donations.</p>
+          <p>Redirect URL: use <code>https://yourdomain.com/api/payments/verify.php?gateway=flutterwave</code>.</p>
+          <p>Webhook URL: configure <code>https://yourdomain.com/api/flutterwave/webhook.php</code> in Flutterwave.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Public Key</label>
+            <input name="FLUTTERWAVE_PUBLIC_KEY" type="text" value="<?php echo esc_attr($curr['FLUTTERWAVE_PUBLIC_KEY']); ?>" placeholder="FLWPUBK_TEST-..." class="w-full px-4 py-3 rounded-xl border">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Secret Key</label>
+            <input name="FLUTTERWAVE_SECRET_KEY" type="text" value="<?php echo esc_attr($curr['FLUTTERWAVE_SECRET_KEY']); ?>" placeholder="FLWSECK_TEST-..." class="w-full px-4 py-3 rounded-xl border">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Webhook Secret Hash</label>
+            <input name="FLUTTERWAVE_SECRET_HASH" type="text" value="<?php echo esc_attr($curr['FLUTTERWAVE_SECRET_HASH']); ?>" placeholder="Random secure hash from Flutterwave dashboard" class="w-full px-4 py-3 rounded-xl border">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan ID - NGN</label>
+            <input name="FLUTTERWAVE_PLAN_ID_NGN_MONTHLY" type="text" value="<?php echo esc_attr($curr['FLUTTERWAVE_PLAN_ID_NGN_MONTHLY']); ?>" placeholder="Plan ID for NGN monthly giving" class="w-full px-4 py-3 rounded-xl border">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan ID - USD</label>
+            <input name="FLUTTERWAVE_PLAN_ID_USD_MONTHLY" type="text" value="<?php echo esc_attr($curr['FLUTTERWAVE_PLAN_ID_USD_MONTHLY']); ?>" placeholder="Plan ID for USD monthly giving" class="w-full px-4 py-3 rounded-xl border">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan ID - GBP</label>
+            <input name="FLUTTERWAVE_PLAN_ID_GBP_MONTHLY" type="text" value="<?php echo esc_attr($curr['FLUTTERWAVE_PLAN_ID_GBP_MONTHLY']); ?>" placeholder="Plan ID for GBP monthly giving" class="w-full px-4 py-3 rounded-xl border">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan ID - EUR</label>
+            <input name="FLUTTERWAVE_PLAN_ID_EUR_MONTHLY" type="text" value="<?php echo esc_attr($curr['FLUTTERWAVE_PLAN_ID_EUR_MONTHLY']); ?>" placeholder="Plan ID for EUR monthly giving" class="w-full px-4 py-3 rounded-xl border">
+          </div>
+        </div>
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+            <div class="text-sm font-medium text-gray-700 mb-2">Recommended Redirect URL</div>
+            <div class="flex gap-3">
+              <input type="text" readonly value="<?php echo esc_attr($flutterwaveCallbackUrl); ?>" class="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700">
+              <button type="button" class="copy-url-btn px-4 py-3 rounded-xl bg-gray-900 text-white hover:bg-black" data-copy="<?php echo esc_attr($flutterwaveCallbackUrl); ?>">Copy</button>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+            <div class="text-sm font-medium text-gray-700 mb-2">Webhook URL</div>
+            <div class="flex gap-3">
+              <input type="text" readonly value="<?php echo esc_attr($flutterwaveWebhookUrl); ?>" class="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700">
+              <button type="button" class="copy-url-btn px-4 py-3 rounded-xl bg-gray-900 text-white hover:bg-black" data-copy="<?php echo esc_attr($flutterwaveWebhookUrl); ?>">Copy</button>
+            </div>
           </div>
         </div>
       </section>
@@ -428,6 +567,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </section>
 
+      <section>
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">Payment Launch Checklist</h2>
+        <div class="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-900 space-y-2">
+          <p class="font-medium">Complete these steps before testing live donations:</p>
+          <p>1. Save all gateway keys and recurring plan codes or plan IDs in this page.</p>
+          <p>2. Configure webhook URLs in Paystack, Flutterwave, and PayPal IPN using your live HTTPS domain.</p>
+          <p>3. Test one-time and monthly donations separately for each currency and gateway combination you plan to offer.</p>
+          <p>4. Confirm each successful test appears in both `Donations` and, when applicable, `Subscriptions` admin pages.</p>
+          <p>5. Keep sandbox/test mode enabled until webhook verification and redirects are confirmed working end to end.</p>
+        </div>
+      </section>
+
       <div class="flex justify-end">
         <button type="submit" class="px-6 py-3 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700">Save Settings</button>
       </div>
@@ -442,6 +593,9 @@ document.getElementById('paypalHelpToggle')?.addEventListener('click', () => {
 });
 document.getElementById('paystackHelpToggle')?.addEventListener('click', () => {
   document.getElementById('paystackHelp')?.classList.toggle('hidden');
+});
+document.getElementById('flutterwaveHelpToggle')?.addEventListener('click', () => {
+  document.getElementById('flutterwaveHelp')?.classList.toggle('hidden');
 });
 document.getElementById('smtpHelpToggle')?.addEventListener('click', () => {
   document.getElementById('smtpHelp')?.classList.toggle('hidden');
@@ -481,6 +635,21 @@ function applyProviderDefaults(){
 smtpProvider?.addEventListener('change', applyProviderDefaults);
 // Apply once on load
 applyProviderDefaults();
+
+document.querySelectorAll('.copy-url-btn').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const value = button.getAttribute('data-copy') || '';
+    if (!value) return;
+    try {
+      await navigator.clipboard.writeText(value);
+      const original = button.textContent;
+      button.textContent = 'Copied';
+      setTimeout(() => { button.textContent = original; }, 1500);
+    } catch (err) {
+      window.alert('Unable to copy automatically. Please copy the URL manually.');
+    }
+  });
+});
 </script>
 
 <?php include __DIR__ . '/includes/admin-footer.php'; ?>

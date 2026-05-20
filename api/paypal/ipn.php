@@ -1,8 +1,8 @@
 <?php
 // PayPal IPN listener: validates messages and stores donations/subscriptions
-require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../includes/constants.php';
 require_once __DIR__ . '/../../includes/logger.php';
+require_once __DIR__ . '/../../includes/payment_helpers.php';
 
 // Only accept POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -59,49 +59,99 @@ $txnId = $postData['txn_id'] ?? null;
 $subscrId = $postData['subscr_id'] ?? null;
 $amount3 = isset($postData['amount3']) ? (float)$postData['amount3'] : null; // subscription amount
 
-$pdo = db();
-
 // Helper to store raw payload
 $raw = json_encode($postData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+$customRaw = $postData['custom'] ?? '';
+$custom = json_decode($customRaw, true);
+if (!is_array($custom)) {
+  $custom = [];
+}
+$donationType = (($custom['type'] ?? '') === 'recurring' || in_array($txnType, ['subscr_signup', 'subscr_payment'], true)) ? 'recurring' : 'one_time';
+$externalRef = $custom['reference'] ?? ($postData['invoice'] ?? ($subscrId ?: null));
 
 try {
   if ($txnType === 'web_accept') {
     // One-time donation
     if ($mcGross !== null && $mcCurrency) {
-      $stmt = $pdo->prepare('INSERT INTO donations (gateway, type, amount, currency, email, status, transaction_id, external_id, raw_payload) VALUES (?,?,?,?,?,?,?,?,?)');
-      $stmt->execute([
-        'paypal', 'one_time', $mcGross, $mcCurrency, $payerEmail, $paymentStatus ?: 'Completed', $txnId, null, $raw
+      payment_record_donation([
+        'gateway' => 'paypal',
+        'type' => 'one_time',
+        'amount' => $mcGross,
+        'currency' => $mcCurrency,
+        'email' => $payerEmail,
+        'status' => payment_normalize_status($paymentStatus ?: 'Completed'),
+        'transaction_id' => $txnId,
+        'external_id' => $externalRef,
+        'raw_payload' => $raw,
       ]);
       log_info('paypal_ipn', 'Donation recorded', ['type' => 'one_time', 'amount' => $mcGross, 'currency' => $mcCurrency, 'email' => $payerEmail, 'txn_id' => $txnId]);
     }
   } elseif ($txnType === 'subscr_signup') {
     // Subscription created
-    $stmt = $pdo->prepare('INSERT INTO subscriptions (gateway, external_id, plan_code, amount, currency, email, status, raw_payload) VALUES (?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE amount=VALUES(amount), currency=VALUES(currency), email=VALUES(email), status=VALUES(status), raw_payload=VALUES(raw_payload)');
-    $stmt->execute([
-      'paypal', $subscrId ?: ($txnId ?: ''), null, $amount3, $mcCurrency, $payerEmail, 'active', $raw
+    payment_upsert_subscription([
+      'gateway' => 'paypal',
+      'external_id' => $subscrId ?: ($externalRef ?: ($txnId ?: '')),
+      'plan_code' => $custom['plan_code'] ?? null,
+      'amount' => $amount3,
+      'currency' => $mcCurrency,
+      'email' => $payerEmail,
+      'status' => 'active',
+      'raw_payload' => $raw,
     ]);
     log_info('paypal_ipn', 'Subscription signup', ['external_id' => $subscrId ?: $txnId, 'amount' => $amount3, 'currency' => $mcCurrency, 'email' => $payerEmail]);
   } elseif ($txnType === 'subscr_payment') {
     // Recurring payment occurred
     $amount = $mcGross ?? $amount3 ?? 0;
     $currency = $mcCurrency ?: 'USD';
-    $stmt = $pdo->prepare('INSERT INTO donations (gateway, type, amount, currency, email, status, transaction_id, external_id, raw_payload) VALUES (?,?,?,?,?,?,?,?,?)');
-    $stmt->execute([
-      'paypal', 'recurring', $amount, $currency, $payerEmail, $paymentStatus ?: 'Completed', $txnId, $subscrId, $raw
+    payment_record_donation([
+      'gateway' => 'paypal',
+      'type' => 'recurring',
+      'amount' => $amount,
+      'currency' => $currency,
+      'email' => $payerEmail,
+      'status' => payment_normalize_status($paymentStatus ?: 'Completed'),
+      'transaction_id' => $txnId,
+      'external_id' => $subscrId ?: $externalRef,
+      'raw_payload' => $raw,
+    ]);
+    payment_upsert_subscription([
+      'gateway' => 'paypal',
+      'external_id' => $subscrId ?: ($externalRef ?: ($txnId ?: '')),
+      'plan_code' => $custom['plan_code'] ?? null,
+      'amount' => $amount,
+      'currency' => $currency,
+      'email' => $payerEmail,
+      'status' => 'active',
+      'raw_payload' => $raw,
     ]);
     log_info('paypal_ipn', 'Subscription payment', ['amount' => $amount, 'currency' => $currency, 'email' => $payerEmail, 'txn_id' => $txnId, 'external_id' => $subscrId]);
   } elseif ($txnType === 'subscr_cancel') {
     // Subscription canceled
     if ($subscrId) {
-      $stmt = $pdo->prepare('UPDATE subscriptions SET status = ?, raw_payload = ? WHERE gateway = ? AND external_id = ?');
-      $stmt->execute(['cancelled', $raw, 'paypal', $subscrId]);
+      payment_upsert_subscription([
+        'gateway' => 'paypal',
+        'external_id' => $subscrId,
+        'plan_code' => $custom['plan_code'] ?? null,
+        'amount' => $amount3,
+        'currency' => $mcCurrency,
+        'email' => $payerEmail,
+        'status' => 'cancelled',
+        'raw_payload' => $raw,
+      ]);
       log_info('paypal_ipn', 'Subscription cancelled', ['external_id' => $subscrId, 'email' => $payerEmail]);
     }
   } else {
     // Other txn types can be logged for diagnostics
-    $stmt = $pdo->prepare('INSERT INTO donations (gateway, type, amount, currency, email, status, transaction_id, external_id, raw_payload) VALUES (?,?,?,?,?,?,?,?,?)');
-    $stmt->execute([
-      'paypal', 'one_time', $mcGross ?? 0, $mcCurrency ?: 'USD', $payerEmail, $txnType ?: 'unknown', $txnId, $subscrId, $raw
+    payment_record_donation([
+      'gateway' => 'paypal',
+      'type' => $donationType,
+      'amount' => $mcGross ?? 0,
+      'currency' => $mcCurrency ?: 'USD',
+      'email' => $payerEmail,
+      'status' => $txnType ?: 'unknown',
+      'transaction_id' => $txnId,
+      'external_id' => $subscrId ?: $externalRef,
+      'raw_payload' => $raw,
     ]);
     log_info('paypal_ipn', 'Unhandled IPN type recorded', ['txn_type' => $txnType, 'email' => $payerEmail, 'txn_id' => $txnId]);
   }
