@@ -94,7 +94,7 @@ if (!defined('SITE_URL') && getenv('SITE_URL')) {
 // Paystack
 if (!defined('PAYSTACK_PUBLIC_KEY')) define('PAYSTACK_PUBLIC_KEY', '');
 if (!defined('PAYSTACK_SECRET_KEY')) define('PAYSTACK_SECRET_KEY', '');
-// Optional: set a Paystack Plan code for monthly recurring NGN donations
+// Optional legacy plan codes. Flexible Paystack monthly billing now uses saved card authorizations.
 if (!defined('PAYSTACK_PLAN_CODE_NGN_MONTHLY')) define('PAYSTACK_PLAN_CODE_NGN_MONTHLY', '');
 if (!defined('PAYSTACK_PLAN_CODE_USD_MONTHLY')) define('PAYSTACK_PLAN_CODE_USD_MONTHLY', '');
 // Callback URL Paystack will redirect to after payment (must be HTTPS in production)

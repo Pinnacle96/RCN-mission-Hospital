@@ -88,7 +88,8 @@ Edit `includes/constants.php`:
   - `PAYPAL_USE_SANDBOX` (set `true` for testing, `false` for live).
 - Payments (Paystack):
   - `PAYSTACK_PUBLIC_KEY`, `PAYSTACK_SECRET_KEY`.
-  - `PAYSTACK_PLAN_CODE_NGN_MONTHLY` (optional for recurring NGN plan).
+  - `PAYSTACK_PLAN_CODE_NGN_MONTHLY`, `PAYSTACK_PLAN_CODE_USD_MONTHLY` remain optional legacy plan-code settings.
+  - Flexible Paystack monthly billing on this site uses saved card authorization instead of requiring a fixed plan code.
   - `PAYSTACK_CALLBACK_URL`.
 
 ## Database
@@ -172,7 +173,10 @@ The donor selects donation type, currency, and gateway on `partners.php`, then t
 - Verification callback: `api/payments/verify.php?gateway=paystack`.
 - Webhook: `api/paystack/webhook.php`.
 - Legacy compatibility wrappers remain at `api/paystack/init_once.php` and `api/paystack/init_recurring.php`.
-- Supports configured recurring plans by currency where plan codes are set.
+- One-time donations work through normal checkout initialization.
+- Flexible monthly giving uses the first successful card payment to capture a reusable Paystack authorization, then stores the recurring schedule in `subscriptions`.
+- Follow-up monthly charges are executed by `cron/process_paystack_recurring.php`.
+- Legacy plan-code settings can remain in admin, but they are no longer required for the main donor flow.
 
 ### Flutterwave
 
@@ -300,6 +304,20 @@ The workflow excludes these paths from upload so production data survives deploy
   - Generates a readable `AltBody` from HTML content for plain-text clients.
 - Implementation note (MySQL): the per-type batch query validates and embeds `LIMIT` as an integer literal to work with real prepared statements (`ATTR_EMULATE_PREPARES=false`).
 
+## Paystack Recurring Cron
+
+- Script: `cron/process_paystack_recurring.php`
+- Purpose:
+  - finds due Paystack recurring subscriptions with saved reusable authorizations
+  - charges the saved authorization for the donor-selected monthly amount
+  - records the payment in `donations`
+  - advances `next_charge_at` on success
+  - marks the subscription `past_due` or `pending` and schedules a retry on failure or incomplete status
+- Schedule:
+  - run every 5 minutes so due subscriptions are processed shortly after their `next_charge_at` time
+- Important:
+  - recurring Paystack monthly giving now depends on this cron job for follow-up monthly billing
+
 ### Cron Setup by Environment
 
 - Windows (local/server):
@@ -308,6 +326,8 @@ The workflow excludes these paths from upload so production data survives deploy
   - Arguments: `c:\wamp64\www\rcnmissionhospital\cron\send_queued_emails.php`.
   - Start in: `c:\wamp64\www\rcnmissionhospital`.
   - Run whether user is logged on or not; set highest privileges if needed.
+  - Add a second task for Paystack recurring charges:
+    - Arguments: `c:\wamp64\www\rcnmissionhospital\cron\process_paystack_recurring.php`
 
 - Shared Hosting (cPanel):
   - Cron command example:
@@ -316,6 +336,10 @@ The workflow excludes these paths from upload so production data survives deploy
     ```
   - Schedule: Every 5 minutes.
   - Adjust paths (`<cpanel_user>`, subfolder) to your account.
+  - Add a second cron for Paystack recurring charges:
+    ```
+    /usr/local/bin/php /home/<cpanel_user>/public_html/rcnmissionhospital/cron/process_paystack_recurring.php > /home/<cpanel_user>/logs/paystack_recurring.log 2>&1
+    ```
 
 - Linux VPS (Ubuntu/Debian):
   - Edit crontab: `crontab -e`
@@ -324,6 +348,10 @@ The workflow excludes these paths from upload so production data survives deploy
     */5 * * * * /usr/bin/php /var/www/rcnmissionhospital/cron/send_queued_emails.php > /var/log/rcnmissionhospital/cron.log 2>&1
     ```
   - Ensure `/var/log/rcnmissionhospital/` exists and is writable.
+  - Add:
+    ```
+    */5 * * * * /usr/bin/php /var/www/rcnmissionhospital/cron/process_paystack_recurring.php > /var/log/rcnmissionhospital/paystack_recurring.log 2>&1
+    ```
 
 - Cloud/VM platforms (AWS/GCP/Azure/DigitalOcean):
   - Use the VM’s cron as above.

@@ -27,6 +27,7 @@ define('PAYPAL_USE_SANDBOX', false);
 // Paystack
 define('PAYSTACK_PUBLIC_KEY', '');
 define('PAYSTACK_SECRET_KEY', '');
+// Optional legacy plan codes. Flexible monthly billing on this site does not require them.
 define('PAYSTACK_PLAN_CODE_NGN_MONTHLY', '');
 define('PAYSTACK_PLAN_CODE_USD_MONTHLY', '');
 define('PAYSTACK_CALLBACK_URL', 'https://your-domain.example/api/payments/verify.php?gateway=paystack');

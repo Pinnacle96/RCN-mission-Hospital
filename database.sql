@@ -173,17 +173,24 @@ CREATE TABLE IF NOT EXISTS subscriptions (
   gateway VARCHAR(50) NOT NULL,
   external_id VARCHAR(100) NOT NULL, -- unique subscription reference from gateway
   plan_code VARCHAR(100) DEFAULT NULL,
+  authorization_code VARCHAR(120) DEFAULT NULL,
+  authorization_signature VARCHAR(120) DEFAULT NULL,
   amount DECIMAL(10,2) DEFAULT NULL,
   currency VARCHAR(10) DEFAULT NULL,
   email VARCHAR(150) DEFAULT NULL,
   status VARCHAR(50) NOT NULL, -- e.g., 'active','cancelled','suspended'
+  next_charge_at DATETIME DEFAULT NULL,
+  last_charge_at DATETIME DEFAULT NULL,
+  last_payment_reference VARCHAR(120) DEFAULT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   raw_payload TEXT NULL,
   UNIQUE KEY (external_id),
   INDEX (gateway),
   INDEX (status),
-  INDEX (created_at)
+  INDEX (created_at),
+  INDEX (next_charge_at),
+  INDEX (authorization_signature)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- Newsletter subscribers (public email signups)
 CREATE TABLE IF NOT EXISTS newsletter_subscribers (

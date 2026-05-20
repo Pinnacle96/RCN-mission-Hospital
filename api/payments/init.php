@@ -49,6 +49,8 @@ $metadata = [
     'gateway' => $gateway,
     'type' => $type,
     'currency' => $currency,
+    'amount' => $amount,
+    'email' => $email,
     'full_name' => $fullName,
     'reference' => $reference,
 ];
@@ -68,12 +70,9 @@ if ($gateway === 'paystack') {
     ];
 
     if ($type === 'recurring') {
-        $planCode = payment_paystack_plan_for_currency($currency);
-        if ($planCode === '') {
-            payment_init_fail('Paystack recurring is not configured for the selected currency.', ['currency' => $currency]);
-        }
-        $metadata['plan_code'] = $planCode;
-        $payload['plan'] = $planCode;
+        $metadata['subscription_external_id'] = 'paystack:flex:' . $reference;
+        $metadata['plan_code'] = 'flex_monthly';
+        $payload['channels'] = ['card'];
         $payload['metadata'] = $metadata;
     }
 

@@ -164,7 +164,89 @@ function payment_update_donation_status(string $gateway, string $externalId, str
     $stmt->execute([$status, $payload, strtolower($gateway), $externalId]);
 }
 
+function payment_table_has_column(PDO $pdo, string $table, string $column): bool {
+    static $cache = [];
+    $key = $table . '.' . $column;
+    if (array_key_exists($key, $cache)) {
+        return $cache[$key];
+    }
+    $stmt = $pdo->prepare('SHOW COLUMNS FROM `' . str_replace('`', '``', $table) . '` LIKE ?');
+    $stmt->execute([$column]);
+    $cache[$key] = (bool) $stmt->fetch();
+    return $cache[$key];
+}
+
+function payment_ensure_subscription_schema(): void {
+    static $done = false;
+    if ($done) {
+        return;
+    }
+
+    $pdo = db();
+    $columns = [
+        'authorization_code' => 'ALTER TABLE subscriptions ADD COLUMN authorization_code VARCHAR(120) DEFAULT NULL AFTER plan_code',
+        'authorization_signature' => 'ALTER TABLE subscriptions ADD COLUMN authorization_signature VARCHAR(120) DEFAULT NULL AFTER authorization_code',
+        'next_charge_at' => 'ALTER TABLE subscriptions ADD COLUMN next_charge_at DATETIME DEFAULT NULL AFTER status',
+        'last_charge_at' => 'ALTER TABLE subscriptions ADD COLUMN last_charge_at DATETIME DEFAULT NULL AFTER next_charge_at',
+        'last_payment_reference' => 'ALTER TABLE subscriptions ADD COLUMN last_payment_reference VARCHAR(120) DEFAULT NULL AFTER last_charge_at',
+    ];
+
+    foreach ($columns as $column => $sql) {
+        if (!payment_table_has_column($pdo, 'subscriptions', $column)) {
+            try {
+                $pdo->exec($sql);
+            } catch (Throwable $e) {
+                // Ignore duplicate-column races and keep the request flowing.
+            }
+        }
+    }
+
+    $done = true;
+}
+
+function payment_format_datetime($value): ?string {
+    if (!$value) {
+        return null;
+    }
+    if ($value instanceof DateTimeInterface) {
+        return $value->format('Y-m-d H:i:s');
+    }
+    $raw = trim((string) $value);
+    if ($raw === '') {
+        return null;
+    }
+    try {
+        return (new DateTimeImmutable($raw))->format('Y-m-d H:i:s');
+    } catch (Throwable $e) {
+        return null;
+    }
+}
+
+function payment_schedule_next_monthly_charge(?string $from = null): string {
+    try {
+        $base = $from ? new DateTimeImmutable($from) : new DateTimeImmutable('now');
+    } catch (Throwable $e) {
+        $base = new DateTimeImmutable('now');
+    }
+    return $base->modify('+1 month')->format('Y-m-d H:i:s');
+}
+
+function payment_paystack_metadata(array $data): array {
+    $metadata = $data['metadata'] ?? [];
+    if (is_array($metadata)) {
+        return $metadata;
+    }
+    if (is_string($metadata) && trim($metadata) !== '') {
+        $decoded = json_decode($metadata, true);
+        if (is_array($decoded)) {
+            return $decoded;
+        }
+    }
+    return [];
+}
+
 function payment_upsert_subscription(array $input): void {
+    payment_ensure_subscription_schema();
     $pdo = db();
     $gateway = strtolower((string) ($input['gateway'] ?? ''));
     $externalId = trim((string) ($input['external_id'] ?? ''));
@@ -176,14 +258,19 @@ function payment_upsert_subscription(array $input): void {
     $currency = isset($input['currency']) ? strtoupper((string) $input['currency']) : null;
     $email = isset($input['email']) ? trim((string) $input['email']) : null;
     $status = trim((string) ($input['status'] ?? 'active')) ?: 'active';
+    $authorizationCode = isset($input['authorization_code']) ? trim((string) $input['authorization_code']) : null;
+    $authorizationSignature = isset($input['authorization_signature']) ? trim((string) $input['authorization_signature']) : null;
+    $nextChargeAt = payment_format_datetime($input['next_charge_at'] ?? null);
+    $lastChargeAt = payment_format_datetime($input['last_charge_at'] ?? null);
+    $lastPaymentReference = isset($input['last_payment_reference']) ? trim((string) $input['last_payment_reference']) : null;
     $payload = $input['raw_payload'] ?? null;
     if (is_array($payload) || is_object($payload)) {
         $payload = json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
     $payload = is_string($payload) ? $payload : null;
 
-    $stmt = $pdo->prepare('INSERT INTO subscriptions (gateway, external_id, plan_code, amount, currency, email, status, raw_payload) VALUES (?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE gateway = VALUES(gateway), plan_code = VALUES(plan_code), amount = VALUES(amount), currency = VALUES(currency), email = VALUES(email), status = VALUES(status), raw_payload = VALUES(raw_payload)');
-    $stmt->execute([$gateway, $externalId, $planCode, $amount, $currency, $email, $status, $payload]);
+    $stmt = $pdo->prepare('INSERT INTO subscriptions (gateway, external_id, plan_code, authorization_code, authorization_signature, amount, currency, email, status, next_charge_at, last_charge_at, last_payment_reference, raw_payload) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE gateway = VALUES(gateway), plan_code = VALUES(plan_code), authorization_code = COALESCE(VALUES(authorization_code), authorization_code), authorization_signature = COALESCE(VALUES(authorization_signature), authorization_signature), amount = VALUES(amount), currency = VALUES(currency), email = VALUES(email), status = VALUES(status), next_charge_at = COALESCE(VALUES(next_charge_at), next_charge_at), last_charge_at = COALESCE(VALUES(last_charge_at), last_charge_at), last_payment_reference = COALESCE(VALUES(last_payment_reference), last_payment_reference), raw_payload = VALUES(raw_payload)');
+    $stmt->execute([$gateway, $externalId, $planCode, $authorizationCode, $authorizationSignature, $amount, $currency, $email, $status, $nextChargeAt, $lastChargeAt, $lastPaymentReference, $payload]);
 }
 
 function payment_normalize_status(string $value): string {
@@ -229,8 +316,12 @@ function payment_flutterwave_plan_for_currency(string $currency): string {
 }
 
 function payment_paystack_subscription_external_id(array $data): string {
+    $metadata = payment_paystack_metadata($data);
+    if (!empty($metadata['subscription_external_id'])) {
+        return (string) $metadata['subscription_external_id'];
+    }
     $customerCode = $data['customer']['customer_code'] ?? ($data['customer_code'] ?? '');
-    $planCode = $data['plan']['plan_code'] ?? ($data['metadata']['plan_code'] ?? '');
+    $planCode = $data['plan']['plan_code'] ?? ($metadata['plan_code'] ?? '');
     if ($customerCode && $planCode) {
         return 'paystack:' . $customerCode . ':' . $planCode;
     }
@@ -258,6 +349,62 @@ function payment_paystack_verify_transaction(string $reference): array {
         'https://api.paystack.co/transaction/verify/' . rawurlencode($reference),
         ['Authorization: Bearer ' . PAYSTACK_SECRET_KEY]
     );
+}
+
+function payment_paystack_charge_authorization(string $email, string $authorizationCode, float $amount, string $currency, string $reference, array $metadata = []): array {
+    $payload = [
+        'email' => $email,
+        'amount' => (int) round($amount * 100),
+        'authorization_code' => $authorizationCode,
+        'reference' => $reference,
+        'metadata' => $metadata,
+    ];
+    if ($currency !== '') {
+        $payload['currency'] = strtoupper($currency);
+    }
+    return payment_http_json(
+        'POST',
+        'https://api.paystack.co/transaction/charge_authorization',
+        ['Authorization: Bearer ' . PAYSTACK_SECRET_KEY],
+        $payload
+    );
+}
+
+function payment_paystack_subscription_from_transaction(array $data, ?array $rawPayload = null): ?array {
+    $metadata = payment_paystack_metadata($data);
+    if (($metadata['type'] ?? '') !== 'recurring') {
+        return null;
+    }
+
+    $authorization = is_array($data['authorization'] ?? null) ? $data['authorization'] : [];
+    $authorizationCode = trim((string) ($authorization['authorization_code'] ?? ''));
+    $authorizationSignature = trim((string) ($authorization['signature'] ?? ''));
+    $isReusable = !empty($authorization['reusable']) && $authorizationCode !== '';
+    $externalId = payment_paystack_subscription_external_id($data);
+
+    if ($externalId === '') {
+        return null;
+    }
+
+    $paidAt = $data['paid_at'] ?? ($data['paidAt'] ?? ($data['transaction_date'] ?? null));
+    $status = $isReusable ? 'active' : 'pending_authorization';
+    $payload = $rawPayload ?? $data;
+
+    return [
+        'gateway' => 'paystack',
+        'external_id' => $externalId,
+        'plan_code' => ($data['plan']['plan_code'] ?? ($metadata['plan_code'] ?? '')) ?: 'flex_monthly',
+        'authorization_code' => $isReusable ? $authorizationCode : null,
+        'authorization_signature' => $authorizationSignature !== '' ? $authorizationSignature : null,
+        'amount' => isset($data['amount']) ? ((float) $data['amount']) / 100 : (isset($metadata['amount']) ? (float) $metadata['amount'] : null),
+        'currency' => strtoupper((string) ($data['currency'] ?? ($metadata['currency'] ?? 'NGN'))),
+        'email' => trim((string) ($data['customer']['email'] ?? ($metadata['email'] ?? ''))),
+        'status' => $status,
+        'next_charge_at' => $isReusable ? payment_schedule_next_monthly_charge(is_string($paidAt) ? $paidAt : null) : null,
+        'last_charge_at' => $isReusable ? payment_format_datetime($paidAt) : null,
+        'last_payment_reference' => (string) ($data['reference'] ?? ''),
+        'raw_payload' => $payload,
+    ];
 }
 
 function payment_flutterwave_verify_transaction(?string $transactionId = null, ?string $txRef = null): array {

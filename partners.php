@@ -20,8 +20,8 @@ $gatewayAvailability = [
     'enabled' => (bool) PAYSTACK_SECRET_KEY,
     'one_time' => (bool) PAYSTACK_SECRET_KEY,
     'recurring' => [
-      'NGN' => payment_paystack_plan_for_currency('NGN') !== '',
-      'USD' => payment_paystack_plan_for_currency('USD') !== '',
+      'NGN' => (bool) PAYSTACK_SECRET_KEY,
+      'USD' => (bool) PAYSTACK_SECRET_KEY,
       'GBP' => false,
       'EUR' => false,
     ],
@@ -340,7 +340,7 @@ $gatewayAvailability = [
         badge: 'Nigeria-first',
         border: 'border-emerald-200',
         bg: 'bg-emerald-50',
-        text: 'Best for NGN and configured Paystack-supported recurring or USD flows.'
+        text: 'Best for NGN and supported USD flows, including flexible monthly giving with saved card authorization.'
       },
       flutterwave: {
         title: 'Flutterwave',
@@ -409,7 +409,9 @@ $gatewayAvailability = [
             note = 'Available now.';
           } else if (config.recurring && config.recurring[state.currency]) {
             available = true;
-            note = 'Available now.';
+            note = gateway === 'paystack'
+              ? 'Available now. Monthly giving uses a secure first card charge, then reuses the saved authorization for future monthly billing.'
+              : 'Available now.';
           } else {
             note = 'Not configured for ' + state.currency + ' monthly giving yet.';
           }

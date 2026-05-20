@@ -24,13 +24,14 @@ if ($gateway === 'paystack') {
     $verified = payment_paystack_verify_transaction($reference);
     $json = is_array($verified['json']) ? $verified['json'] : [];
     $data = is_array($json['data'] ?? null) ? $json['data'] : [];
+    $metadata = payment_paystack_metadata($data);
     if (!$verified['ok'] || empty($json['status']) || empty($data)) {
         log_error('paystack_payment', 'Callback verification failed', ['reference' => $reference, 'response' => $verified]);
         payment_redirect_with_result('paystack', 'failed', $reference);
     }
 
     $resultStatus = strtolower((string) ($data['status'] ?? 'failed'));
-    $type = (($data['metadata']['type'] ?? 'one_time') === 'recurring') ? 'recurring' : 'one_time';
+    $type = (($metadata['type'] ?? 'one_time') === 'recurring') ? 'recurring' : 'one_time';
     $amount = ((float) ($data['amount'] ?? 0)) / 100;
     $currency = strtoupper((string) ($data['currency'] ?? 'NGN'));
     $email = trim((string) ($data['customer']['email'] ?? ''));
@@ -49,16 +50,10 @@ if ($gateway === 'paystack') {
     ]);
 
     if ($type === 'recurring' && $resultStatus === 'success') {
-        payment_upsert_subscription([
-            'gateway' => 'paystack',
-            'external_id' => payment_paystack_subscription_external_id($data),
-            'plan_code' => $data['plan']['plan_code'] ?? ($data['metadata']['plan_code'] ?? ''),
-            'amount' => $amount,
-            'currency' => $currency,
-            'email' => $email,
-            'status' => 'active',
-            'raw_payload' => $json,
-        ]);
+        $subscription = payment_paystack_subscription_from_transaction($data, $json);
+        if ($subscription) {
+            payment_upsert_subscription($subscription);
+        }
     }
 
     payment_redirect_with_result('paystack', $resultStatus === 'success' ? 'success' : $resultStatus, $reference);

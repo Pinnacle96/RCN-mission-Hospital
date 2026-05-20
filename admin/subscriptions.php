@@ -1,7 +1,9 @@
 <?php
 require_once __DIR__ . '/includes/admin-header.php';
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../includes/payment_helpers.php';
 
+payment_ensure_subscription_schema();
 $pdo = db();
 $gatewayFilter = trim((string) ($_GET['gateway'] ?? ''));
 $currencyFilter = trim((string) ($_GET['currency'] ?? ''));
@@ -22,7 +24,7 @@ if ($statusFilter !== '') {
   $params[] = $statusFilter;
 }
 
-$sql = 'SELECT id, gateway, external_id, plan_code, amount, currency, email, status, created_at, updated_at FROM subscriptions';
+$sql = 'SELECT id, gateway, external_id, plan_code, amount, currency, email, status, next_charge_at, last_charge_at, created_at, updated_at FROM subscriptions';
 if ($where) {
   $sql .= ' WHERE ' . implode(' AND ', $where);
 }
@@ -90,7 +92,7 @@ $currencyStats = $currencyStatsStmt->fetchAll();
         <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
         <select name="status" class="w-full rounded-xl border border-gray-300 px-4 py-3">
           <option value="">All statuses</option>
-          <?php foreach (['active', 'pending', 'past_due', 'cancelled'] as $state): ?>
+          <?php foreach (['active', 'pending', 'pending_authorization', 'past_due', 'cancelled'] as $state): ?>
             <option value="<?php echo esc_attr($state); ?>" <?php echo $statusFilter === $state ? 'selected' : ''; ?>><?php echo esc_html($state); ?></option>
           <?php endforeach; ?>
         </select>
@@ -158,6 +160,8 @@ $currencyStats = $currencyStatsStmt->fetchAll();
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Currency</th>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Next Charge</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Charge</th>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Updated</th>
             </tr>
@@ -173,16 +177,18 @@ $currencyStats = $currencyStatsStmt->fetchAll();
                 <td class="px-4 py-3 text-sm text-gray-700"><?php echo esc_html($r['currency'] ?? ''); ?></td>
                 <td class="px-4 py-3 text-sm text-gray-700"><?php echo esc_html($r['email'] ?? ''); ?></td>
                 <td class="px-4 py-3 text-sm">
-                  <span class="inline-flex items-center px-2 py-1 rounded text-xs <?php echo ($r['status'] === 'active') ? 'bg-green-100 text-green-700' : (($r['status'] === 'cancelled') ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-700'); ?>">
+                  <span class="inline-flex items-center px-2 py-1 rounded text-xs <?php echo ($r['status'] === 'active') ? 'bg-green-100 text-green-700' : (($r['status'] === 'cancelled') ? 'bg-red-100 text-red-700' : (($r['status'] === 'past_due') ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-700')); ?>">
                     <?php echo esc_html($r['status']); ?>
                   </span>
                 </td>
+                <td class="px-4 py-3 text-sm text-gray-700"><?php echo esc_html($r['next_charge_at'] ?? ''); ?></td>
+                <td class="px-4 py-3 text-sm text-gray-700"><?php echo esc_html($r['last_charge_at'] ?? ''); ?></td>
                 <td class="px-4 py-3 text-sm text-gray-700"><?php echo esc_html($r['created_at']); ?></td>
                 <td class="px-4 py-3 text-sm text-gray-700"><?php echo esc_html($r['updated_at']); ?></td>
               </tr>
             <?php endforeach; else: ?>
               <tr>
-                <td colspan="10" class="px-4 py-6 text-center text-gray-500">No subscriptions recorded yet.</td>
+                <td colspan="12" class="px-4 py-6 text-center text-gray-500">No subscriptions recorded yet.</td>
               </tr>
             <?php endif; ?>
           </tbody>

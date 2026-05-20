@@ -36,7 +36,8 @@ try {
         $verifiedJson = is_array($verified['json']) ? $verified['json'] : [];
         $verifiedData = is_array($verifiedJson['data'] ?? null) ? $verifiedJson['data'] : [];
         if ($verified['ok'] && !empty($verifiedJson['status']) && !empty($verifiedData)) {
-            $type = (($verifiedData['metadata']['type'] ?? 'one_time') === 'recurring') ? 'recurring' : 'one_time';
+            $metadata = payment_paystack_metadata($verifiedData);
+            $type = (($metadata['type'] ?? 'one_time') === 'recurring') ? 'recurring' : 'one_time';
             $amount = ((float) ($verifiedData['amount'] ?? 0)) / 100;
             $currency = strtoupper((string) ($verifiedData['currency'] ?? 'NGN'));
             $email = trim((string) ($verifiedData['customer']['email'] ?? ''));
@@ -55,16 +56,10 @@ try {
             ]);
 
             if ($type === 'recurring') {
-                payment_upsert_subscription([
-                    'gateway' => 'paystack',
-                    'external_id' => payment_paystack_subscription_external_id(array_merge($verifiedData, $data)),
-                    'plan_code' => $verifiedData['plan']['plan_code'] ?? ($verifiedData['metadata']['plan_code'] ?? ''),
-                    'amount' => $amount,
-                    'currency' => $currency,
-                    'email' => $email,
-                    'status' => 'active',
-                    'raw_payload' => $verifiedJson,
-                ]);
+                $subscription = payment_paystack_subscription_from_transaction(array_merge($verifiedData, $data), $verifiedJson);
+                if ($subscription) {
+                    payment_upsert_subscription($subscription);
+                }
             }
         }
     } elseif ($eventName === 'invoice.payment_failed' && !empty($data['subscription']['subscription_code'])) {

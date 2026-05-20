@@ -346,7 +346,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="paystackHelp" class="rounded-xl border border-blue-200 bg-blue-50 text-blue-800 px-4 py-3 mb-3 hidden">
           <p class="font-medium">How to get Paystack credentials:</p>
           <p>Public/Secret Keys: copy from Dashboard → Settings → API Keys.</p>
-          <p>Plan Codes: create monthly plans per supported currency, then copy the codes.</p>
+          <p>Flexible monthly giving on this site uses Paystack reusable card authorization, so fixed plan codes are optional.</p>
+          <p>Plan Codes: keep these only if you want legacy fixed-amount Paystack plans for another flow.</p>
           <p>Callback URL: use <code>https://yourdomain.com/api/payments/verify.php?gateway=paystack</code>.</p>
           <p>Webhook URL: configure <code>https://yourdomain.com/api/paystack/webhook.php</code> on Paystack.</p>
         </div>
@@ -360,11 +361,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input name="PAYSTACK_SECRET_KEY" type="text" value="<?php echo esc_attr($curr['PAYSTACK_SECRET_KEY']); ?>" placeholder="sk_live_xxx or sk_test_xxx" class="w-full px-4 py-3 rounded-xl border">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan Code - NGN</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan Code - NGN (optional legacy)</label>
             <input name="PAYSTACK_PLAN_CODE_NGN_MONTHLY" type="text" value="<?php echo esc_attr($curr['PAYSTACK_PLAN_CODE_NGN_MONTHLY']); ?>" placeholder="PLN_abcdefghi12345" class="w-full px-4 py-3 rounded-xl border">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan Code - USD</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Plan Code - USD (optional legacy)</label>
             <input name="PAYSTACK_PLAN_CODE_USD_MONTHLY" type="text" value="<?php echo esc_attr($curr['PAYSTACK_PLAN_CODE_USD_MONTHLY']); ?>" placeholder="PLN_usd_example" class="w-full px-4 py-3 rounded-xl border">
           </div>
           <div class="md:col-span-2">
