@@ -170,9 +170,9 @@ function payment_table_has_column(PDO $pdo, string $table, string $column): bool
     if (array_key_exists($key, $cache)) {
         return $cache[$key];
     }
-    $stmt = $pdo->prepare('SHOW COLUMNS FROM `' . str_replace('`', '``', $table) . '` LIKE ?');
-    $stmt->execute([$column]);
-    $cache[$key] = (bool) $stmt->fetch();
+    $sql = 'SHOW COLUMNS FROM `' . str_replace('`', '``', $table) . '` LIKE ' . $pdo->quote($column);
+    $stmt = $pdo->query($sql);
+    $cache[$key] = $stmt ? (bool) $stmt->fetch() : false;
     return $cache[$key];
 }
 
