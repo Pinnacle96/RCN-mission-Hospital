@@ -208,6 +208,58 @@ The donor selects donation type, currency, and gateway on `partners.php`, then t
   - Update `includes/constants.php` for production DB and payment keys.
   - Ensure file permissions for `uploads/`.
 
+### GitHub Actions to Hostinger
+
+- Workflow file: `.github/workflows/deploy-hostinger.yml`
+- Trigger: push to `master` or manual `workflow_dispatch`
+- Strategy:
+  - Validate PHP syntax before deployment.
+  - Deploy to Hostinger shared hosting over `SSH` using `rsync`.
+  - Preserve writable/shared-hosting data by excluding `uploads/`, `logs/`, and `includes/config.local.php`.
+
+#### Required GitHub Secrets
+
+Add these repository secrets in GitHub under `Settings -> Secrets and variables -> Actions`:
+
+- `HOSTINGER_SSH_HOST`: SSH host or IP from Hostinger
+- `HOSTINGER_SSH_USERNAME`: SSH username
+- `HOSTINGER_SSH_PRIVATE_KEY`: private key for the GitHub Actions deploy key
+- `HOSTINGER_SSH_PORT`: Hostinger SSH port, often a non-default port on shared hosting
+- `HOSTINGER_SERVER_DIR`: target folder ending with `/`
+
+Examples for `HOSTINGER_SERVER_DIR`:
+
+- `/public_html/`
+- `/domains/yourdomain.com/public_html/`
+- `/public_html/rcnmissionhospital/`
+
+Use the exact directory exposed by your Hostinger FTP account or File Manager. The path must end with a trailing slash.
+
+#### SSH Setup
+
+- Enable SSH access in Hostinger hPanel for the hosting account.
+- Create a dedicated deploy key pair with no passphrase.
+- Add the public key to Hostinger SSH keys.
+- Save the private key in GitHub as `HOSTINGER_SSH_PRIVATE_KEY`.
+- Confirm you can reach the same target directory over SSH before relying on the workflow.
+
+#### Production Config
+
+- Copy `includes/config.local.example.php` to `includes/config.local.php` on the live server.
+- Fill the production database, SMTP, PayPal, Paystack, and Flutterwave values there.
+- The deployment workflow intentionally excludes `includes/config.local.php`, so your live credentials are not overwritten on future deploys.
+- If you prefer, you can also save many of these values from `admin/settings.php` after first deployment, as that page writes `includes/config.local.php`.
+
+#### Deployment Exclusions
+
+The workflow excludes these paths from upload so production data survives deployments:
+
+- `includes/config.local.php`
+- `uploads/`
+- `logs/`
+- `.github/`
+- local/developer documentation files such as `README.md`, `database.sql`, and the project specification document
+
 ## Testing & Verification
 
 - Content pages: create sample blog, outreach, resources entries and verify public pages.
