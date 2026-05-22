@@ -9,12 +9,11 @@ if (file_exists(__DIR__ . '/config.local.php')) {
 
 if (!defined('APP_NAME')) define('APP_NAME', 'RCN Mission Hospital');
 
-// // Database configuration (update for production)
-// if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
-// if (!defined('DB_NAME')) define('DB_NAME', 'u572560474_rcn');
-// if (!defined('DB_USER')) define('DB_USER', 'u572560474_rcn');
-// if (!defined('DB_PASS')) define('DB_PASS', 'Noah@grcc25');
 // Database configuration (update for production)
+if (!defined('DB_HOST') && getenv('DB_HOST')) define('DB_HOST', (string) getenv('DB_HOST'));
+if (!defined('DB_NAME') && getenv('DB_NAME')) define('DB_NAME', (string) getenv('DB_NAME'));
+if (!defined('DB_USER') && getenv('DB_USER')) define('DB_USER', (string) getenv('DB_USER'));
+if (!defined('DB_PASS') && getenv('DB_PASS') !== false) define('DB_PASS', (string) getenv('DB_PASS'));
 if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
 if (!defined('DB_NAME')) define('DB_NAME', 'rcn_mission_hospital');
 if (!defined('DB_USER')) define('DB_USER', 'root');
