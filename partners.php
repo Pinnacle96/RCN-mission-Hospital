@@ -21,7 +21,7 @@ $gatewayAvailability = [
     'one_time' => (bool) PAYSTACK_SECRET_KEY,
     'recurring' => [
       'NGN' => (bool) PAYSTACK_SECRET_KEY,
-      'USD' => (bool) PAYSTACK_SECRET_KEY,
+      'USD' => false,
       'GBP' => false,
       'EUR' => false,
     ],
@@ -54,7 +54,7 @@ $gatewayAvailability = [
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-yellow-200">Secure Multi-Currency Giving</span>
         </h1>
         <p class="text-lg md:text-xl text-slate-200 max-w-3xl leading-relaxed mb-8">
-          Support missions, clinics, community outreach, and compassionate care through PayPal, Paystack, Flutterwave, or direct bank transfer. Choose the currency, donation type, and gateway that work best for you.
+          Support missions, clinics, community outreach, and compassionate care through Paystack (NGN), Flutterwave (multi-currency), PayPal (USD/GBP/EUR), or direct bank transfer. Choose the currency, donation type, and gateway that work best for you.
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="#donate-now" class="inline-flex items-center justify-center rounded-xl px-7 py-4 font-semibold text-white shadow-xl hover:opacity-95" style="background: <?php echo RCN_GRADIENT; ?>;">
@@ -171,11 +171,11 @@ $gatewayAvailability = [
           <div class="space-y-4">
             <div class="rounded-2xl border border-blue-100 bg-blue-50 p-4">
               <div class="font-semibold text-blue-900">PayPal</div>
-              <p class="mt-1 text-sm text-blue-800">Best for broad international donor familiarity and flexible currency support.</p>
+              <p class="mt-1 text-sm text-blue-800">Best for USD, GBP, and EUR international donor familiarity and broad donor comfort.</p>
             </div>
             <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
               <div class="font-semibold text-emerald-900">Paystack</div>
-              <p class="mt-1 text-sm text-emerald-800">Best for NGN and supported USD workflows with strong Nigeria-focused checkout.</p>
+              <p class="mt-1 text-sm text-emerald-800">Best for NGN donations with strong Nigeria-focused checkout.</p>
             </div>
             <div class="rounded-2xl border border-purple-100 bg-purple-50 p-4">
               <div class="font-semibold text-purple-900">Flutterwave</div>
@@ -298,14 +298,14 @@ $gatewayAvailability = [
 
     const supportMatrix = {
       one_time: {
-        NGN: ['paystack', 'flutterwave', 'paypal'],
-        USD: ['flutterwave', 'paypal', 'paystack'],
+        NGN: ['paystack', 'flutterwave'],
+        USD: ['flutterwave', 'paypal'],
         GBP: ['flutterwave', 'paypal'],
         EUR: ['flutterwave', 'paypal']
       },
       recurring: {
-        NGN: ['flutterwave', 'paystack', 'paypal'],
-        USD: ['flutterwave', 'paypal', 'paystack'],
+        NGN: ['flutterwave', 'paystack'],
+        USD: ['flutterwave', 'paypal'],
         GBP: ['flutterwave', 'paypal'],
         EUR: ['flutterwave', 'paypal']
       }
@@ -333,14 +333,14 @@ $gatewayAvailability = [
         badge: 'Global',
         border: 'border-blue-200',
         bg: 'bg-blue-50',
-        text: 'Best for international familiarity and broad donor comfort.'
+        text: 'Best for USD, GBP, and EUR international donor familiarity and broad donor comfort.'
       },
       paystack: {
         title: 'Paystack',
         badge: 'Nigeria-first',
         border: 'border-emerald-200',
         bg: 'bg-emerald-50',
-        text: 'Best for NGN and supported USD flows, including flexible monthly giving with saved card authorization.'
+        text: 'Best for NGN donations, including flexible monthly giving with saved card authorization.'
       },
       flutterwave: {
         title: 'Flutterwave',

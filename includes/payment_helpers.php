@@ -56,14 +56,14 @@ function payment_generate_reference(string $prefix): string {
 function payment_gateway_matrix(): array {
     return [
         'one_time' => [
-            'NGN' => ['paystack', 'flutterwave', 'paypal'],
-            'USD' => ['flutterwave', 'paypal', 'paystack'],
+            'NGN' => ['paystack', 'flutterwave'],
+            'USD' => ['flutterwave', 'paypal'],
             'GBP' => ['flutterwave', 'paypal'],
             'EUR' => ['flutterwave', 'paypal'],
         ],
         'recurring' => [
-            'NGN' => ['flutterwave', 'paystack', 'paypal'],
-            'USD' => ['flutterwave', 'paypal', 'paystack'],
+            'NGN' => ['flutterwave', 'paystack'],
+            'USD' => ['flutterwave', 'paypal'],
             'GBP' => ['flutterwave', 'paypal'],
             'EUR' => ['flutterwave', 'paypal'],
         ],
