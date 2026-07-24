@@ -219,7 +219,7 @@ The donor selects donation type, currency, and gateway on `partners.php`, then t
 - Strategy:
   - Validate PHP syntax before deployment.
   - Deploy to Hostinger shared hosting over `SSH` using `rsync`.
-  - Preserve writable/shared-hosting data by excluding `uploads/`, `logs/`, and `includes/config.local.php`.
+- Preserve writable/shared-hosting data and production configuration by excluding `uploads/`, `logs/`, `includes/constants.php`, and `includes/config.local.php`.
 
 #### Required GitHub Secrets
 
@@ -251,7 +251,7 @@ Use the exact directory exposed by your Hostinger FTP account or File Manager. T
 
 - Copy `includes/config.local.example.php` to `includes/config.local.php` on the live server.
 - Fill the production database, SMTP, PayPal, Paystack, and Flutterwave values there.
-- The deployment workflow intentionally excludes `includes/config.local.php`, so your live credentials are not overwritten on future deploys.
+- The deployment workflow intentionally excludes both `includes/constants.php` and `includes/config.local.php`, so your live configuration and credentials are not overwritten on future deploys.
 - If you prefer, you can also save many of these values from `admin/settings.php` after first deployment, as that page writes `includes/config.local.php`.
 
 #### Deployment Exclusions
@@ -259,6 +259,7 @@ Use the exact directory exposed by your Hostinger FTP account or File Manager. T
 The workflow excludes these paths from upload so production data survives deployments:
 
 - `includes/config.local.php`
+- `includes/constants.php`
 - `uploads/`
 - `logs/`
 - `.github/`

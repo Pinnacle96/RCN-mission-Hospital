@@ -101,6 +101,7 @@ jobs:
             --exclude='README.md' \
             --exclude='database.sql' \
             --exclude='RCN_Mission_Hospital_Project_Specification.txt' \
+            --exclude='includes/constants.php' \
             --exclude='includes/config.local.php' \
             -e "ssh -p $HOSTINGER_SSH_PORT" \
             ./ "$HOSTINGER_SSH_USERNAME@$HOSTINGER_SSH_HOST:$HOSTINGER_SERVER_DIR"

@@ -193,45 +193,49 @@ $gatewayAvailability = [
             <div class="rounded-2xl border border-slate-200 p-4">
               <div class="flex items-center justify-between mb-2">
                 <span class="font-semibold text-slate-900">NGN Account</span>
-                <button type="button" class="text-sm font-semibold text-blue-600 hover:text-blue-700" onclick="copyText('First Bank | RCN MEDICAL CENTER | 2045571486', 'NGN details copied')">Copy</button>
+                <button type="button" class="text-sm font-semibold text-blue-600 hover:text-blue-700" onclick="copyText('GUARANTY TRUST BANK | RCN MEDICAL CENTER LTDGTE | 3003878404 | SWIFT: GTBINGLA', 'NGN details copied')">Copy</button>
               </div>
               <div class="text-sm text-slate-600 space-y-1">
-                <div>Bank: First Bank</div>
-                <div>Account Name: RCN MEDICAL CENTER</div>
-                <div>Account Number: <span class="font-mono text-slate-900">2045571486</span></div>
+                <div>Bank: GUARANTY TRUST BANK</div>
+                <div>Account Name: RCN MEDICAL CENTER LTDGTE</div>
+                <div>Account Number: <span class="font-mono text-slate-900">3003878404</span></div>
+                <div>SWIFT Code: <span class="font-mono text-slate-900">GTBINGLA</span></div>
               </div>
             </div>
             <div class="rounded-2xl border border-slate-200 p-4">
               <div class="flex items-center justify-between mb-2">
                 <span class="font-semibold text-slate-900">USD Account</span>
-                <button type="button" class="text-sm font-semibold text-blue-600 hover:text-blue-700" onclick="copyText('First Bank | RCN MEDICAL CENTER | 2045578832', 'USD details copied')">Copy</button>
+                <button type="button" class="text-sm font-semibold text-blue-600 hover:text-blue-700" onclick="copyText('GUARANTY TRUST BANK | RCN MEDICAL CENTER LTDGTE | 3003878428 | SWIFT: GTBINGLA', 'USD details copied')">Copy</button>
               </div>
               <div class="text-sm text-slate-600 space-y-1">
-                <div>Bank: First Bank</div>
-                <div>Account Name: RCN MEDICAL CENTER</div>
-                <div>Account Number: <span class="font-mono text-slate-900">2045578832</span></div>
+                <div>Bank: GUARANTY TRUST BANK</div>
+                <div>Account Name: RCN MEDICAL CENTER LTDGTE</div>
+                <div>Account Number: <span class="font-mono text-slate-900">3003878428</span></div>
+                <div>SWIFT Code: <span class="font-mono text-slate-900">GTBINGLA</span></div>
               </div>
             </div>
             <div class="rounded-2xl border border-slate-200 p-4">
               <div class="flex items-center justify-between mb-2">
                 <span class="font-semibold text-slate-900">GBP Account</span>
-                <button type="button" class="text-sm font-semibold text-blue-600 hover:text-blue-700" onclick="copyText('First Bank | RCN MEDICAL CENTER | 2045578894', 'GBP details copied')">Copy</button>
+                <button type="button" class="text-sm font-semibold text-blue-600 hover:text-blue-700" onclick="copyText('GUARANTY TRUST BANK | RCN MEDICAL CENTER LTDGTE | 3003878318 | SWIFT: GTBINGLA', 'GBP details copied')">Copy</button>
               </div>
               <div class="text-sm text-slate-600 space-y-1">
-                <div>Bank: First Bank</div>
-                <div>Account Name: RCN MEDICAL CENTER</div>
-                <div>Account Number: <span class="font-mono text-slate-900">2045578894</span></div>
+                <div>Bank: GUARANTY TRUST BANK</div>
+                <div>Account Name: RCN MEDICAL CENTER LTDGTE</div>
+                <div>Account Number: <span class="font-mono text-slate-900">3003878318</span></div>
+                <div>SWIFT Code: <span class="font-mono text-slate-900">GTBINGLA</span></div>
               </div>
             </div>
             <div class="rounded-2xl border border-slate-200 p-4">
               <div class="flex items-center justify-between mb-2">
                 <span class="font-semibold text-slate-900">EUR Account</span>
-                <button type="button" class="text-sm font-semibold text-blue-600 hover:text-blue-700" onclick="copyText('First Bank | RCN MEDICAL CENTER | 2045578966', 'EUR details copied')">Copy</button>
+                <button type="button" class="text-sm font-semibold text-blue-600 hover:text-blue-700" onclick="copyText('GUARANTY TRUST BANK | RCN MEDICAL CENTER LTDGTE | 3003878291 | SWIFT: GTBINGLA', 'EUR details copied')">Copy</button>
               </div>
               <div class="text-sm text-slate-600 space-y-1">
-                <div>Bank: First Bank</div>
-                <div>Account Name: RCN MEDICAL CENTER</div>
-                <div>Account Number: <span class="font-mono text-slate-900">2045578966</span></div>
+                <div>Bank: GUARANTY TRUST BANK</div>
+                <div>Account Name: RCN MEDICAL CENTER LTDGTE</div>
+                <div>Account Number: <span class="font-mono text-slate-900">3003878291</span></div>
+                <div>SWIFT Code: <span class="font-mono text-slate-900">GTBINGLA</span></div>
               </div>
             </div>
           </div>
