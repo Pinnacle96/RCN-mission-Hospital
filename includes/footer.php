@@ -163,8 +163,7 @@
             </svg>
             <div>
               <p class="font-medium text-white">Phone</p>
-              <a href="tel:+1234567890" class="hover:text-white transition-colors duration-200">+1 (234)
-                567-890</a>
+              <a href="tel:+2347071383938" class="hover:text-white transition-colors duration-200">07071383938</a>
             </div>
           </div>
         </div>

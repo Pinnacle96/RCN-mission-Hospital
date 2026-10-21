@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           Email Us
         </a>
 
-        <a href="tel:+2347032078859"
+        <a href="tel:+2347071383938"
           class="inline-flex items-center px-6 py-3 rounded-lg font-medium border-2 border-white/30 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
           Call Us
         </a>
@@ -165,8 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </svg>
           </div>
           <h3 class="font-semibold text-gray-900 mb-2">Call Us</h3>
-          <p class="text-gray-600 text-sm">+234 703 207 8859</p>
-          <a href="tel:+2347032078859"
+          <p class="text-gray-600 text-sm">07071383938</p>
+          <a href="tel:+2347071383938"
             class="inline-block mt-3 text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors duration-200">
             Call Now
           </a>

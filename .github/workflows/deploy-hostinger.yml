@@ -92,6 +92,14 @@ jobs:
           HOSTINGER_SERVER_DIR: ${{ secrets.HOSTINGER_SERVER_DIR }}
         run: |
           set -euo pipefail
+          snapshot_credentials() {
+            ssh -p "$HOSTINGER_SSH_PORT" "$HOSTINGER_SSH_USERNAME@$HOSTINGER_SSH_HOST" \
+              "cd '$HOSTINGER_SERVER_DIR' && find . -type f \
+                \( -path './includes/constants.php' -o -path './includes/config.local.php' \
+                -o -name '.env' -o -name '.env.*' \) -exec sha256sum {} +" | LC_ALL=C sort
+          }
+          snapshot_credentials > "$RUNNER_TEMP/credentials-before.sha256"
+
           rsync -az --delete --omit-dir-times --no-perms --no-owner --no-group \
             --exclude='.git/' \
             --exclude='.github/' \
@@ -103,5 +111,14 @@ jobs:
             --exclude='RCN_Mission_Hospital_Project_Specification.txt' \
             --exclude='includes/constants.php' \
             --exclude='includes/config.local.php' \
+            --exclude='.env' \
+            --exclude='.env.*' \
             -e "ssh -p $HOSTINGER_SSH_PORT" \
             ./ "$HOSTINGER_SSH_USERNAME@$HOSTINGER_SSH_HOST:$HOSTINGER_SERVER_DIR"
+
+          snapshot_credentials > "$RUNNER_TEMP/credentials-after.sha256"
+          if ! cmp -s "$RUNNER_TEMP/credentials-before.sha256" "$RUNNER_TEMP/credentials-after.sha256"; then
+            echo "Production credential files changed during deployment."
+            exit 1
+          fi
+          echo "Production credential files are unchanged."

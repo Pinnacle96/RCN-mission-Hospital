@@ -219,7 +219,8 @@ The donor selects donation type, currency, and gateway on `partners.php`, then t
 - Strategy:
   - Validate PHP syntax before deployment.
   - Deploy to Hostinger shared hosting over `SSH` using `rsync`.
-- Preserve writable/shared-hosting data and production configuration by excluding `uploads/`, `logs/`, `includes/constants.php`, and `includes/config.local.php`.
+- Preserve writable/shared-hosting data and production configuration by excluding `uploads/`, `logs/`, `includes/constants.php`, `includes/config.local.php`, `.env`, and `.env.*`.
+- Compare production credential-file checksums before and after deployment; fail if any protected file changes, without printing credentials or checksums.
 
 #### Required GitHub Secrets
 
@@ -260,6 +261,7 @@ The workflow excludes these paths from upload so production data survives deploy
 
 - `includes/config.local.php`
 - `includes/constants.php`
+- `.env` and `.env.*` in any directory
 - `uploads/`
 - `logs/`
 - `.github/`
